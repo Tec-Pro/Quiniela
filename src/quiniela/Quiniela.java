@@ -25,7 +25,7 @@ import org.javalite.activejdbc.Model;
  * @author joako
  */
 public class Quiniela {
-    public static int id_caja = 1;
+    public static int id_caja;
     /**
      * @param args the command line arguments
      */

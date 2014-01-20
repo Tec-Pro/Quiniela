@@ -23,7 +23,10 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="panelArticulos" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="panelArticulos" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
+                  </Group>
                   <Component id="panelCliente" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -75,7 +78,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="contTabArt" min="-2" pref="249" max="-2" attributes="0"/>
+                  <Component id="contTabArt" min="-2" pref="275" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -336,27 +339,22 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="botonContado" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="botonCuenta" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="contTabCli" alignment="0" min="-2" pref="255" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="0" pref="37" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
+                  <Component id="botTipVenta" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="contTabCli" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="botonContado" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="botonCuenta" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="botTipVenta" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="contTabCli" min="-2" pref="207" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -364,22 +362,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JRadioButton" name="botonContado">
-          <Properties>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="tipoVenta"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="CONTADO"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="botonCuenta">
-          <Properties>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="tipoVenta"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="CTA. CORRIENTE"/>
-          </Properties>
-        </Component>
         <Container class="javax.swing.JScrollPane" name="contTabCli">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -402,7 +384,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="200" minWidth="50" prefWidth="120" resizable="true">
+                    <Column maxWidth="300" minWidth="50" prefWidth="120" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -418,6 +400,12 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JToggleButton" name="botTipVenta">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cuenta Corriente"/>
+            <Property name="actionCommand" type="java.lang.String" value="CAMBIA TIPO"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

@@ -4,7 +4,7 @@
  */
 package interfaz;
 
-import javax.swing.JComboBox;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -12,12 +12,21 @@ import javax.swing.JComboBox;
  */
 public class CajaGUI extends javax.swing.JPanel {
 
+    private DefaultTableModel tablaArtDef;
+    private DefaultTableModel tablaCliDef;
+    private DefaultTableModel tablaTransDef;
+    private DefaultTableModel tablaDetallesDef;
+    
     /**
      * Creates new form CajaGUI
      */
     public CajaGUI() {
         initComponents();
-        //contTabCli.setVisible(false);
+        tablaArtDef = (DefaultTableModel) tablaArticulos.getModel();
+        tablaCliDef = (DefaultTableModel) tablaCliente.getModel();
+        tablaTransDef = (DefaultTableModel) tablaTransacciones.getModel();
+        tablaDetallesDef = (DefaultTableModel) tablaDetalles.getModel();
+        contTabCli.setVisible(false);
     }
 
     /**
@@ -45,12 +54,11 @@ public class CajaGUI extends javax.swing.JPanel {
         totalField = new javax.swing.JTextField();
         totalLabel = new javax.swing.JLabel();
         panelCliente = new javax.swing.JPanel();
-        botonContado = new javax.swing.JRadioButton();
-        botonCuenta = new javax.swing.JRadioButton();
         contTabCli = new javax.swing.JScrollPane();
         tablaCliente = new javax.swing.JTable();
+        botTipVenta = new javax.swing.JToggleButton();
 
-        panelArticulos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Articulos", 2, 0, new java.awt.Font("Arial", 0, 14))); // NOI18N
+        panelArticulos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Articulos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 14))); // NOI18N
 
         tablaArticulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -93,7 +101,7 @@ public class CajaGUI extends javax.swing.JPanel {
         panelArticulosLayout.setHorizontalGroup(
             panelArticulosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelArticulosLayout.createSequentialGroup()
-                .addComponent(contTabArt, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contTabArt, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         panelArticulosLayout.setVerticalGroup(
@@ -101,7 +109,7 @@ public class CajaGUI extends javax.swing.JPanel {
             .addComponent(contTabArt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
         );
 
-        panelTransacciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Transacciones Realizadas", 2, 0, new java.awt.Font("Arial", 0, 14))); // NOI18N
+        panelTransacciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Transacciones Realizadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 14))); // NOI18N
 
         tablaTransacciones.setAutoCreateRowSorter(true);
         tablaTransacciones.setModel(new javax.swing.table.DefaultTableModel(
@@ -167,7 +175,7 @@ public class CajaGUI extends javax.swing.JPanel {
                 .addGap(0, 12, Short.MAX_VALUE))
         );
 
-        panelNuevaVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Venta", 2, 0, new java.awt.Font("Arial", 0, 14))); // NOI18N
+        panelNuevaVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Venta", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 14))); // NOI18N
 
         tablaDetalles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -240,12 +248,6 @@ public class CajaGUI extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        tipoVenta.add(botonContado);
-        botonContado.setText("CONTADO");
-
-        tipoVenta.add(botonCuenta);
-        botonCuenta.setText("CTA. CORRIENTE");
-
         tablaCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -278,29 +280,29 @@ public class CajaGUI extends javax.swing.JPanel {
             tablaCliente.getColumnModel().getColumn(0).setMaxWidth(70);
             tablaCliente.getColumnModel().getColumn(1).setMinWidth(50);
             tablaCliente.getColumnModel().getColumn(1).setPreferredWidth(120);
-            tablaCliente.getColumnModel().getColumn(1).setMaxWidth(200);
+            tablaCliente.getColumnModel().getColumn(1).setMaxWidth(300);
         }
+
+        botTipVenta.setText("Cuenta Corriente");
+        botTipVenta.setActionCommand("CAMBIA TIPO");
 
         javax.swing.GroupLayout panelClienteLayout = new javax.swing.GroupLayout(panelCliente);
         panelCliente.setLayout(panelClienteLayout);
         panelClienteLayout.setHorizontalGroup(
             panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelClienteLayout.createSequentialGroup()
-                .addGroup(panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelClienteLayout.createSequentialGroup()
-                        .addComponent(botonContado)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botonCuenta))
-                    .addComponent(contTabCli, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 37, Short.MAX_VALUE))
+                .addGap(78, 78, 78)
+                .addComponent(botTipVenta)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelClienteLayout.createSequentialGroup()
+                .addComponent(contTabCli, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelClienteLayout.setVerticalGroup(
             panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelClienteLayout.createSequentialGroup()
-                .addGroup(panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonContado)
-                    .addComponent(botonCuenta))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botTipVenta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(contTabCli, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -312,7 +314,9 @@ public class CajaGUI extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(panelArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 12, Short.MAX_VALUE))
                     .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -340,8 +344,7 @@ public class CajaGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     public void disableAll(){
-        getBotonContado().setEnabled(false);
-        getBotonCuenta().setEnabled(false);
+        botTipVenta.setEnabled(false);
         contTabArt.setEnabled(false);
         getDetallesVenta().setEnabled(false);
         getTablaArticulos().setEnabled(false);
@@ -355,8 +358,7 @@ public class CajaGUI extends javax.swing.JPanel {
     }
     
     public void enableAll(){
-        getBotonContado().setEnabled(true);
-        getBotonCuenta().setEnabled(true);
+        botTipVenta.setEnabled(true);
         contTabArt.setEnabled(true);
         getDetallesVenta().setEnabled(true);
         getTablaArticulos().setEnabled(true);
@@ -367,11 +369,10 @@ public class CajaGUI extends javax.swing.JPanel {
         getRetManual().setEnabled(true);
         contTrans.setEnabled(true);
         getTablaTransacciones().setEnabled(true);
-        contTabCli.setVisible(false);
+        getContTabCli().setVisible(false);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton botonContado;
-    private javax.swing.JRadioButton botonCuenta;
+    private javax.swing.JToggleButton botTipVenta;
     private javax.swing.JScrollPane contTabArt;
     private javax.swing.JScrollPane contTabCli;
     private javax.swing.JScrollPane contTrans;
@@ -395,30 +396,7 @@ public class CajaGUI extends javax.swing.JPanel {
     /**
      * @return the botonContado
      */
-    public javax.swing.JRadioButton getBotonContado() {
-        return botonContado;
-    }
-
-    /**
-     * @param botonContado the botonContado to set
-     */
-    public void setBotonContado(javax.swing.JRadioButton botonContado) {
-        this.botonContado = botonContado;
-    }
-
-    /**
-     * @return the botonCuenta
-     */
-    public javax.swing.JRadioButton getBotonCuenta() {
-        return botonCuenta;
-    }
-
-    /**
-     * @param botonCuenta the botonCuenta to set
-     */
-    public void setBotonCuenta(javax.swing.JRadioButton botonCuenta) {
-        this.botonCuenta = botonCuenta;
-    }
+    
 
     /**
      * @return the depManual
@@ -546,11 +524,60 @@ public class CajaGUI extends javax.swing.JPanel {
         this.ventaOk = ventaOk;
     }
 
-    public void enableCliente(){
-        this.contTabCli.setVisible(true);
+    /**
+     * @return the contTabCli
+     */
+    public javax.swing.JScrollPane getContTabCli() {
+        return contTabCli;
+    }
+
+    /**
+     * @param contTabCli the contTabCli to set
+     */
+    public void setContTabCli(javax.swing.JScrollPane contTabCli) {
+        this.contTabCli = contTabCli;
+    }
+
+    /**
+     * @return the jToggleButton1
+     */
+    public javax.swing.JToggleButton getBotTipVenta() {
+        return botTipVenta;
+    }
+
+    /**
+     * @param jToggleButton1 the jToggleButton1 to set
+     */
+    public void setBotTipVenta(javax.swing.JToggleButton jToggleButton1) {
+        this.botTipVenta = jToggleButton1;
+    }
+
+    /**
+     * @return the tablaArtDef
+     */
+    public DefaultTableModel getTablaArtDef() {
+        return tablaArtDef;
+    }
+
+    /**
+     * @return the tablaCliDef
+     */
+    public DefaultTableModel getTablaCliDef() {
+        return tablaCliDef;
+    }
+
+    /**
+     * @return the tablaTransDef
+     */
+    public DefaultTableModel getTablaTransDef() {
+        return tablaTransDef;
     }
     
-    public void disableCliente(){
-        this.contTabCli.setVisible(false);
+    /**
+     * 
+     * @return the tablaDetallesDef
+     */
+    public DefaultTableModel getTablaDetDef() {
+        return tablaDetallesDef;
     }
 }
