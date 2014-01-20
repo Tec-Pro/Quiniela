@@ -30,6 +30,7 @@ public class Quiniela {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
         MainGUI mg = new MainGUI();
         MainControlador mc = new MainControlador(mg);

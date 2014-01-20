@@ -4,6 +4,7 @@
  */
 package interfaz;
 
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,7 +22,15 @@ public class CajaGUI extends javax.swing.JPanel {
      * Creates new form CajaGUI
      */
     public CajaGUI() {
-        initComponents();
+        try
+        {
+          UIManager.setLookAndFeel("de.javasoft.plaf.synthetica.SyntheticaOrangeMetallicLookAndFeel");
+        }
+        catch (Exception e)
+        {
+          e.printStackTrace();
+        }
+  
         tablaArtDef = (DefaultTableModel) tablaArticulos.getModel();
         tablaCliDef = (DefaultTableModel) tablaCliente.getModel();
         tablaTransDef = (DefaultTableModel) tablaTransacciones.getModel();
