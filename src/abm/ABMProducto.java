@@ -3,10 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package abm;
 
-import java.math.BigDecimal;
 import models.Producto;
 import org.javalite.activejdbc.Base;
 
@@ -15,15 +13,15 @@ import org.javalite.activejdbc.Base;
  * @author eze
  */
 public class ABMProducto {
-    
+
     private String nombre;
-    private BigDecimal precio;
+    private Double precio;
     private int stock;
-    private BigDecimal comision;
+    private Double comision;
     private String diaSorteo;
     private int visible;
 
-    public ABMProducto(String nombre, BigDecimal precio, int stock, BigDecimal comision, String diaSorteo, int visible) {
+    public ABMProducto(String nombre, Double precio, int stock, Double comision, String diaSorteo, int visible) {
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
@@ -39,7 +37,7 @@ public class ABMProducto {
         return nombre;
     }
 
-    public BigDecimal getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
@@ -47,7 +45,7 @@ public class ABMProducto {
         return stock;
     }
 
-    public BigDecimal getComision() {
+    public Double getComision() {
         return comision;
     }
 
@@ -63,7 +61,7 @@ public class ABMProducto {
         this.nombre = nombre;
     }
 
-    public void setPrecio(BigDecimal precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 
@@ -71,7 +69,7 @@ public class ABMProducto {
         this.stock = stock;
     }
 
-    public void setComision(BigDecimal comision) {
+    public void setComision(Double comision) {
         this.comision = comision;
     }
 
@@ -83,47 +81,51 @@ public class ABMProducto {
         this.visible = visible;
     }
 
-    public boolean altaProducto(String nombre, BigDecimal precio, int stock, BigDecimal comision, String diaSorteo){
+    public boolean altaProducto(String nombre, Double precio, int stock, Double comision, String diaSorteo) {
         boolean result;
         Base.openTransaction();
-        Producto nuevoProd = Producto.create("nombre", nombre, "precio", precio, "stock", stock, "comision", comision, "diaSorteo", diaSorteo, "visible" ,1);
-        result = nuevoProd.saveIt();
+        Producto prodViejo = Producto.first("nombre = ?", nombre);
+        int id = prodViejo.getInteger("id");
+        if (Producto.exists(id)) {
+            prodViejo.set("precio", precio, "stock", stock, "comision", comision, "diaSorteo", diaSorteo, "visible", 1).saveIt();
+            result = true;
+        } else {
+            Producto nuevoProd = Producto.create("nombre", nombre, "precio", precio, "stock", stock, "comision", comision, "diaSorteo", diaSorteo, "visible", 1);
+            result = nuevoProd.saveIt();
+        }
         Base.commitTransaction();
         return result;
     }
-    
-    public boolean bajaProducto(int id){
+
+    public boolean bajaProducto(int id) {
         boolean result;
         Base.openTransaction();
-        if (Producto.exists(id)){
+        if (Producto.exists(id)) {
             Producto.findById(id).set("visible", 0).saveIt();
             result = true;
             System.out.print("Producto eliminado satisfactoriamente");
-        }
-        else{
+        } else {
             result = false;
             System.out.print("Producto no encontrado en Base de Datos");
         }
         Base.commitTransaction();
         return result;
     }
-    
-    public boolean modificarProducto(int id,String nombre, BigDecimal precio, int stock, BigDecimal comision, String diaSorteo){
+
+    public boolean modificarProducto(int id, String nombre, Double precio, int stock, Double comision, String diaSorteo) {
         boolean result;
         Base.openTransaction();
-        if (Producto.exists(id)){
+        if (Producto.exists(id)) {
             Producto prodModif = Producto.findById(id);
             prodModif.set("nombre", nombre, "precio", precio, "stock", stock, "comision", comision, "diaSorteo", diaSorteo).saveIt();
             result = true;
             System.out.print("Producto modificado satisfactoriamente");
-        }
-        else{
+        } else {
             result = false;
             System.out.print("Producto no encontrado en Base de Datos");
         }
         Base.commitTransaction();
         return result;
     }
-    
-    
+
 }
