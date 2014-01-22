@@ -5,6 +5,7 @@
 package abm;
 
 import java.math.BigDecimal;
+import java.util.List;
 import models.Cliente;
 import org.javalite.activejdbc.Base;
 
@@ -91,44 +92,63 @@ public class ABMCliente {
     /**
      * End of Setters
      */
- 
-    public boolean altaCliente(String nombre, String apellido, BigDecimal deber, BigDecimal saldo, BigDecimal haber, int visible){
-        Cliente c1 = Cliente.findById(nombre);
-        Cliente c2 = Cliente.findById(apellido);
-        if (c1 != null && c2 != null){
-            if (c1 == c2){
-                Base.openTransaction();
-                if (deber.signum()==-1){
-                    System.out.println("No se aceptan numero negativos");   
-                    return false;
-                }
-                if (saldo.signum()==-1){
-                    System.out.println("No se aceptan numero negativos");  
-                    return false;
-                }
-                if (haber.signum()==-1){
-                    System.out.println("No se aceptan numero negativos");   
-                    return false;
-                }
-                Cliente nuevo = Cliente.create("nombre",nombre,"apellido",apellido,"deber",deber,"saldo",saldo,"haber",haber,"visible",visible);
-                nuevo.saveIt();
-                Base.commitTransaction();
-                return true;
+    
+    public Cliente getCliente(String nombre, String apellido, int visible){
+        return Cliente.first("nombre = ? and apellido = ? and visible = ?", nombre, apellido, visible);
+    }
+    
+    public boolean findCliente(String nombre, String apellido,int visible){
+        return (Cliente.first("nombre = ? and apellido = ? and visible = ?", nombre, apellido, visible)!= null);
+    }
+    /**
+     * 
+     * @param nombre
+     * @param apellido
+     * @param deber
+     * @param saldo
+     * @param haber
+     * @param visible
+     * @return true si el cliente se creo con exito, false si ya existía o introdujo datos erroneos
+     *
+     */
+    public boolean altaCliente(String nombre, String apellido, BigDecimal deber, BigDecimal saldo, BigDecimal haber){
+        if (findCliente(nombre,apellido,1)!=true){
+            if (findCliente(nombre,apellido,0)==true){
+                modificarCliente(nombre, apellido, deber, saldo, haber, 0);
+            }else{
+            Base.openTransaction();
+            if (deber.signum()==-1){
+                System.out.println("No se aceptan numero negativos");   
+                return false;
             }
-        }
+            if (saldo.signum()==-1){
+                System.out.println("No se aceptan numero negativos");  
+                return false;
+            }
+            if (haber.signum()==-1){
+                System.out.println("No se aceptan numero negativos");   
+                return false;
+            }
+            Cliente nuevo = Cliente.create("nombre",nombre,"apellido",apellido,"deber",deber,"saldo",saldo,"haber",haber,"visible",1);
+            nuevo.saveIt();
+            Base.commitTransaction();
+            return true;
+            }
+        }            
         return false;
     }
     
     
      /**
      * 
-     * @param id
-     * @return true si el Cliente existe
+     * @param nombre
+     * @param apellido
+     * @return true si el cliente se borro con exito
      *
      */
-    
-    public boolean bajaCliente(int id){
-        Cliente c = Cliente.findById(id);
+    public boolean bajaCliente(String nombre, String apellido){
+        Cliente c;
+        c = getCliente(nombre, apellido,1);
         if (c!=null){
             Base.openTransaction();
             c.set("visible",0);
@@ -138,5 +158,45 @@ public class ABMCliente {
         }
         return false;
         
+    }
+     /**
+     * 
+     * @param nombre
+     * @param apellido
+     * @param deber
+     * @param saldo
+     * @param haber
+     * @param visible
+     * @return true si el se modifico el cliente con exito, false en caso contrario
+     *
+     */
+    public boolean modificarCliente(String nombre, String apellido, BigDecimal deber, BigDecimal saldo, BigDecimal haber, int visible){
+        if (findCliente(nombre,apellido,visible)!=true){
+             Cliente c;
+             c = getCliente(nombre, apellido,visible);
+             Base.openTransaction();
+             if (deber.signum()==-1){
+                 System.out.println("No se aceptan numero negativos");   
+                 return false;
+             }
+             if (saldo.signum()==-1){
+                 System.out.println("No se aceptan numero negativos");  
+                 return false;
+             }
+             if (haber.signum()==-1){
+                 System.out.println("No se aceptan numero negativos");   
+                 return false;
+             }
+             c.set("nombre",nombre);
+             c.set("apellido",apellido);
+             c.set("deber",deber);
+             c.set("saldo",saldo);
+             c.set("haber",haber);
+             c.set("visible", 1);
+             c.saveIt();
+             Base.commitTransaction();
+             return true;
+        }
+        return false;
     }
 }
