@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS productos_transaccions;
 
 CREATE TABLE cajas (  id int auto_increment PRIMARY KEY,  fecha DATE NOT NULL,  saldo DECIMAL(18,2), visible SMALLINT);
 
-CREATE TABLE transaccions (  id int auto_increment PRIMARY KEY,  motivo varchar(100) NOT NULL,  tipo varchar(40),  monto DECIMAL(18,2), visible SMALLINT,  caja_id int, usuario_id int);
+CREATE TABLE transaccions (  id int auto_increment PRIMARY KEY,  motivo varchar(100) NOT NULL,  tipo varchar(40),  monto DECIMAL(18,2), visible SMALLINT,  caja_id int, usuario_id int, cliente_id int);
 
 CREATE TABLE clientes (id int auto_increment PRIMARY KEY, nombre varchar(40) NOT NULL, apellido varchar(40) NOT NULL, deber DECIMAL(18,2), saldo DECIMAL(18,2), haber DECIMAL(18,2), visible SMALLINT);
 
@@ -19,4 +19,4 @@ CONSTRAINT pk_diaDeposito PRIMARY KEY (nombre,dia_deposito));
 
 CREATE TABLE usuarios (id int auto_increment PRIMARY KEY, nombre varchar(40), pass varchar(16), visible SMALLINT);
 
-CREATE TABLE productos_transaccions (id int auto_increment PRIMARY KEY, producto_id int, transaccion_id int);
+CREATE TABLE productos_transaccions (id int auto_increment PRIMARY KEY, producto_id int, transaccion_id int, cantidad int);

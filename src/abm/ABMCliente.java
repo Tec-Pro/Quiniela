@@ -93,12 +93,8 @@ public class ABMCliente {
      * End of Setters
      */
     
-    public Cliente getCliente(String nombre, String apellido, int visible){
-        return Cliente.first("nombre = ? and apellido = ? and visible = ?", nombre, apellido, visible);
-    }
-    
-    public boolean findCliente(String nombre, String apellido,int visible){
-        return (Cliente.first("nombre = ? and apellido = ? and visible = ?", nombre, apellido, visible)!= null);
+    public Cliente getCliente(int id){
+        return Cliente.first("id = ?",id);
     }
     /**
      * 
@@ -107,48 +103,39 @@ public class ABMCliente {
      * @param deber
      * @param saldo
      * @param haber
-     * @param visible
      * @return true si el cliente se creo con exito, false si ya existía o introdujo datos erroneos
      *
      */
     public boolean altaCliente(String nombre, String apellido, BigDecimal deber, BigDecimal saldo, BigDecimal haber){
-        if (findCliente(nombre,apellido,1)!=true){
-            if (findCliente(nombre,apellido,0)==true){
-                modificarCliente(nombre, apellido, deber, saldo, haber, 0);
-            }else{
-            Base.openTransaction();
-            if (deber.signum()==-1){
-                System.out.println("No se aceptan numero negativos");   
-                return false;
-            }
-            if (saldo.signum()==-1){
-                System.out.println("No se aceptan numero negativos");  
-                return false;
-            }
-            if (haber.signum()==-1){
-                System.out.println("No se aceptan numero negativos");   
-                return false;
-            }
-            Cliente nuevo = Cliente.create("nombre",nombre,"apellido",apellido,"deber",deber,"saldo",saldo,"haber",haber,"visible",1);
-            nuevo.saveIt();
-            Base.commitTransaction();
-            return true;
-            }
-        }            
-        return false;
+        Base.openTransaction();
+        if (deber.signum()==-1){
+            System.out.println("No se aceptan numeros negativos");   
+            return false;
+        }
+        if (saldo.signum()==-1){
+            System.out.println("No se aceptan numeros negativos");  
+            return false;
+        }
+        if (haber.signum()==-1){
+            System.out.println("No se aceptan numeros negativos");   
+            return false;
+        }
+        Cliente nuevo = Cliente.create("nombre",nombre,"apellido",apellido,"deber",deber,"saldo",saldo,"haber",haber,"visible",1);
+        nuevo.saveIt();
+        Base.commitTransaction();
+        return true;
     }
     
     
      /**
      * 
-     * @param nombre
-     * @param apellido
+     * @param id
      * @return true si el cliente se borro con exito
      *
      */
-    public boolean bajaCliente(String nombre, String apellido){
+    public boolean bajaCliente(int id){
         Cliente c;
-        c = getCliente(nombre, apellido,1);
+        c = getCliente(id);
         if (c!=null){
             Base.openTransaction();
             c.set("visible",0);
@@ -160,20 +147,18 @@ public class ABMCliente {
         
     }
      /**
-     * 
-     * @param nombre
-     * @param apellido
+     *
      * @param deber
      * @param saldo
      * @param haber
-     * @param visible
+     * @param id
      * @return true si el se modifico el cliente con exito, false en caso contrario
      *
      */
-    public boolean modificarCliente(String nombre, String apellido, BigDecimal deber, BigDecimal saldo, BigDecimal haber, int visible){
-        if (findCliente(nombre,apellido,visible)!=true){
-             Cliente c;
-             c = getCliente(nombre, apellido,visible);
+    public boolean modificarCliente(int id, BigDecimal deber, BigDecimal saldo, BigDecimal haber){
+         Cliente c;
+         c = getCliente(id);
+         if (c!=null){
              Base.openTransaction();
              if (deber.signum()==-1){
                  System.out.println("No se aceptan numero negativos");   
@@ -192,7 +177,6 @@ public class ABMCliente {
              c.set("deber",deber);
              c.set("saldo",saldo);
              c.set("haber",haber);
-             c.set("visible", 1);
              c.saveIt();
              Base.commitTransaction();
              return true;
