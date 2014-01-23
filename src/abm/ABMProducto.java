@@ -5,6 +5,7 @@
  */
 package abm;
 
+import java.math.BigDecimal;
 import models.Producto;
 import org.javalite.activejdbc.Base;
 
@@ -15,13 +16,13 @@ import org.javalite.activejdbc.Base;
 public class ABMProducto {
 
     private String nombre;
-    private Double precio;
+    private BigDecimal precio;
     private int stock;
-    private Double comision;
+    private BigDecimal comision;
     private String diaSorteo;
     private int visible;
 
-    public ABMProducto(String nombre, Double precio, int stock, Double comision, String diaSorteo, int visible) {
+    public ABMProducto(String nombre, BigDecimal precio, int stock, BigDecimal comision, String diaSorteo, int visible) {
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
@@ -37,7 +38,7 @@ public class ABMProducto {
         return nombre;
     }
 
-    public Double getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
@@ -45,7 +46,7 @@ public class ABMProducto {
         return stock;
     }
 
-    public Double getComision() {
+    public BigDecimal getComision() {
         return comision;
     }
 
@@ -61,7 +62,7 @@ public class ABMProducto {
         this.nombre = nombre;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 
@@ -69,7 +70,7 @@ public class ABMProducto {
         this.stock = stock;
     }
 
-    public void setComision(Double comision) {
+    public void setComision(BigDecimal comision) {
         this.comision = comision;
     }
 
@@ -81,12 +82,11 @@ public class ABMProducto {
         this.visible = visible;
     }
 
-    public boolean altaProducto(String nombre, Double precio, int stock, Double comision, String diaSorteo) {
+    public boolean altaProducto(String nombre, BigDecimal precio, int stock, BigDecimal comision, String diaSorteo) {
         boolean result;
         Base.openTransaction();
         Producto prodViejo = Producto.first("nombre = ?", nombre);
-        int id = prodViejo.getInteger("id");
-        if (Producto.exists(id)) {
+        if (prodViejo != null) {
             prodViejo.set("precio", precio, "stock", stock, "comision", comision, "diaSorteo", diaSorteo, "visible", 1).saveIt();
             result = true;
         } else {
@@ -112,7 +112,7 @@ public class ABMProducto {
         return result;
     }
 
-    public boolean modificarProducto(int id, String nombre, Double precio, int stock, Double comision, String diaSorteo) {
+    public boolean modificarProducto(int id, String nombre, BigDecimal precio, int stock, BigDecimal comision, String diaSorteo) {
         boolean result;
         Base.openTransaction();
         if (Producto.exists(id)) {

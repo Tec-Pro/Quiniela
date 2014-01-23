@@ -41,6 +41,7 @@ public class ProductoGUI extends javax.swing.JFrame {
         ProdNuevo = new javax.swing.JButton();
         ProdModificar = new javax.swing.JButton();
         ProdEliminar = new javax.swing.JButton();
+        ProdActualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,14 +72,6 @@ public class ProductoGUI extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(TablaProductos);
-        if (TablaProductos.getColumnModel().getColumnCount() > 0) {
-            TablaProductos.getColumnModel().getColumn(0).setHeaderValue("ID");
-            TablaProductos.getColumnModel().getColumn(1).setHeaderValue("Nombre");
-            TablaProductos.getColumnModel().getColumn(2).setHeaderValue("Precio");
-            TablaProductos.getColumnModel().getColumn(3).setHeaderValue("Stock");
-            TablaProductos.getColumnModel().getColumn(4).setHeaderValue("Comision");
-            TablaProductos.getColumnModel().getColumn(5).setHeaderValue("Dia Sorteo");
-        }
 
         ProdNuevo.setText("Nuevo");
         ProdNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -99,6 +92,14 @@ public class ProductoGUI extends javax.swing.JFrame {
         ProdEliminar.setText("Eliminar");
         ProdEliminar.setEnabled(false);
 
+        ProdActualizar.setText("Actualizar Listado");
+        ProdActualizar.setActionCommand("Actualizar");
+        ProdActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProdActualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,16 +110,19 @@ public class ProductoGUI extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(ProdNuevo)
-                        .addGap(18, 18, 18)
-                        .addComponent(ProdEliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(ProdModificar))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(47, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(ProdNuevo)
+                .addGap(18, 18, 18)
+                .addComponent(ProdEliminar)
+                .addGap(18, 18, 18)
+                .addComponent(ProdModificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ProdActualizar)
+                .addGap(60, 60, 60))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,11 +135,13 @@ public class ProductoGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ProdModificar)
                     .addComponent(ProdEliminar)
-                    .addComponent(ProdNuevo))
+                    .addComponent(ProdNuevo)
+                    .addComponent(ProdActualizar))
                 .addGap(23, 23, 23))
         );
 
         ProdEliminar.getAccessibleContext().setAccessibleDescription("");
+        ProdActualizar.getAccessibleContext().setAccessibleName("Actualizar");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -147,6 +153,14 @@ public class ProductoGUI extends javax.swing.JFrame {
     private void ProdModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProdModificarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ProdModificarActionPerformed
+
+    private void ProdActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProdActualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProdActualizarActionPerformed
+
+    public JButton getProdActualizar() {
+        return ProdActualizar;
+    }
 
     
     
@@ -206,6 +220,7 @@ public class ProductoGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ProdActualizar;
     private javax.swing.JButton ProdEliminar;
     private javax.swing.JButton ProdModificar;
     private javax.swing.JButton ProdNuevo;

@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JTable;
@@ -41,6 +42,7 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
     private void iniciar() {
         abmp = new ABMProducto();
         view.setVisible(true);
+        view.getProdActualizar().addActionListener(this);
         view.getProdEliminar().addActionListener(this);
         view.getProdModificar().addActionListener(this);
         view.getProdNuevo().addActionListener(this);
@@ -92,7 +94,9 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
     public void actionPerformed(ActionEvent ae) {
         if (!Base.hasConnection()) {
             Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "");
-
+            if (ae.getActionCommand().equals("Actualizar")) { //si presiono actualizar
+                cargarProductos(); //actualizo la tabla de productos
+            }
             if (ae.getActionCommand().equals("Eliminar")) { //si presiono eliminar
                 abmp.bajaProducto((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0)); //saco el id de la fila en la primer columna
                 cargarProductos(); //actualizo la tabla de productos
@@ -101,20 +105,47 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
                 Object row[] = new Object[6];
                 tablaProducto.addRow(row);
             }
-            if (ae.getActionCommand().equals("Modificar")) { //si presiono guardar cambios
+            if (ae.getActionCommand().equals("Modificar")) { //si presiono guardar cambios en una fila
+                BigDecimal b1,b2;
+                String nombre, fecha;
+                int stock;
+                if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 2) != null){
+                  b1 = new BigDecimal((Double) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 2));
+                }
+                else {
+                    b1 = new BigDecimal(0);
+                }
+                if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 4) != null){
+                    b2 = new BigDecimal((Double) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 4));
+                }
+                else{
+                    b2 = new BigDecimal(0);
+                }
+                if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 3) != null){
+                    stock = (int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 3);
+                }
+                else {
+                    stock = 0;
+                }
+                if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 1) != null){
+                    nombre = (String) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 1);
+                }
+                else {
+                    nombre = "";
+                }
+                if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 5) != null){
+                    fecha = (String) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 5);
+                }
+                else {
+                    fecha = "";
+                }
                 if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0) == null) {
-                    abmp.altaProducto((String) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 1), //Saco los valores nuevos de cada columna en esa fila para crear nuevo
-                            (Double) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 2),
-                            (int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 3),
-                            (Double) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 4),
-                            (String) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 5));
+                    abmp.altaProducto(nombre, b1, stock, b2, fecha);
                 } else {
-                    abmp.modificarProducto((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0), //Saco los valores nuevos de cada columna en esa fila para modificar
-                            (String) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 1),
-                            (Double) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 2),
-                            (int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 3),
-                            (Double) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 4),
-                            (String) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 5));
+                    int id = (int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0);
+                    abmp.modificarProducto(id, nombre,
+                            b1,stock, 
+                            b2,fecha);
                 }
                 cargarProductos(); //actualizo la tabla de productos
             }
