@@ -66,6 +66,7 @@ public class ClienteGUI extends javax.swing.JPanel {
             }
         });
         tablaCliente.setColumnSelectionAllowed(true);
+        tablaCliente.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tablaCliente);
         tablaCliente.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tablaCliente.getColumnModel().getColumn(4).setPreferredWidth(10);

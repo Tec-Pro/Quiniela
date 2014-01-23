@@ -6,12 +6,20 @@ package controlador;
 
 import abm.ABMCliente;
 import abm.ABMTransaccion;
+import interfaz.BorrarCliente;
 import interfaz.ClienteGUI;
+import interfaz.ClienteTransaccion;
+import interfaz.CrearCliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JTable;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
 import models.Cliente;
 import models.Transaccion;
@@ -25,12 +33,10 @@ import quiniela.Quiniela;
 public class ClienteControlador implements ActionListener {
     
     private DefaultTableModel tablaClientes;
-    private DefaultTableModel tablaTransacciones;
     private ClienteGUI view;
     private ABMCliente abmC;
     private ABMTransaccion abmT;
     private List<Cliente> listaClientes;
-    private List<Transaccion> listaTransacciones;
 
     public ClienteControlador(ClienteGUI clienteGui,ABMCliente abmC){
         this.view = clienteGui;
@@ -38,12 +44,22 @@ public class ClienteControlador implements ActionListener {
         iniciar();
     }
     
-    public void iniciar(){
+    private void iniciar(){
         view.getButtonAgregar().addActionListener(this);
         view.getButtonBorrar().addActionListener(this);
         view.getButtonTransacciones().addActionListener(this);
-        view.getTablaCliente().addMouseListener(new MouseAdapter() {});
-        
+        view.getTablaCliente().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    JTable target = (JTable) e.getSource();
+                    if (target.getSelectedColumn() > 3){
+                        setCellEditor();
+                        actualizarDeberSaldoHaber(target);
+                    }
+                }
+            }
+        });
         tablaClientes = view.getTablaClienteDef();
         listaClientes = Cliente.findAll();
         cargarClientes();
@@ -69,26 +85,69 @@ public class ClienteControlador implements ActionListener {
         Base.close();
     }
     
-    public void cargarTransacciones(int id){
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
-        tablaTransacciones.setRowCount(0);
-        listaTransacciones = Transaccion.find(" cliente_id = ?", id);
-        System.out.println(listaTransacciones);
-        System.out.println(Quiniela.id_caja);
-        Iterator<Transaccion> it = listaTransacciones.iterator();
-        while(it.hasNext()){
-            Transaccion t = it.next();
-            Object row[] = new Object[4];
-            row[0] = t.get("id");
-            row[1] = t.getString("motivo");
-            row[2] = t.getString("tipo");
-            row[3] = Double.parseDouble(t.getString("monto"));
-            tablaTransacciones.addRow(row);
+    
+    public void actualizarDeberSaldoHaber(JTable tabla){
+        int id = (int) tabla.getValueAt(tabla.getSelectedRow(), 0);
+        BigDecimal deber = (BigDecimal) tabla.getValueAt(tabla.getSelectedRow(), 4);
+        BigDecimal saldo = (BigDecimal) tabla.getValueAt(tabla.getSelectedRow(), 5);
+        BigDecimal haber = (BigDecimal) tabla.getValueAt(tabla.getSelectedRow(), 6);
+        if (!Base.hasConnection()) {
+                abrirBase();
         }
-        Base.close();
+        abmC.modificarCliente(id, deber, saldo, haber);
+        
+        if (Base.hasConnection()) {
+            Base.close();
+        }
     }
+    
+    private void abrirBase() {
+        if (!Base.hasConnection()) {
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
+        }
+    }
+    
+    
+    public void setCellEditor() {
+        for (int i = 0; i < view.getTablaCliente().getRowCount(); i++) {
+            view.getTablaCliente().getCellEditor(i, 4).addCellEditorListener((CellEditorListener) this);
+            view.getTablaCliente().getCellEditor(i, 5).addCellEditorListener((CellEditorListener) this);
+            view.getTablaCliente().getCellEditor(i, 6).addCellEditorListener((CellEditorListener) this);
+        }
+    }
+    
+    
+    public void editingStopped(ChangeEvent ce) {
+        JTable target = (JTable) ce.getSource();
+        actualizarDeberSaldoHaber(target);      
+    }
+
+    
+    public void editingCanceled(ChangeEvent ce) {
+        JTable target = (JTable) ce.getSource();
+        actualizarDeberSaldoHaber(target);      
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String comando = e.getActionCommand();
+        switch (comando) {
+            case "Agregar":
+                CrearCliente cc = new CrearCliente();
+                CrearClienteControlador ccc = new CrearClienteControlador(cc, abmC);
+                                
+            case "Borrar":
+                if (view.getTablaCliente().getSelectedRow() > 0){
+                    BorrarCliente bc = new BorrarCliente();
+                    BorrarClienteControlador bcc = new BorrarClienteControlador(bc, abmC,(int) view.getTablaCliente().getValueAt(view.getTablaCliente().getSelectedRow(), 0));
+                    
+                }
+            case "Transacciones":
+                if (view.getTablaCliente().getSelectedRow() > 0){
+                    ClienteTransaccion ct = new ClienteTransaccion();
+                    ClienteTransaccionControlador ctc = new ClienteTransaccionControlador(ct, (int) view.getTablaCliente().getValueAt(view.getTablaCliente().getSelectedRow(), 0));
+                    ctc.run((String) tablaClientes.getValueAt(view.getTablaCliente().getSelectedRow(), 1)+" "+tablaClientes.getValueAt(view.getTablaCliente().getSelectedRow(), 1)); 
+                }
+        }
     }
 }
