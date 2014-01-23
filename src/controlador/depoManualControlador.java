@@ -9,7 +9,8 @@ import interfaz.DepoManual;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
-import models.Transaccion;
+import java.util.List;
+import models.Caja;
 import org.javalite.activejdbc.Base;
 import quiniela.Quiniela;
 /**
@@ -19,10 +20,12 @@ import quiniela.Quiniela;
 public class depoManualControlador implements ActionListener {
     private DepoManual depM;
     private ABMTransaccion abmTrans;
+    private CajaControlador cc;
     
-    depoManualControlador(DepoManual dm, ABMTransaccion abmt){
+    depoManualControlador(DepoManual dm, ABMTransaccion abmt, CajaControlador cc){
         this.depM = dm;
         this.abmTrans = abmt;
+        this.cc = cc;
         iniciar();
     }
 
@@ -37,15 +40,25 @@ public class depoManualControlador implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         String comando = ae.getActionCommand();
-        if (comando.equals("Depositar")){
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
-            String motivo = depM.motivoDepoMan.getText();
-            BigDecimal monto = BigDecimal.valueOf(Double.valueOf(depM.montoDepoMan.getText()));
-            abmTrans.altaTransaccion(motivo, "Depósito Manual", monto, 1, Quiniela.id_caja);
-            depM.dispose();
-            Base.close();
-        } else if (comando.equals("Cancelar")){
-            depM.dispose();
+        switch (comando) {
+            case "Depositar":
+                if (!Base.hasConnection()){
+                    Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
+                }
+                List<Caja> cajas = Caja.findAll();
+                int id_caja = cajas.get(cajas.size()-1).getInteger("id");
+                String motivo = depM.motivoDepoMan.getText();
+                BigDecimal monto = BigDecimal.valueOf(Double.valueOf(depM.montoDepoMan.getText()));
+                abmTrans.altaTransaccion(motivo, "Depósito Manual", monto, 1, id_caja, 1);
+                cc.cargarTransacciones();
+                depM.dispose();
+                if (Base.hasConnection()){
+                    Base.close();    
+                }
+                break;
+            case "Cancelar":
+                depM.dispose();
+                break;
         }
     }
 

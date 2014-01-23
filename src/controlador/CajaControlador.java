@@ -10,68 +10,140 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JTable;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
+import models.Caja;
 import models.Cliente;
 import models.Producto;
 import models.Transaccion;
 import org.javalite.activejdbc.Base;
+import org.javalite.activejdbc.Model;
 import quiniela.Quiniela;
 
 /**
  *
  * @author joako
  */
-public class CajaControlador implements ActionListener {
+public class CajaControlador implements ActionListener, CellEditorListener {
+
     private CajaGUI view;
     private ABMCaja abmc;
     private ABMTransaccion model;
     private DefaultTableModel tablaArticulos;
     private DefaultTableModel tablaClientes;
     private DefaultTableModel tablaTrans;
+    private DefaultTableModel tablaDetalles;
     private List<Producto> listaProd;
     private List<Cliente> listaCliente;
     private List<Transaccion> listaTransaccion;
-    int caja = Quiniela.id_caja;
+    private List<Caja> cajas;
+    private int id_caja;
+    private int id_cliente;
+    private Cliente c;
     //JForm hijos
-    
+
     DepoManual depoManual;
     RetManual retManual;
-    
-    public CajaControlador(CajaGUI caja, ABMTransaccion abmt){
+
+    public CajaControlador(CajaGUI caja, ABMTransaccion abmt) {
         this.view = caja;
         this.model = abmt;
         iniciar();
     }
-    
-    private void iniciar(){
+
+    private void iniciar() {
         view.enableAll();
-        view.getBotTipVenta().addActionListener(this);
         view.getDepManual().addActionListener(this);
         view.getRetManual().addActionListener(this);
         view.getTotalField().addActionListener(this);
         view.getVentaOk().addActionListener(this);
-        view.getTablaArticulos().addMouseListener(new MouseAdapter() {});
-        view.getTablaCliente().addMouseListener(new MouseAdapter() {});
+        view.getDetallesProd().addActionListener(this);
+        tablaDetalles = view.getTablaDetDef();
+        view.getTablaArticulos().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    if (tablaDetalles.getRowCount() == 0) {
+                        tablaDetalles.setRowCount(0);
+                    }
+                    JTable target = (JTable) e.getSource();
+                    Object row[] = new Object[4];
+                    row[0] = target.getValueAt(target.getSelectedRow(), 0);
+                    row[1] = target.getValueAt(target.getSelectedRow(), 1);
+                    row[2] = 1;
+                    if (!Base.hasConnection()) {
+                        abrirBase();
+                    }
+
+                    Producto p = Producto.findById(target.getValueAt(target.getSelectedRow(), 0));
+                    Double precio = Double.parseDouble(p.getString("precio"));
+                    row[3] = (int) row[2] * precio;
+                    if (Base.hasConnection()) {
+                        Base.close();
+                    }
+                    tablaDetalles.addRow(row);
+                    setCellEditor();
+                    actualizarPrecio();
+                }
+                if (e.getButton() == 3) {
+                    view.getMenuProducto().setVisible(true);
+                    view.getMenuProducto().show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+
+        });
+        view.getTablaDetalles().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    JTable t = (JTable) e.getSource();
+                    tablaDetalles.removeRow(t.getSelectedRow());
+                    actualizarPrecio();
+                }
+            }
+        });
+        view.getTablaCliente().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (!Base.hasConnection()) {
+                    abrirBase();
+                }
+                JTable t = (JTable) e.getSource();
+                c = Cliente.findById(t.getValueAt(t.getSelectedRow(), 0));
+                view.getClienteSel().setText(c.getString("nombre") + " " + c.getString("apellido"));
+                id_cliente = (int) t.getValueAt(t.getSelectedRow(), 0);
+                if (Base.hasConnection()) {
+                    Base.close();
+                }
+            }
+
+        });
         tablaArticulos = view.getTablaArtDef();
         tablaClientes = view.getTablaCliDef();
         tablaTrans = view.getTablaTransDef();
+        cajas = Caja.findAll();
         listaProd = Producto.findAll();
         listaCliente = Cliente.findAll();
-        
-        listaTransaccion = Transaccion.find("caja_id = ?", caja);
+
+        listaTransaccion = Transaccion.find("caja_id = ?", id_caja);
         cargarProductos();
         cargarCuentas();
         cargarTransacciones();
     }
 
-    public void cargarProductos(){
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
+    public void cargarProductos() {
+        if (!Base.hasConnection()) {
+            abrirBase();
+        }
+
         tablaArticulos.setRowCount(0);
         Iterator<Producto> it = listaProd.iterator();
-        while(it.hasNext()){
+        while (it.hasNext()) {
             Producto p = it.next();
             Object row[] = new Object[3];
             row[0] = p.get("id");
@@ -79,32 +151,38 @@ public class CajaControlador implements ActionListener {
             row[2] = p.get("stock");
             tablaArticulos.addRow(row);
         }
-        Base.close();
+        if (Base.hasConnection()) {
+            Base.close();
+        }
     }
-    
-    public void cargarCuentas(){
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
+
+    public void cargarCuentas() {
+        if (!Base.hasConnection()) {
+            abrirBase();
+        }
         tablaClientes.setRowCount(0);
         Iterator<Cliente> it = listaCliente.listIterator();
-        while(it.hasNext()){
-            Cliente c = it.next();
+        while (it.hasNext()) {
+            Cliente cli = it.next();
             Object row[] = new Object[2];
-            row[0] = c.get("id");
-            row[1] = c.getString("nombre")+" "+c.getString("apellido");
+            row[0] = cli.get("id");
+            row[1] = cli.getString("nombre") + " " + cli.getString("apellido");
             tablaClientes.addRow(row);
         }
-        Base.close();
-        
+        if (Base.hasConnection()) {
+            Base.close();
+        }
     }
-    
-    public void cargarTransacciones(){
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
+
+    public void cargarTransacciones() {
+        if (!Base.hasConnection()) {
+            abrirBase();
+        }
         tablaTrans.setRowCount(0);
-        listaTransaccion = Transaccion.find("caja_id = ?", caja);
-        System.out.println(listaTransaccion);
-        System.out.println(Quiniela.id_caja);
+        id_caja = cajas.get(cajas.size() - 1).getInteger("id");
+        listaTransaccion = Transaccion.where("caja_id = ?", id_caja);
         Iterator<Transaccion> it = listaTransaccion.iterator();
-        while(it.hasNext()){
+        while (it.hasNext()) {
             Transaccion t = it.next();
             Object row[] = new Object[4];
             row[0] = t.get("id");
@@ -113,31 +191,92 @@ public class CajaControlador implements ActionListener {
             row[3] = Double.parseDouble(t.getString("monto"));
             tablaTrans.addRow(row);
         }
-        Base.close();
+        if (Base.hasConnection()) {
+            Base.close();
+        }
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String comando = e.getActionCommand();
-        if (comando.equals("DEPOSITO MANUAL")){
-            depoManual = new DepoManual();
-            depoManualControlador dmc = new depoManualControlador(depoManual, model);
-        } else if (comando.equals("RETIRO MANUAL")){
-            retManual = new RetManual();
-            retManualControlador rmc = new retManualControlador(retManual, model);
-        } else if (comando.equals("CAMBIA TIPO")){
-            if (view.getBotTipVenta().getText().equals("Cuenta Corriente")){
-                view.getBotTipVenta().setText("Contado");
-                view.getContTabCli().setVisible(true);
-            } else {
-                view.getBotTipVenta().setText("Cuenta Corriente");
-                view.getContTabCli().setVisible(false);
-            }
-            
-            
+        switch (comando) {
+            case "DEPOSITO MANUAL":
+                depoManual = new DepoManual();
+                depoManualControlador dmc = new depoManualControlador(depoManual, model, this);
+                break;
+            case "RETIRO MANUAL":
+                retManual = new RetManual();
+                retManualControlador rmc = new retManualControlador(retManual, model, this);
+                break;
+            case "OK":
+                if (tablaDetalles.getRowCount() > 0) {
+                    System.out.println(!view.getClienteSel().getText().equals(""));
+                    System.out.println(view.getClienteSel().getText());
+                    if (!view.getClienteSel().getText().equals("")) {
+                        if (!Base.hasConnection()) {
+                            abrirBase();
+                        }
+                        String motivo = "";
+                        int rows = tablaDetalles.getRowCount();
+                        for (int i = 0; i < rows; i++) {
+                            motivo = motivo + tablaDetalles.getValueAt(i, 1) + " x" + tablaDetalles.getValueAt(i, 2) + "; ";
+                        }
+                        BigDecimal monto = BigDecimal.valueOf(Double.parseDouble(view.getTotalField().getText()));
+                        model.altaTransaccion(motivo, "Venta", monto, 1, id_caja, 1);
+                        actualizarPrecio();
+                        if (Base.hasConnection()) {
+                            Base.close();
+                        }
+                    }
+
+                }
+            case "Detalles":
+                System.out.println("Mostrar movidas");
         }
-        System.out.println("Carga la movida");
+        
         cargarTransacciones();
     }
-   
+
+    public void setCellEditor() {
+        for (int i = 0; i < view.getTablaDetalles().getRowCount(); i++) {
+            view.getTablaDetalles().getCellEditor(i, 2).addCellEditorListener(this);
+        }
+    }
+
+    public void actualizarPrecio() {
+        Double importe;
+        Double total = 0.0;
+        Double precio;
+        for (int i = 0; i < view.getTablaDetalles().getRowCount(); i++) {
+            if (!Base.hasConnection()) {
+                abrirBase();
+            }
+            precio = Double.parseDouble(Producto.findById(view.getTablaDetalles().getValueAt(i, 0)).getString("precio"));
+            importe = Double.valueOf((Integer) view.getTablaDetalles().getValueAt(i, 2)) * precio;
+            view.getTablaDetalles().setValueAt(importe, i, 3);
+        }
+        for (int i = 0; i < view.getTablaDetalles().getRowCount(); i++) {
+            total = total + ((Double) view.getTablaDetalles().getValueAt(i, 3));
+        }
+        view.getTotalField().setText(total.toString());
+        if (Base.hasConnection()) {
+            Base.close();
+        }
+    }
+
+    @Override
+    public void editingStopped(ChangeEvent ce) {
+        actualizarPrecio();
+    }
+
+    @Override
+    public void editingCanceled(ChangeEvent ce) {
+        actualizarPrecio();
+    }
+
+    private void abrirBase() {
+        if (!Base.hasConnection()) {
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
+        }
+    }
 }

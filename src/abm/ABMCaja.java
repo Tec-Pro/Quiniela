@@ -58,10 +58,6 @@ public class ABMCaja {
             Base.openTransaction();
             Caja nuevo = Caja.create("fecha",fecha,"saldo",0,"visible",1); //Crea una nueva caja con saldo 0
             nuevo.saveIt();
-            List<Caja> cajas = Caja.findAll();
-            Caja caja = cajas.get(cajas.size()-1);
-            int last = caja.getInteger("id");
-            Quiniela.id_caja = last;
             Base.commitTransaction();
             return true;
         }
@@ -119,10 +115,12 @@ public class ABMCaja {
      * @param fecha
      * @return Caja correspondiente a la fecha pasada.
      */
-    public Caja getCaja(Timestamp fecha){
+    public Caja getCaja(Date fecha){
         return Caja.first("fecha = ?", fecha);
     }
     
+    
+
     /**
      * 
      * @param fecha

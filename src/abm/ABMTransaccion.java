@@ -8,13 +8,13 @@ import java.math.BigDecimal;
 import models.Caja;
 import models.Transaccion;
 import org.javalite.activejdbc.Base;
-import org.javalite.activejdbc.Model;
 
 /**
  *
  * @author joako
  */
 public class ABMTransaccion {
+
     private String motivo;
     private String tipo;
     private BigDecimal monto;
@@ -90,32 +90,33 @@ public class ABMTransaccion {
     public void setCaja_id(int caja_id) {
         this.caja_id = caja_id;
     }
-    
+
     /**
-     * 
+     *
      * @param motivo
      * @param tipo
      * @param monto
      * @param visible
      * @param caja
+     * @param usuario
      * @return true si la transacción fue creada con éxito.
      */
-    public boolean altaTransaccion(String motivo, String tipo, BigDecimal monto, int visible, int caja){
+    public boolean altaTransaccion(String motivo, String tipo, BigDecimal monto, int visible, int caja, int usuario) {
         Caja c = Caja.findById(caja);
-        if (c != null){
+        if (c != null) {
             Base.openTransaction();
-            if (monto.signum()==-1){
-                System.out.println("Signo"+monto.signum());
+            if (monto.signum() == -1) {
+                System.out.println("Signo" + monto.signum());
                 BigDecimal montoCaja = c.getBigDecimal("saldo");
-                System.out.println("Lo que hay en caja"+montoCaja);
-                System.out.println("Comparacion"+montoCaja.compareTo(monto));
-                if (montoCaja.compareTo(monto.negate())==-1) {
-                    System.out.println("Comparacion"+montoCaja.compareTo(monto));
-                    System.out.println("If Compare"+montoCaja);
+                System.out.println("Lo que hay en caja" + montoCaja);
+                System.out.println("Comparacion" + montoCaja.compareTo(monto));
+                if (montoCaja.compareTo(monto.negate()) == -1) {
+                    System.out.println("Comparacion" + montoCaja.compareTo(monto));
+                    System.out.println("If Compare" + montoCaja);
                     return false;
                 }
             }
-            Transaccion nuevo = Transaccion.create("motivo",motivo,"tipo",tipo,"monto",monto,"visible",visible);
+            Transaccion nuevo = Transaccion.create("motivo", motivo, "tipo", tipo, "monto", monto, "visible", visible);
             nuevo.saveIt();
             c.add(nuevo);
             ABMCaja abmc = new ABMCaja();
@@ -125,23 +126,23 @@ public class ABMTransaccion {
         }
         return false;
     }
-    
+
     /**
-     * 
+     *
      * @param id
      * @return true si la transacción existe
      *
      */
-    public boolean bajaTransaccion(int id){
+    public boolean bajaTransaccion(int id) {
         Transaccion t = Transaccion.findById(id);
-        if (t!=null){
+        if (t != null) {
             Base.openTransaction();
-            t.set("visible",0);
+            t.set("visible", 0);
             t.saveIt();
             Base.commitTransaction();
             return true;
         }
         return false;
     }
-    
+
 }

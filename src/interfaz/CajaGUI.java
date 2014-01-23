@@ -4,7 +4,6 @@
  */
 package interfaz;
 
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,20 +21,12 @@ public class CajaGUI extends javax.swing.JPanel {
      * Creates new form CajaGUI
      */
     public CajaGUI() {
-        try
-        {
-          UIManager.setLookAndFeel("de.javasoft.plaf.synthetica.SyntheticaOrangeMetallicLookAndFeel");
-        }
-        catch (Exception e)
-        {
-          e.printStackTrace();
-        }
-  
+        initComponents();
         tablaArtDef = (DefaultTableModel) tablaArticulos.getModel();
         tablaCliDef = (DefaultTableModel) tablaCliente.getModel();
         tablaTransDef = (DefaultTableModel) tablaTransacciones.getModel();
         tablaDetallesDef = (DefaultTableModel) tablaDetalles.getModel();
-        contTabCli.setVisible(false);
+        contTabCli.setEnabled(false);
     }
 
     /**
@@ -47,7 +38,8 @@ public class CajaGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tipoVenta = new javax.swing.ButtonGroup();
+        menuProducto = new javax.swing.JPopupMenu();
+        detallesProd = new javax.swing.JMenuItem();
         panelArticulos = new javax.swing.JPanel();
         contTabArt = new javax.swing.JScrollPane();
         tablaArticulos = new javax.swing.JTable();
@@ -65,9 +57,15 @@ public class CajaGUI extends javax.swing.JPanel {
         panelCliente = new javax.swing.JPanel();
         contTabCli = new javax.swing.JScrollPane();
         tablaCliente = new javax.swing.JTable();
-        botTipVenta = new javax.swing.JToggleButton();
+        clienteSel = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
-        panelArticulos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Articulos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 14))); // NOI18N
+        menuProducto.setName(""); // NOI18N
+
+        detallesProd.setText("Detalles");
+        menuProducto.add(detallesProd);
+
+        panelArticulos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Articulos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 0, 14))); // NOI18N
 
         tablaArticulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -109,16 +107,14 @@ public class CajaGUI extends javax.swing.JPanel {
         panelArticulos.setLayout(panelArticulosLayout);
         panelArticulosLayout.setHorizontalGroup(
             panelArticulosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelArticulosLayout.createSequentialGroup()
-                .addComponent(contTabArt, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(contTabArt, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
         );
         panelArticulosLayout.setVerticalGroup(
             panelArticulosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(contTabArt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
         );
 
-        panelTransacciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Transacciones Realizadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 14))); // NOI18N
+        panelTransacciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Transacciones Realizadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 0, 14))); // NOI18N
 
         tablaTransacciones.setAutoCreateRowSorter(true);
         tablaTransacciones.setModel(new javax.swing.table.DefaultTableModel(
@@ -176,15 +172,14 @@ public class CajaGUI extends javax.swing.JPanel {
         panelTransaccionesLayout.setVerticalGroup(
             panelTransaccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTransaccionesLayout.createSequentialGroup()
-                .addComponent(contTrans, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contTrans, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelTransaccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(depManual)
-                    .addComponent(retManual))
-                .addGap(0, 12, Short.MAX_VALUE))
+                    .addComponent(retManual)))
         );
 
-        panelNuevaVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Venta", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 14))); // NOI18N
+        panelNuevaVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Venta", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 0, 14))); // NOI18N
 
         tablaDetalles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -198,7 +193,7 @@ public class CajaGUI extends javax.swing.JPanel {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -257,6 +252,9 @@ public class CajaGUI extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        contTabCli.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cuentas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 0, 14))); // NOI18N
+        contTabCli.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         tablaCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -292,27 +290,30 @@ public class CajaGUI extends javax.swing.JPanel {
             tablaCliente.getColumnModel().getColumn(1).setMaxWidth(300);
         }
 
-        botTipVenta.setText("Cuenta Corriente");
-        botTipVenta.setActionCommand("CAMBIA TIPO");
+        jLabel1.setText("Cliente Seleccionado");
 
         javax.swing.GroupLayout panelClienteLayout = new javax.swing.GroupLayout(panelCliente);
         panelCliente.setLayout(panelClienteLayout);
         panelClienteLayout.setHorizontalGroup(
             panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelClienteLayout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(botTipVenta)
+                .addGroup(panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(contTabCli, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(panelClienteLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(246, 246, 246))
+                    .addComponent(clienteSel, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panelClienteLayout.createSequentialGroup()
-                .addComponent(contTabCli, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
         );
         panelClienteLayout.setVerticalGroup(
             panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelClienteLayout.createSequentialGroup()
-                .addComponent(botTipVenta)
+                .addContainerGap()
+                .addComponent(contTabCli, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contTabCli, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(clienteSel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -323,10 +324,10 @@ public class CajaGUI extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 12, Short.MAX_VALUE))
-                    .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 20, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelTransacciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -343,18 +344,15 @@ public class CajaGUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(panelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelTransacciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(25, 25, 25)
+                        .addComponent(panelTransacciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     public void disableAll(){
-        botTipVenta.setEnabled(false);
-        contTabArt.setEnabled(false);
         getDetallesVenta().setEnabled(false);
         getTablaArticulos().setEnabled(false);
         getTablaDetalles().setEnabled(false);
@@ -362,13 +360,12 @@ public class CajaGUI extends javax.swing.JPanel {
         getVentaOk().setEnabled(false);
         getDepManual().setEnabled(false);
         getRetManual().setEnabled(false);
-        contTrans.setEnabled(false);
+        getClienteSel().setEnabled(false);
+        getMenuProducto().setEnabled(false);
         getTablaTransacciones().setEnabled(false);
     }
     
     public void enableAll(){
-        botTipVenta.setEnabled(true);
-        contTabArt.setEnabled(true);
         getDetallesVenta().setEnabled(true);
         getTablaArticulos().setEnabled(true);
         getTablaDetalles().setEnabled(true);
@@ -376,17 +373,21 @@ public class CajaGUI extends javax.swing.JPanel {
         getVentaOk().setEnabled(true);
         getDepManual().setEnabled(true);
         getRetManual().setEnabled(true);
-        contTrans.setEnabled(true);
         getTablaTransacciones().setEnabled(true);
-        getContTabCli().setVisible(false);
+        getClienteSel().setEnabled(true);
+        getMenuProducto().setEnabled(true);
+        tablaCliente.setEnabled(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton botTipVenta;
+    private javax.swing.JTextField clienteSel;
     private javax.swing.JScrollPane contTabArt;
     private javax.swing.JScrollPane contTabCli;
     private javax.swing.JScrollPane contTrans;
     private javax.swing.JButton depManual;
+    private javax.swing.JMenuItem detallesProd;
     private javax.swing.JScrollPane detallesVenta;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPopupMenu menuProducto;
     private javax.swing.JPanel panelArticulos;
     private javax.swing.JPanel panelCliente;
     private javax.swing.JPanel panelNuevaVenta;
@@ -396,17 +397,12 @@ public class CajaGUI extends javax.swing.JPanel {
     private javax.swing.JTable tablaCliente;
     private javax.swing.JTable tablaDetalles;
     private javax.swing.JTable tablaTransacciones;
-    private javax.swing.ButtonGroup tipoVenta;
     public javax.swing.JTextField totalField;
     private javax.swing.JLabel totalLabel;
     private javax.swing.JButton ventaOk;
     // End of variables declaration//GEN-END:variables
 
-    /**
-     * @return the botonContado
-     */
-    
-
+  
     /**
      * @return the depManual
      */
@@ -534,34 +530,6 @@ public class CajaGUI extends javax.swing.JPanel {
     }
 
     /**
-     * @return the contTabCli
-     */
-    public javax.swing.JScrollPane getContTabCli() {
-        return contTabCli;
-    }
-
-    /**
-     * @param contTabCli the contTabCli to set
-     */
-    public void setContTabCli(javax.swing.JScrollPane contTabCli) {
-        this.contTabCli = contTabCli;
-    }
-
-    /**
-     * @return the jToggleButton1
-     */
-    public javax.swing.JToggleButton getBotTipVenta() {
-        return botTipVenta;
-    }
-
-    /**
-     * @param jToggleButton1 the jToggleButton1 to set
-     */
-    public void setBotTipVenta(javax.swing.JToggleButton jToggleButton1) {
-        this.botTipVenta = jToggleButton1;
-    }
-
-    /**
      * @return the tablaArtDef
      */
     public DefaultTableModel getTablaArtDef() {
@@ -589,4 +557,24 @@ public class CajaGUI extends javax.swing.JPanel {
     public DefaultTableModel getTablaDetDef() {
         return tablaDetallesDef;
     }
+    
+    public javax.swing.JTextField getClienteSel() {
+        return clienteSel;
+    }
+
+    /**
+     * @return the detallesProd
+     */
+    public javax.swing.JMenuItem getDetallesProd() {
+        return detallesProd;
+    }
+
+    /**
+     * @return the menuProducto
+     */
+    public javax.swing.JPopupMenu getMenuProducto() {
+        return menuProducto;
+    }
+
+ 
 }
