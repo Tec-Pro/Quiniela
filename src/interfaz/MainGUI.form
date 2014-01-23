@@ -14,17 +14,11 @@
                 <Property name="text" type="java.lang.String" value="Abrir Caja"/>
                 <Property name="toolTipText" type="java.lang.String" value="Abre una caja para empezar a registrar transacciones."/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="cerrarCaja">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cerrar e Imprimir"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-              </AuxValues>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -37,6 +31,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Producto"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="ventanaProductos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Abrir ventana de productos"/>
+                <Property name="actionCommand" type="java.lang.String" value="VentanaProductos"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="ayuda">
           <Properties>

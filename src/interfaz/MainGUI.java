@@ -43,6 +43,7 @@ public class MainGUI extends javax.swing.JFrame {
         cerrarCaja = new javax.swing.JMenuItem();
         cuenta = new javax.swing.JMenu();
         producto = new javax.swing.JMenu();
+        ventanaProductos = new javax.swing.JMenuItem();
         ayuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,6 +64,11 @@ public class MainGUI extends javax.swing.JFrame {
         barraMenu.add(cuenta);
 
         producto.setText("Producto");
+
+        ventanaProductos.setText("Abrir ventana de productos");
+        ventanaProductos.setActionCommand("VentanaProductos");
+        producto.add(ventanaProductos);
+
         barraMenu.add(producto);
 
         ayuda.setText("Ayuda");
@@ -93,17 +99,60 @@ public class MainGUI extends javax.swing.JFrame {
      */
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JMenuItem abrirCaja;
+    private javax.swing.JMenuItem abrirCaja;
     private javax.swing.JMenu archivo;
     private javax.swing.JMenu ayuda;
     private javax.swing.JMenuBar barraMenu;
-    public javax.swing.JMenuItem cerrarCaja;
+    private javax.swing.JMenuItem cerrarCaja;
     private javax.swing.JMenu cuenta;
     private javax.swing.JMenu producto;
     private javax.swing.JTabbedPane tab;
+    private javax.swing.JMenuItem ventanaProductos;
     // End of variables declaration//GEN-END:variables
 
     public CajaGUI getCaja(){
         return caja;
+    }
+
+    /**
+     * @return the abrirCaja
+     */
+    public javax.swing.JMenuItem getAbrirCaja() {
+        return abrirCaja;
+    }
+
+    /**
+     * @return the archivo
+     */
+    public javax.swing.JMenu getArchivo() {
+        return archivo;
+    }
+
+    /**
+     * @return the ayuda
+     */
+    public javax.swing.JMenu getAyuda() {
+        return ayuda;
+    }
+
+    /**
+     * @return the cerrarCaja
+     */
+    public javax.swing.JMenuItem getCerrarCaja() {
+        return cerrarCaja;
+    }
+
+    /**
+     * @return the producto
+     */
+    public javax.swing.JMenu getProducto() {
+        return producto;
+    }
+
+    /**
+     * @return the ventanaProductos
+     */
+    public javax.swing.JMenuItem getVentanaProductos() {
+        return ventanaProductos;
     }
 }
