@@ -29,14 +29,22 @@ public class reporteControlador {
     }
 
     //listado de clientes productos y proveedores.
-    public void mostrarReporte() throws ClassNotFoundException, SQLException, JRException {
+    public void mostrarReporte(int caja_id) throws ClassNotFoundException, SQLException, JRException {
         Class.forName("com.mysql.jdbc.Driver");
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/quiniela", "root", "root");
         Map parametros = new HashMap();
         parametros.clear();
+        parametros.put("idCaja", caja_id);
         JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, connection);
         JasperViewer.viewReport(jasperPrint, false);
         connection.close();
     }
-
+    
+    public void mostrarLista() throws ClassNotFoundException, SQLException, JRException {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/quiniela", "root", "root");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, connection);
+        JasperViewer.viewReport(jasperPrint, false);
+        connection.close();
+    }
 }
