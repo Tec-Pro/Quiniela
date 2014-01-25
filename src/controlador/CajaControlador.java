@@ -213,7 +213,6 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                 retManualControlador rmc = new retManualControlador(retManual, this);
                 break;
             case "OK":
-                System.out.println(id_cliente);
                 if (tablaDetalles.getRowCount() > 0) {
                     if (!Base.hasConnection()) {
                             abrirBase();
@@ -227,6 +226,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                         if (!view.getClienteSel().getText().trim().isEmpty()) {
                             model.altaTransaccion(motivo, "Venta", monto, 1,id_caja, id_cliente, 1);
                         }else{
+                            System.out.println(id_caja);
                             model.altaTransaccion(motivo, "Venta", monto, 1,id_caja, 1);
                         actualizarPrecio();
                         if (Base.hasConnection()) {
@@ -265,6 +265,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
         for (int i = 0; i < view.getTablaDetalles().getRowCount(); i++) {
             total = total + ((Double) view.getTablaDetalles().getValueAt(i, 3));
         }
+        total = Math.round(total*1000.00)/1000.00;
         view.getTotalField().setText(total.toString());
         if (Base.hasConnection()) {
             Base.close();

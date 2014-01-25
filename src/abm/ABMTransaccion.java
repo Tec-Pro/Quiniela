@@ -146,6 +146,7 @@ public class ABMTransaccion {
             }
             Transaccion nuevo = Transaccion.create("motivo", motivo, "tipo", tipo, "monto", monto, "visible", visible);
             nuevo.saveIt();
+            c.add(nuevo);
             //u.add(nuevo);
             ABMCaja abmc = new ABMCaja();
             abmc.modificarCaja(caja, monto);
