@@ -6,6 +6,7 @@
 package abm;
 
 import java.math.BigDecimal;
+import models.Fecha;
 import models.Producto;
 import org.javalite.activejdbc.Base;
 
@@ -17,17 +18,14 @@ public class ABMProducto {
 
     private String nombre;
     private BigDecimal precio;
-    private int stock;
+    private int hayStock;
     private BigDecimal comision;
-    private String diaSorteo;
     private int visible;
 
-    public ABMProducto(String nombre, BigDecimal precio, int stock, BigDecimal comision, String diaSorteo, int visible) {
+    public ABMProducto(String nombre, BigDecimal precio, BigDecimal comision, int visible) {
         this.nombre = nombre;
         this.precio = precio;
-        this.stock = stock;
         this.comision = comision;
-        this.diaSorteo = diaSorteo;
         this.visible = visible;
     }
 
@@ -42,17 +40,11 @@ public class ABMProducto {
         return precio;
     }
 
-    public int getStock() {
-        return stock;
-    }
 
     public BigDecimal getComision() {
         return comision;
     }
 
-    public String getDiaSorteo() {
-        return diaSorteo;
-    }
 
     public int getVisible() {
         return visible;
@@ -66,31 +58,25 @@ public class ABMProducto {
         this.precio = precio;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
 
     public void setComision(BigDecimal comision) {
         this.comision = comision;
     }
 
-    public void setDiaSorteo(String diaSorteo) {
-        this.diaSorteo = diaSorteo;
-    }
 
     public void setVisible(int visible) {
         this.visible = visible;
     }
 
-    public boolean altaProducto(String nombre, BigDecimal precio, int stock, BigDecimal comision, String diaSorteo) {
+    public boolean altaProducto(String nombre, BigDecimal precio, BigDecimal comision, int hayStock) {
         boolean result;
         Base.openTransaction();
         Producto prodViejo = Producto.first("nombre = ?", nombre);
         if (prodViejo != null) {
-            prodViejo.set("precio", precio, "stock", stock, "comision", comision, "diaSorteo", diaSorteo, "visible", 1).saveIt();
+            prodViejo.set("precio", precio, "comision", comision, "visible", 1,"hayStock",hayStock).saveIt();
             result = true;
         } else {
-            Producto nuevoProd = Producto.create("nombre", nombre, "precio", precio, "stock", stock, "comision", comision, "diaSorteo", diaSorteo, "visible", 1);
+            Producto nuevoProd = Producto.create("nombre", nombre, "precio", precio, "comision", comision, "visible", 1,"hayStock",hayStock);
             result = nuevoProd.saveIt();
         }
         Base.commitTransaction();
@@ -112,12 +98,12 @@ public class ABMProducto {
         return result;
     }
 
-    public boolean modificarProducto(int id, String nombre, BigDecimal precio, int stock, BigDecimal comision, String diaSorteo) {
+    public boolean modificarProducto(int id, String nombre, BigDecimal precio, BigDecimal comision,int hayStock) {
         boolean result;
         Base.openTransaction();
         if (Producto.exists(id)) {
             Producto prodModif = Producto.findById(id);
-            prodModif.set("nombre", nombre, "precio", precio, "stock", stock, "comision", comision, "diaSorteo", diaSorteo).saveIt();
+            prodModif.set("nombre", nombre, "precio", precio, "comision", comision,"hayStock",hayStock).saveIt();
             result = true;
             System.out.print("Producto modificado satisfactoriamente");
         } else {
@@ -128,4 +114,11 @@ public class ABMProducto {
         return result;
     }
 
+    public void altaStockFecha(int idProd, int stock, String diaSorteo){
+        Producto prod = Producto.findById(idProd);
+        Fecha fechaStock = Fecha.create("stock",stock,"diaSorteo",diaSorteo);
+        fechaStock.saveIt();
+        prod.add(fechaStock);
+    }
+    
 }

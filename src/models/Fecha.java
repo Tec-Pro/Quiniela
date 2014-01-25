@@ -12,6 +12,6 @@ import org.javalite.activejdbc.Model;
  *
  * @author eze
  */
-public class Producto extends Model {
+public class Fecha extends Model {
     
 }

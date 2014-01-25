@@ -11,17 +11,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
-import javax.swing.JTable;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
+import models.Fecha;
 import models.Producto;
 import org.javalite.activejdbc.Base;
-import quiniela.Quiniela;
 
 /**
  *
@@ -29,10 +27,12 @@ import quiniela.Quiniela;
  */
 public class ProductoControlador implements ActionListener, CellEditorListener {
 
-    private ProductoGUI view;
+    private ProductoGUI view; //ventana ProductoGUI
     private ABMProducto abmp;
     private DefaultTableModel tablaProducto;
+    private DefaultTableModel tablaFechaStock;
     private List<Producto> listaProd;
+    private List<Fecha> listaFS;
 
     public ProductoControlador(ProductoGUI producto) {
         this.view = producto;
@@ -42,6 +42,16 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
     private void iniciar() {
         abmp = new ABMProducto();
         view.setVisible(true);
+        view.getQuitar().addActionListener(this);
+        view.getInsertar().addActionListener(this);
+        view.getTablaStockFecha().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    view.getQuitar().setEnabled(true);
+                }
+            }
+        });
         view.getProdActualizar().addActionListener(this);
         view.getProdEliminar().addActionListener(this);
         view.getProdModificar().addActionListener(this);
@@ -58,6 +68,7 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
             }
         });
         tablaProducto = view.getTablaProductosDef();
+        tablaFechaStock = view.getTablaStockFechaDef();
         cargarProductos();
     }
 
@@ -73,15 +84,42 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
             Object row[] = new Object[6];
             row[0] = p.get("id");
             row[1] = p.getString("nombre");
-            row[2] = p.get("precio");
-            row[3] = p.get("stock");
-            row[4] = p.get("comision");
-            row[5] = p.getString("diaSorteo");
+            row[2] = p.getBigDecimal("precio").doubleValue();
+            row[3] = p.getBigDecimal("comision").doubleValue();
+            if (p.getInteger("hayStock") == 0) {
+                row[4] = false;
+            } else {
+                row[4] = true;
+            }
             tablaProducto.addRow(row);
+
         }
         if (Base.hasConnection()) {
             Base.close();
         }
+    }
+
+    //no funciona
+    public void cargarStockFecha() {
+        if (!Base.hasConnection()) {
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "");
+        }
+        tablaFechaStock.setRowCount(0);
+        tablaProducto.setRowCount(0);
+        int id = (int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(),0);
+        listaFS = Fecha.where("producto_id = ?", id);
+        Iterator<Fecha> itr = listaFS.iterator();
+        while (itr.hasNext()) {
+            Fecha p = itr.next();
+            Object row[] = new Object[2];
+            row[0] = p.getInteger("stock");
+            row[1] = p.getString("diaSorteo");
+            tablaFechaStock.addRow(row);
+        }
+        if (Base.hasConnection()) {
+            Base.close();
+        }
+
     }
 
     public void setCellEditor() {
@@ -99,55 +137,57 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
             }
             if (ae.getActionCommand().equals("Eliminar")) { //si presiono eliminar
                 abmp.bajaProducto((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0)); //saco el id de la fila en la primer columna
-                cargarProductos(); //actualizo la tabla de productos
+                cargarProductos();
             }
             if (ae.getActionCommand().equals("Nuevo")) { //si presiono nuevo
-                Object row[] = new Object[6];
+                Object row[] = new Object[6];//creo una fila nueva vacia
                 tablaProducto.addRow(row);
             }
             if (ae.getActionCommand().equals("Modificar")) { //si presiono guardar cambios en una fila
-                BigDecimal b1,b2;
-                String nombre, fecha;
-                int stock;
-                if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 2) != null){
-                  b1 = new BigDecimal((Double) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 2));
+                BigDecimal b1, b2;
+                String nombre;
+                int hayStock;
+                //tomo el nombre de la tabla
+                if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 1) != null) {
+                    nombre = (String) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 1);
+                } else {
+                    nombre = "";
+                    System.out.println("El nombre no puede ser vacio");
                 }
-                else {
+                //tomo el precio de la tabla
+                if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 2) != null) {
+                    b1 = new BigDecimal((Double) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 2));
+                } else {
                     b1 = new BigDecimal(0);
                 }
-                if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 4) != null){
-                    b2 = new BigDecimal((Double) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 4));
-                }
-                else{
+                //tomo la comision de la tabla
+                if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 3) != null) {
+                    b2 = new BigDecimal((Double) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 3));
+                } else {
                     b2 = new BigDecimal(0);
                 }
-                if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 3) != null){
-                    stock = (int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 3);
-                }
-                else {
-                    stock = 0;
-                }
-                if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 1) != null){
-                    nombre = (String) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 1);
-                }
-                else {
-                    nombre = "";
-                }
-                if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 5) != null){
-                    fecha = (String) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 5);
-                }
-                else {
-                    fecha = "";
-                }
-                if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0) == null) {
-                    abmp.altaProducto(nombre, b1, stock, b2, fecha);
+                //tomo el valor del checkbox de la tabla(si hay o no stock)
+                if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 4) == null
+                        || (boolean) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 4) == false) {
+                    hayStock = 0;
                 } else {
+                    hayStock = 1;
+                }
+                //Si el producto es nuevo(no tiene id)
+                if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0) == null) {
+                    abmp.altaProducto(nombre, b1, b2, hayStock);
+                } else { // si el producto existe y solo sera modificado
                     int id = (int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0);
-                    abmp.modificarProducto(id, nombre,
-                            b1,stock, 
-                            b2,fecha);
+                    abmp.modificarProducto(id, nombre, b1, b2, hayStock);
                 }
                 cargarProductos(); //actualizo la tabla de productos
+            }
+            if (ae.getActionCommand().equals("Insertar")) { //si presiono insertar
+                //cargo stock y fecha de la tabla junto con el id del producto
+                abmp.altaStockFecha(
+                        (int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0),
+                        (int) tablaFechaStock.getValueAt(view.getTablaStockFecha().getSelectedRow(), 0),
+                        (String) tablaFechaStock.getValueAt(view.getTablaStockFecha().getSelectedRow(), 1));
             }
         }
         if (Base.hasConnection()) {
