@@ -19,7 +19,7 @@ import quiniela.Quiniela;
 public class ABMCaja {
     private Timestamp fecha;
     private BigDecimal saldo;
-
+    private List<Caja> cajas;
     /**
      * @return the fecha
      */
@@ -119,7 +119,10 @@ public class ABMCaja {
         return Caja.first("fecha = ?", fecha);
     }
     
-    
+    public int getLastCaja(){
+        cajas = Caja.findAll();
+        return cajas.get(cajas.size() - 1).getInteger("id");
+    }
 
     /**
      * 

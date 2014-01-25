@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.List;
+import javax.swing.JOptionPane;
 import models.Caja;
 import org.javalite.activejdbc.Base;
 import quiniela.Quiniela;
@@ -47,11 +48,15 @@ public class depoManualControlador implements ActionListener {
                 }
                 List<Caja> cajas = Caja.findAll();
                 int id_caja = cajas.get(cajas.size()-1).getInteger("id");
-                String motivo = depM.motivoDepoMan.getText();
-                BigDecimal monto = BigDecimal.valueOf(Double.valueOf(depM.montoDepoMan.getText()));
-                abmTrans.altaTransaccion(motivo, "Depósito Manual", monto, 1, id_caja, 1);
-                cc.cargarTransacciones();
-                depM.dispose();
+                if (depM.motivoDepoMan.getText().trim().isEmpty()){
+                    JOptionPane.showMessageDialog(depM, "Error: Falta especificar motivo");
+                } else{
+                    String motivo = depM.motivoDepoMan.getText();
+                    BigDecimal monto = BigDecimal.valueOf(Double.valueOf(depM.montoDepoMan.getText()));
+                    abmTrans.altaTransaccion(motivo, "Depósito Manual", monto, 1, id_caja, 1);
+                    cc.cargarTransacciones();
+                    depM.dispose();
+                }
                 if (Base.hasConnection()){
                     Base.close();    
                 }

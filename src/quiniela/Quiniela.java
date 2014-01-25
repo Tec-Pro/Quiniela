@@ -4,37 +4,33 @@
  */
 package quiniela;
 
-import abm.ABMCaja;
+
 import abm.ABMTransaccion;
 import controlador.MainControlador;
-import interfaz.CajaGUI;
+import controlador.reporteControlador;
 import interfaz.MainGUI;
-import java.awt.*;
-import java.awt.event.*;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.sql.Timestamp;
-import javax.swing.*;
-import models.Caja;
-import models.Transaccion;
+import java.sql.SQLException;
+import net.sf.jasperreports.engine.JRException;
 import org.javalite.activejdbc.Base;
-import org.javalite.activejdbc.Model;
 
 /**
  *
  * @author joako
  */
 public class Quiniela {
-    public static int id_caja;
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JRException, ClassNotFoundException, SQLException {
+
+
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
+            MainGUI mg = new MainGUI();
+            MainControlador mc = new MainControlador(mg);
+            mc.run();
+            Base.close();
         
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
-        MainGUI mg = new MainGUI();
-        MainControlador mc = new MainControlador(mg);
-        mc.run();
-        Base.close();
-    }
+      }
 }

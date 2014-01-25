@@ -26,7 +26,6 @@ public class CajaGUI extends javax.swing.JPanel {
         tablaCliDef = (DefaultTableModel) tablaCliente.getModel();
         tablaTransDef = (DefaultTableModel) tablaTransacciones.getModel();
         tablaDetallesDef = (DefaultTableModel) tablaDetalles.getModel();
-        contTabCli.setEnabled(false);
     }
 
     /**
@@ -363,6 +362,7 @@ public class CajaGUI extends javax.swing.JPanel {
         getClienteSel().setEnabled(false);
         getMenuProducto().setEnabled(false);
         getTablaTransacciones().setEnabled(false);
+        contTabCli.setEnabled(false);
     }
     
     public void enableAll(){
@@ -376,6 +376,7 @@ public class CajaGUI extends javax.swing.JPanel {
         getTablaTransacciones().setEnabled(true);
         getClienteSel().setEnabled(true);
         getMenuProducto().setEnabled(true);
+        contTabCli.setEnabled(true);
         tablaCliente.setEnabled(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

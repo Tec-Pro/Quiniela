@@ -38,17 +38,18 @@ public class ClienteControlador implements ActionListener {
     private ABMTransaccion abmT;
     private List<Cliente> listaClientes;
 
-    public ClienteControlador(ClienteGUI clienteGui,ABMCliente abmC){
+    public ClienteControlador(ClienteGUI clienteGui){
         this.view = clienteGui;
-        this.abmC = abmC;
+        this.abmC = new ABMCliente();
         iniciar();
     }
     
     private void iniciar(){
-        view.getButtonAgregar().addActionListener(this);
-        view.getButtonBorrar().addActionListener(this);
-        view.getButtonTransacciones().addActionListener(this);
-        view.getTablaCliente().addMouseListener(new MouseAdapter() {
+        view.setVisible(true);
+        view.getBotonNuevo().addActionListener(this);
+        view.getBotonEliminar().addActionListener(this);
+        view.getBotonTransacciones().addActionListener(this);
+        view.getTablaClientes().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
@@ -61,15 +62,17 @@ public class ClienteControlador implements ActionListener {
             }
         });
         tablaClientes = view.getTablaClienteDef();
-        listaClientes = Cliente.findAll();
         cargarClientes();
     }
     
     
 
     private void cargarClientes() {
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
+        if (!Base.hasConnection()) {
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
+        }
         tablaClientes.setRowCount(0);
+        listaClientes = Cliente.where("visible = ?", 1);
         Iterator<Cliente> it = listaClientes.iterator();
         while(it.hasNext()){
             Cliente c = it.next();
@@ -109,10 +112,10 @@ public class ClienteControlador implements ActionListener {
     
     
     public void setCellEditor() {
-        for (int i = 0; i < view.getTablaCliente().getRowCount(); i++) {
-            view.getTablaCliente().getCellEditor(i, 4).addCellEditorListener((CellEditorListener) this);
-            view.getTablaCliente().getCellEditor(i, 5).addCellEditorListener((CellEditorListener) this);
-            view.getTablaCliente().getCellEditor(i, 6).addCellEditorListener((CellEditorListener) this);
+        for (int i = 0; i < view.getTablaClientes().getRowCount(); i++) {
+            view.getTablaClientes().getCellEditor(i, 4).addCellEditorListener((CellEditorListener) this);
+            view.getTablaClientes().getCellEditor(i, 5).addCellEditorListener((CellEditorListener) this);
+            view.getTablaClientes().getCellEditor(i, 6).addCellEditorListener((CellEditorListener) this);
         }
     }
     
@@ -137,16 +140,16 @@ public class ClienteControlador implements ActionListener {
                 CrearClienteControlador ccc = new CrearClienteControlador(cc, abmC);
                                 
             case "Borrar":
-                if (view.getTablaCliente().getSelectedRow() > 0){
+                if (view.getTablaClientes().getSelectedRow() > 0){
                     BorrarCliente bc = new BorrarCliente();
-                    BorrarClienteControlador bcc = new BorrarClienteControlador(bc, abmC,(int) view.getTablaCliente().getValueAt(view.getTablaCliente().getSelectedRow(), 0));
+                    BorrarClienteControlador bcc = new BorrarClienteControlador(bc, abmC,(int) view.getTablaClientes().getValueAt(view.getTablaClientes().getSelectedRow(), 0));
                     
                 }
             case "Transacciones":
-                if (view.getTablaCliente().getSelectedRow() > 0){
+                if (view.getTablaClientes().getSelectedRow() > 0){
                     ClienteTransaccion ct = new ClienteTransaccion();
-                    ClienteTransaccionControlador ctc = new ClienteTransaccionControlador(ct, (int) view.getTablaCliente().getValueAt(view.getTablaCliente().getSelectedRow(), 0));
-                    ctc.run((String) tablaClientes.getValueAt(view.getTablaCliente().getSelectedRow(), 1)+" "+tablaClientes.getValueAt(view.getTablaCliente().getSelectedRow(), 1)); 
+                    ClienteTransaccionControlador ctc = new ClienteTransaccionControlador(ct, (int) view.getTablaClientes().getValueAt(view.getTablaClientes().getSelectedRow(), 0));
+                    ctc.run((String) tablaClientes.getValueAt(view.getTablaClientes().getSelectedRow(), 1)+" "+tablaClientes.getValueAt(view.getTablaClientes().getSelectedRow(), 1)); 
                 }
         }
     }

@@ -40,10 +40,16 @@ public class MainGUI extends javax.swing.JFrame {
         barraMenu = new javax.swing.JMenuBar();
         archivo = new javax.swing.JMenu();
         abrirCaja = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        imprimirParcial = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         cerrarCaja = new javax.swing.JMenuItem();
         cuenta = new javax.swing.JMenu();
+        ventanaClientes = new javax.swing.JMenuItem();
+        imprimirClientes = new javax.swing.JMenuItem();
         producto = new javax.swing.JMenu();
         ventanaProductos = new javax.swing.JMenuItem();
+        imprimirProducto = new javax.swing.JMenuItem();
         ayuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -51,23 +57,51 @@ public class MainGUI extends javax.swing.JFrame {
 
         archivo.setText("Archivo");
 
+        abrirCaja.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         abrirCaja.setText("Abrir Caja");
         abrirCaja.setToolTipText("Abre una caja para empezar a registrar transacciones.");
         archivo.add(abrirCaja);
 
+        jSeparator1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        archivo.add(jSeparator1);
+
+        imprimirParcial.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        imprimirParcial.setText("Imprimir Caja Parcial");
+        imprimirParcial.setActionCommand("cajaParcial");
+        archivo.add(imprimirParcial);
+
+        jSeparator2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        archivo.add(jSeparator2);
+
+        cerrarCaja.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         cerrarCaja.setText("Cerrar e Imprimir");
         archivo.add(cerrarCaja);
 
         barraMenu.add(archivo);
 
         cuenta.setText("Cuenta");
+
+        ventanaClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        ventanaClientes.setText("Detalles de Clientes");
+        ventanaClientes.setActionCommand("VentanaClientes");
+        cuenta.add(ventanaClientes);
+
+        imprimirClientes.setText("Imprimir Lista de Clientes");
+        imprimirClientes.setActionCommand("imprimirClientes");
+        cuenta.add(imprimirClientes);
+
         barraMenu.add(cuenta);
 
         producto.setText("Producto");
 
+        ventanaProductos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
         ventanaProductos.setText("Abrir ventana de productos");
         ventanaProductos.setActionCommand("VentanaProductos");
         producto.add(ventanaProductos);
+
+        imprimirProducto.setText("Imprimir Lista de Productos");
+        imprimirProducto.setActionCommand("imprimirProductos");
+        producto.add(imprimirProducto);
 
         barraMenu.add(producto);
 
@@ -105,8 +139,14 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JMenuItem cerrarCaja;
     private javax.swing.JMenu cuenta;
+    private javax.swing.JMenuItem imprimirClientes;
+    private javax.swing.JMenuItem imprimirParcial;
+    private javax.swing.JMenuItem imprimirProducto;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu producto;
     private javax.swing.JTabbedPane tab;
+    private javax.swing.JMenuItem ventanaClientes;
     private javax.swing.JMenuItem ventanaProductos;
     // End of variables declaration//GEN-END:variables
 
@@ -154,5 +194,33 @@ public class MainGUI extends javax.swing.JFrame {
      */
     public javax.swing.JMenuItem getVentanaProductos() {
         return ventanaProductos;
+    }
+
+    /**
+     * @return the ventanaClientes
+     */
+    public javax.swing.JMenuItem getVentanaClientes() {
+        return ventanaClientes;
+    }
+
+    /**
+     * @return the imprimirClientes
+     */
+    public javax.swing.JMenuItem getImprimirClientes() {
+        return imprimirClientes;
+    }
+
+    /**
+     * @return the imprimirParcial
+     */
+    public javax.swing.JMenuItem getImprimirParcial() {
+        return imprimirParcial;
+    }
+
+    /**
+     * @return the imprimirProductos
+     */
+    public javax.swing.JMenuItem getImprimirProductos() {
+        return imprimirProducto;
     }
 }
