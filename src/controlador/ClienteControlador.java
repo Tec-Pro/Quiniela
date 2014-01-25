@@ -139,7 +139,7 @@ public class ClienteControlador implements ActionListener {
                 CrearCliente cc = new CrearCliente();
                 CrearClienteControlador ccc = new CrearClienteControlador(cc, abmC);
                                 
-            case "Borrar":
+            case "Eliminar":
                 if (view.getTablaClientes().getSelectedRow() > 0){
                     BorrarCliente bc = new BorrarCliente();
                     BorrarClienteControlador bcc = new BorrarClienteControlador(bc, abmC,(int) view.getTablaClientes().getValueAt(view.getTablaClientes().getSelectedRow(), 0));  
