@@ -34,8 +34,7 @@ public class ClienteGUI extends javax.swing.JFrame {
         panelCliente = new javax.swing.JPanel();
         contTabCli = new javax.swing.JScrollPane();
         tablaClientes = new javax.swing.JTable();
-        botonNuevo = new javax.swing.JButton();
-        botonCambios = new javax.swing.JButton();
+        botonAgregar = new javax.swing.JButton();
         botonEliminar = new javax.swing.JButton();
         botonTransacciones = new javax.swing.JButton();
 
@@ -72,9 +71,7 @@ public class ClienteGUI extends javax.swing.JFrame {
         tablaClientes.getColumnModel().getColumn(0).setPreferredWidth(40);
         tablaClientes.getColumnModel().getColumn(0).setMaxWidth(50);
 
-        botonNuevo.setText("Nuevo");
-
-        botonCambios.setText("Guardar Cambios");
+        botonAgregar.setText("Agregar");
 
         botonEliminar.setText("Eliminar");
 
@@ -90,12 +87,10 @@ public class ClienteGUI extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(panelClienteLayout.createSequentialGroup()
                 .addGap(60, 60, 60)
-                .addComponent(botonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(50, 50, 50)
-                .addComponent(botonCambios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(50, 50, 50)
-                .addComponent(botonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(50, 50, 50)
+                .addComponent(botonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                .addGap(80, 80, 80)
+                .addComponent(botonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                .addGap(80, 80, 80)
                 .addComponent(botonTransacciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(60, 60, 60))
         );
@@ -106,8 +101,7 @@ public class ClienteGUI extends javax.swing.JFrame {
                 .addComponent(contTabCli, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(botonCambios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonTransacciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18))
@@ -163,21 +157,13 @@ public class ClienteGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonCambios;
+    private javax.swing.JButton botonAgregar;
     private javax.swing.JButton botonEliminar;
-    private javax.swing.JButton botonNuevo;
     private javax.swing.JButton botonTransacciones;
     private javax.swing.JScrollPane contTabCli;
     private javax.swing.JPanel panelCliente;
     private javax.swing.JTable tablaClientes;
     // End of variables declaration//GEN-END:variables
-
-    /**
-     * @return the botonCambios
-     */
-    public javax.swing.JButton getBotonCambios() {
-        return botonCambios;
-    }
 
     /**
      * @return the botonEliminar
@@ -189,8 +175,8 @@ public class ClienteGUI extends javax.swing.JFrame {
     /**
      * @return the botonNuevo
      */
-    public javax.swing.JButton getBotonNuevo() {
-        return botonNuevo;
+    public javax.swing.JButton getBotonAgregar() {
+        return botonAgregar;
     }
 
     /**

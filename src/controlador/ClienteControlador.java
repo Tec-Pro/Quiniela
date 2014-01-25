@@ -46,7 +46,7 @@ public class ClienteControlador implements ActionListener {
     
     private void iniciar(){
         view.setVisible(true);
-        view.getBotonNuevo().addActionListener(this);
+        view.getBotonAgregar().addActionListener(this);
         view.getBotonEliminar().addActionListener(this);
         view.getBotonTransacciones().addActionListener(this);
         view.getTablaClientes().addMouseListener(new MouseAdapter() {
@@ -142,8 +142,7 @@ public class ClienteControlador implements ActionListener {
             case "Borrar":
                 if (view.getTablaClientes().getSelectedRow() > 0){
                     BorrarCliente bc = new BorrarCliente();
-                    BorrarClienteControlador bcc = new BorrarClienteControlador(bc, abmC,(int) view.getTablaClientes().getValueAt(view.getTablaClientes().getSelectedRow(), 0));
-                    
+                    BorrarClienteControlador bcc = new BorrarClienteControlador(bc, abmC,(int) view.getTablaClientes().getValueAt(view.getTablaClientes().getSelectedRow(), 0));  
                 }
             case "Transacciones":
                 if (view.getTablaClientes().getSelectedRow() > 0){

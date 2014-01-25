@@ -54,12 +54,10 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                  <Component id="botonNuevo" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                  <Component id="botonCambios" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                  <Component id="botonEliminar" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="botonAgregar" pref="120" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                  <Component id="botonEliminar" pref="120" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                   <Component id="botonTransacciones" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
               </Group>
@@ -72,8 +70,7 @@
                   <Component id="contTabCli" pref="217" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="botonNuevo" alignment="3" max="32767" attributes="0"/>
-                      <Component id="botonCambios" alignment="3" max="32767" attributes="0"/>
+                      <Component id="botonAgregar" alignment="3" max="32767" attributes="0"/>
                       <Component id="botonEliminar" alignment="3" max="32767" attributes="0"/>
                       <Component id="botonTransacciones" alignment="3" max="32767" attributes="0"/>
                   </Group>
@@ -140,14 +137,9 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="botonNuevo">
+        <Component class="javax.swing.JButton" name="botonAgregar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nuevo"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="botonCambios">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Guardar Cambios"/>
+            <Property name="text" type="java.lang.String" value="Agregar"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="botonEliminar">
