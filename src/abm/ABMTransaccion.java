@@ -6,8 +6,11 @@ package abm;
 
 import java.math.BigDecimal;
 import models.Caja;
+import models.Cliente;
 import models.Transaccion;
+import models.Usuario;
 import org.javalite.activejdbc.Base;
+import org.javalite.activejdbc.Model;
 
 /**
  *
@@ -20,6 +23,8 @@ public class ABMTransaccion {
     private BigDecimal monto;
     private int visible;
     private int caja_id;
+    private int usuario_id;
+    private int cliente_id;
 
     /**
      * @return the motivo
@@ -101,24 +106,47 @@ public class ABMTransaccion {
      * @param usuario
      * @return true si la transacción fue creada con éxito.
      */
-    public boolean altaTransaccion(String motivo, String tipo, BigDecimal monto, int visible, int caja, int usuario) {
+    public boolean altaTransaccion(String motivo, String tipo, BigDecimal monto, int visible, int caja, int cliente, int usuario) {
         Caja c = Caja.findById(caja);
+        Cliente cl = Cliente.findById(cliente);
+        //Usuario u = Usuario.findById(usuario);
         if (c != null) {
+            if (cl != null){
             Base.openTransaction();
             if (monto.signum() == -1) {
-                System.out.println("Signo" + monto.signum());
                 BigDecimal montoCaja = c.getBigDecimal("saldo");
-                System.out.println("Lo que hay en caja" + montoCaja);
-                System.out.println("Comparacion" + montoCaja.compareTo(monto));
                 if (montoCaja.compareTo(monto.negate()) == -1) {
-                    System.out.println("Comparacion" + montoCaja.compareTo(monto));
-                    System.out.println("If Compare" + montoCaja);
                     return false;
                 }
             }
             Transaccion nuevo = Transaccion.create("motivo", motivo, "tipo", tipo, "monto", monto, "visible", visible);
             nuevo.saveIt();
             c.add(nuevo);
+            cl.add(nuevo);
+            //u.add(nuevo);
+            ABMCaja abmc = new ABMCaja();
+            abmc.modificarCaja(caja, monto);
+            Base.commitTransaction();
+            return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean altaTransaccion(String motivo, String tipo, BigDecimal monto, int visible, int caja,  int usuario) {
+        Caja c = Caja.findById(caja);
+        //Usuario u = Usuario.findById(usuario);
+        if (c != null) {
+            Base.openTransaction();
+            if (monto.signum() == -1) {
+                BigDecimal montoCaja = c.getBigDecimal("saldo");
+                if (montoCaja.compareTo(monto.negate()) == -1) {
+                    return false;
+                }
+            }
+            Transaccion nuevo = Transaccion.create("motivo", motivo, "tipo", tipo, "monto", monto, "visible", visible);
+            nuevo.saveIt();
+            //u.add(nuevo);
             ABMCaja abmc = new ABMCaja();
             abmc.modificarCaja(caja, monto);
             Base.commitTransaction();
@@ -126,7 +154,7 @@ public class ABMTransaccion {
         }
         return false;
     }
-
+    
     /**
      *
      * @param id
@@ -143,6 +171,34 @@ public class ABMTransaccion {
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return the usuario_id
+     */
+    public int getUsuario_id() {
+        return usuario_id;
+    }
+
+    /**
+     * @param usuario_id the usuario_id to set
+     */
+    public void setUsuario_id(int usuario_id) {
+        this.usuario_id = usuario_id;
+    }
+
+    /**
+     * @return the cliente_id
+     */
+    public int getCliente_id() {
+        return cliente_id;
+    }
+
+    /**
+     * @param cliente_id the cliente_id to set
+     */
+    public void setCliente_id(int cliente_id) {
+        this.cliente_id = cliente_id;
     }
 
 }

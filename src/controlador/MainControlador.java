@@ -5,7 +5,9 @@
 package controlador;
 
 import abm.ABMCaja;
+import abm.ABMCliente;
 import abm.ABMTransaccion;
+import interfaz.ClienteGUI;
 import interfaz.MainGUI;
 import interfaz.ProductoGUI;
 import java.awt.event.ActionEvent;
@@ -39,6 +41,7 @@ public class MainControlador implements ActionListener {
         principal.getAbrirCaja().addActionListener(this);
         principal.getCerrarCaja().addActionListener(this);
         principal.getVentanaProductos().addActionListener(this);
+        principal.getVentanaClientes().addActionListener(this);
         
     }
     
@@ -63,7 +66,7 @@ public class MainControlador implements ActionListener {
                 if (Base.hasConnection()){
                     Base.close();
                 }
-                CajaControlador cc = new CajaControlador(principal.getCaja(),abmt);
+                CajaControlador cc = new CajaControlador(principal.getCaja());
                 break;
             case "Cerrar e Imprimir":
                 principal.dispose();
@@ -71,6 +74,10 @@ public class MainControlador implements ActionListener {
                 break;
             case "VentanaProductos":
                 ProductoControlador pc = new ProductoControlador(new ProductoGUI());
+                break;
+            case "VentanaClientes":
+                ClienteControlador contCli = new ClienteControlador(new ClienteGUI());
+                break;
         }
         
     }

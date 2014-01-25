@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
@@ -50,9 +51,9 @@ public class CajaControlador implements ActionListener, CellEditorListener {
     DepoManual depoManual;
     RetManual retManual;
 
-    public CajaControlador(CajaGUI caja, ABMTransaccion abmt) {
+    public CajaControlador(CajaGUI caja) {
         this.view = caja;
-        this.model = abmt;
+        this.model = new ABMTransaccion();
         iniciar();
     }
 
@@ -129,7 +130,6 @@ public class CajaControlador implements ActionListener, CellEditorListener {
         cajas = Caja.findAll();
         listaProd = Producto.findAll();
         listaCliente = Cliente.findAll();
-
         listaTransaccion = Transaccion.find("caja_id = ?", id_caja);
         cargarProductos();
         cargarCuentas();
@@ -161,13 +161,17 @@ public class CajaControlador implements ActionListener, CellEditorListener {
             abrirBase();
         }
         tablaClientes.setRowCount(0);
-        Iterator<Cliente> it = listaCliente.listIterator();
+        System.out.println(listaCliente);
+        Iterator<Cliente> it = listaCliente.iterator();
+        System.out.println(it);
         while (it.hasNext()) {
             Cliente cli = it.next();
             Object row[] = new Object[2];
             row[0] = cli.get("id");
             row[1] = cli.getString("nombre") + " " + cli.getString("apellido");
-            tablaClientes.addRow(row);
+            if ((cli.get("visible") != null) && (cli.get("visible").equals(1))){
+                tablaClientes.addRow(row);
+            }
         }
         if (Base.hasConnection()) {
             Base.close();
@@ -206,14 +210,12 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                 break;
             case "RETIRO MANUAL":
                 retManual = new RetManual();
-                retManualControlador rmc = new retManualControlador(retManual, model, this);
+                retManualControlador rmc = new retManualControlador(retManual, this);
                 break;
             case "OK":
+                System.out.println(id_cliente);
                 if (tablaDetalles.getRowCount() > 0) {
-                    System.out.println(!view.getClienteSel().getText().equals(""));
-                    System.out.println(view.getClienteSel().getText());
-                    if (!view.getClienteSel().getText().equals("")) {
-                        if (!Base.hasConnection()) {
+                    if (!Base.hasConnection()) {
                             abrirBase();
                         }
                         String motivo = "";
@@ -222,16 +224,21 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                             motivo = motivo + tablaDetalles.getValueAt(i, 1) + " x" + tablaDetalles.getValueAt(i, 2) + "; ";
                         }
                         BigDecimal monto = BigDecimal.valueOf(Double.parseDouble(view.getTotalField().getText()));
-                        model.altaTransaccion(motivo, "Venta", monto, 1, id_caja, 1);
+                        if (!view.getClienteSel().getText().trim().isEmpty()) {
+                            model.altaTransaccion(motivo, "Venta", monto, 1,id_caja, id_cliente, 1);
+                        }else{
+                            model.altaTransaccion(motivo, "Venta", monto, 1,id_caja, 1);
                         actualizarPrecio();
                         if (Base.hasConnection()) {
-                            Base.close();
+                                 Base.close();
                         }
                     }
 
                 }
+            break;
             case "Detalles":
                 System.out.println("Mostrar movidas");
+                break;
         }
         
         cargarTransacciones();

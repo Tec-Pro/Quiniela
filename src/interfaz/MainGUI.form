@@ -11,12 +11,18 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="abrirCaja">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+A"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Abrir Caja"/>
                 <Property name="toolTipText" type="java.lang.String" value="Abre una caja para empezar a registrar transacciones."/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="cerrarCaja">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+C"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cerrar e Imprimir"/>
               </Properties>
             </MenuItem>
@@ -26,6 +32,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cuenta"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="ventanaClientes">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Alt+C"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Detalles de Clientes"/>
+                <Property name="actionCommand" type="java.lang.String" value="VentanaClientes"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="producto">
           <Properties>
@@ -34,6 +51,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="ventanaProductos">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Alt+P"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Abrir ventana de productos"/>
                 <Property name="actionCommand" type="java.lang.String" value="VentanaProductos"/>
               </Properties>

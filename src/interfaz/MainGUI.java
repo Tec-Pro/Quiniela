@@ -42,6 +42,7 @@ public class MainGUI extends javax.swing.JFrame {
         abrirCaja = new javax.swing.JMenuItem();
         cerrarCaja = new javax.swing.JMenuItem();
         cuenta = new javax.swing.JMenu();
+        ventanaClientes = new javax.swing.JMenuItem();
         producto = new javax.swing.JMenu();
         ventanaProductos = new javax.swing.JMenuItem();
         ayuda = new javax.swing.JMenu();
@@ -51,20 +52,29 @@ public class MainGUI extends javax.swing.JFrame {
 
         archivo.setText("Archivo");
 
+        abrirCaja.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         abrirCaja.setText("Abrir Caja");
         abrirCaja.setToolTipText("Abre una caja para empezar a registrar transacciones.");
         archivo.add(abrirCaja);
 
+        cerrarCaja.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         cerrarCaja.setText("Cerrar e Imprimir");
         archivo.add(cerrarCaja);
 
         barraMenu.add(archivo);
 
         cuenta.setText("Cuenta");
+
+        ventanaClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        ventanaClientes.setText("Detalles de Clientes");
+        ventanaClientes.setActionCommand("VentanaClientes");
+        cuenta.add(ventanaClientes);
+
         barraMenu.add(cuenta);
 
         producto.setText("Producto");
 
+        ventanaProductos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
         ventanaProductos.setText("Abrir ventana de productos");
         ventanaProductos.setActionCommand("VentanaProductos");
         producto.add(ventanaProductos);
@@ -107,6 +117,7 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JMenu cuenta;
     private javax.swing.JMenu producto;
     private javax.swing.JTabbedPane tab;
+    private javax.swing.JMenuItem ventanaClientes;
     private javax.swing.JMenuItem ventanaProductos;
     // End of variables declaration//GEN-END:variables
 
@@ -154,5 +165,12 @@ public class MainGUI extends javax.swing.JFrame {
      */
     public javax.swing.JMenuItem getVentanaProductos() {
         return ventanaProductos;
+    }
+
+    /**
+     * @return the ventanaClientes
+     */
+    public javax.swing.JMenuItem getVentanaClientes() {
+        return ventanaClientes;
     }
 }
