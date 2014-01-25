@@ -7,8 +7,10 @@ package quiniela;
 
 import abm.ABMTransaccion;
 import controlador.MainControlador;
+import controlador.UsuarioControlador;
 import controlador.reporteControlador;
 import interfaz.MainGUI;
+import interfaz.UsuarioGUI;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import net.sf.jasperreports.engine.JRException;
@@ -20,6 +22,8 @@ import org.javalite.activejdbc.Base;
  */
 public class Quiniela {
 
+    public static int id_caja;
+    public static int id_usuario;
     /**
      * @param args the command line arguments
      */
@@ -27,9 +31,8 @@ public class Quiniela {
 
 
             Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
-            MainGUI mg = new MainGUI();
-            MainControlador mc = new MainControlador(mg);
-            mc.run();
+            UsuarioGUI ug = new UsuarioGUI();
+            UsuarioControlador uc = new UsuarioControlador(ug);
             Base.close();
         
       }

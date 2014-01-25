@@ -55,7 +55,7 @@ public class ClienteGUI extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, false
+                false, false, false, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -66,12 +66,11 @@ public class ClienteGUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaClientes.getTableHeader().setReorderingAllowed(false);
         contTabCli.setViewportView(tablaClientes);
-        if (tablaClientes.getColumnModel().getColumnCount() > 0) {
-            tablaClientes.getColumnModel().getColumn(0).setMinWidth(30);
-            tablaClientes.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tablaClientes.getColumnModel().getColumn(0).setMaxWidth(50);
-        }
+        tablaClientes.getColumnModel().getColumn(0).setMinWidth(30);
+        tablaClientes.getColumnModel().getColumn(0).setPreferredWidth(40);
+        tablaClientes.getColumnModel().getColumn(0).setMaxWidth(50);
 
         botonNuevo.setText("Nuevo");
 
@@ -90,27 +89,28 @@ public class ClienteGUI extends javax.swing.JFrame {
                 .addComponent(contTabCli)
                 .addContainerGap())
             .addGroup(panelClienteLayout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(botonNuevo)
-                .addGap(63, 63, 63)
-                .addComponent(botonCambios)
-                .addGap(31, 31, 31)
-                .addComponent(botonEliminar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(botonTransacciones)
-                .addGap(55, 55, 55))
+                .addGap(60, 60, 60)
+                .addComponent(botonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
+                .addComponent(botonCambios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
+                .addComponent(botonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
+                .addComponent(botonTransacciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(60, 60, 60))
         );
         panelClienteLayout.setVerticalGroup(
             panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelClienteLayout.createSequentialGroup()
-                .addComponent(contTabCli, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelClienteLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(contTabCli, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonNuevo)
-                    .addComponent(botonCambios)
-                    .addComponent(botonEliminar)
-                    .addComponent(botonTransacciones))
-                .addGap(0, 18, Short.MAX_VALUE))
+                    .addComponent(botonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonCambios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonTransacciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
