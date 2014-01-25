@@ -74,7 +74,7 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
 
     public void cargarProductos() {
         if (!Base.hasConnection()) {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "");
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
         }
         tablaProducto.setRowCount(0);
         listaProd = Producto.where("visible = ?", 1);
@@ -102,7 +102,7 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
     //no funciona
     public void cargarStockFecha() {
         if (!Base.hasConnection()) {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "");
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
         }
         tablaFechaStock.setRowCount(0);
         tablaProducto.setRowCount(0);
@@ -131,7 +131,7 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (!Base.hasConnection()) {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "");
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
             if (ae.getActionCommand().equals("Actualizar")) { //si presiono actualizar
                 cargarProductos(); //actualizo la tabla de productos
             }

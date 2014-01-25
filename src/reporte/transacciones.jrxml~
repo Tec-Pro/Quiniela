@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="transacciones" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c07a23e7-f716-46e4-af64-0e0c999ca9c0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c07a23e7-f716-46e4-af64-0e0c999ca9c0">
 	<property name="ireport.zoom" value="1.7715610000000017"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="37"/>
+	<property name="ireport.y" value="55"/>
 	<parameter name="idCaja" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[SELECT transaccions.id, motivo, tipo, monto, fecha, usuarios.nombre as usuario, clientes.nombre as nombre, clientes.apellido as apellido FROM
+		<![CDATA[SELECT transaccions.id, motivo, tipo, monto, fecha, clientes.nombre as nombre, clientes.apellido as apellido FROM
 transaccions INNER JOIN cajas ON transaccions.caja_id = cajas.id LEFT JOIN
-clientes ON transaccions.cliente_id = clientes.id LEFT JOIN
-usuarios ON transaccions.usuario_id = usuarios.id
+clientes ON transaccions.cliente_id = clientes.id
+
 
 where transaccions.caja_id = $P{idCaja}
 

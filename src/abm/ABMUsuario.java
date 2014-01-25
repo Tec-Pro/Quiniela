@@ -81,7 +81,7 @@ public class ABMUsuario {
         Usuario u;
         u = getUsuario(id);
         if (u!=null){
-            if (u.get("admin")!=0){
+            if (!u.get("admin").equals(0)){
                 return true;
             }
         }
@@ -92,8 +92,8 @@ public class ABMUsuario {
         Usuario u;
         u = Usuario.first("nombre = ?", usuario);
         if (u!=null){
-            if (u.get("nombre")== usuario){
-                if (u.get("pass")==password){
+            if (u.get("nombre").equals(usuario)){
+                if (u.get("pass").equals(password)){
                     return true;
                 }
             }

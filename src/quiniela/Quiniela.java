@@ -13,6 +13,9 @@ import interfaz.MainGUI;
 import interfaz.UsuarioGUI;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import net.sf.jasperreports.engine.JRException;
 import org.javalite.activejdbc.Base;
 
@@ -29,11 +32,13 @@ public class Quiniela {
      */
     public static void main(String[] args) throws JRException, ClassNotFoundException, SQLException {
 
-
+       
+             
             Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
             UsuarioGUI ug = new UsuarioGUI();
             UsuarioControlador uc = new UsuarioControlador(ug);
             Base.close();
         
+
       }
 }

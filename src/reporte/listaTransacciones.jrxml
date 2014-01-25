@@ -1,41 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="transacciones" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c07a23e7-f716-46e4-af64-0e0c999ca9c0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listaTransacciones" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8fec672f-9a7a-429d-b1a1-9899e9e69004">
 	<property name="ireport.zoom" value="1.7715610000000017"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="37"/>
-	<parameter name="idCaja" class="java.lang.Integer"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="motivo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="monto" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="usuario" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nombre" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="apellido" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[SELECT transaccions.id, motivo, tipo, monto, fecha, usuarios.nombre as usuario, clientes.nombre as nombre, clientes.apellido as apellido FROM
-transaccions INNER JOIN cajas ON transaccions.caja_id = cajas.id LEFT JOIN
-clientes ON transaccions.cliente_id = clientes.id LEFT JOIN
-usuarios ON transaccions.usuario_id = usuarios.id
-
-where transaccions.caja_id = $P{idCaja}
-
-Order by id]]>
+		<![CDATA[]]>
 	</queryString>
-	<field name="id" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="motivo" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="tipo" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="monto" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="fecha" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="usuario" class="java.lang.String"/>
-	<field name="nombre" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="apellido" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<background>
 		<band/>
 	</background>
@@ -136,63 +130,39 @@ Order by id]]>
 	<detail>
 		<band height="20">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="e2026034-6e96-458f-b679-dbfb4fd286c2"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="866ce3bf-27c4-4ace-86ad-f129c8bc094a"/>
 			</line>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="0" width="39" height="20" uuid="513d01bd-69f6-4ac4-a480-2af86cbea74e"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			<textField>
+				<reportElement x="2" y="0" width="37" height="20" uuid="66de2497-ec54-4cf3-b8d1-7a39a9e9c3b6"/>
+				<textFieldExpression><![CDATA[$P{id}.toString()]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="39" y="0" width="100" height="20" uuid="b6a5adae-72d4-4feb-beeb-709ae22802b8"/>
-				<textElement textAlignment="Center">
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{motivo}]]></textFieldExpression>
+			<textField>
+				<reportElement x="39" y="0" width="100" height="20" uuid="58b45813-c3c6-4715-9461-f765e6444898"/>
+				<textFieldExpression><![CDATA[$P{motivo}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="176" y="0" width="65" height="20" uuid="e2d1f8b6-f2fa-4ea7-97e0-71f996fa985c"/>
-				<textElement textAlignment="Center">
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+			<textField>
+				<reportElement x="139" y="0" width="37" height="20" uuid="2e8b2493-2eba-4d73-ac0e-b47798861ac3"/>
+				<textFieldExpression><![CDATA[$P{tipo}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-				<reportElement x="241" y="0" width="84" height="20" uuid="f3d681e9-7e95-4dc0-839d-ae45baa6aad2"/>
-				<textElement textAlignment="Center">
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="176" y="0" width="65" height="20" uuid="b8149bce-c2db-4435-8e7d-05f8b0b45199"/>
+				<textFieldExpression><![CDATA[$P{monto}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="411" y="0" width="77" height="20" uuid="ae7b4515-3f3b-45e1-a6e8-ab477582105a"/>
-				<textElement textAlignment="Center">
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="241" y="0" width="84" height="20" uuid="e017ac2c-6af1-418b-8f9a-42375948f468"/>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="325" y="0" width="86" height="20" uuid="5100216e-e186-4b07-955e-b3c23c4f166f"/>
-				<textElement textAlignment="Center">
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+			<textField>
+				<reportElement x="325" y="0" width="86" height="20" uuid="01d1a901-7a84-4f86-9c81-403814f5f76a"/>
+				<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="139" y="0" width="37" height="20" uuid="eb87e992-f5a9-4c3f-b57a-fb045fdd34a9"/>
-				<textElement textAlignment="Center">
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+			<textField isBlankWhenNull="true">
+				<reportElement x="411" y="0" width="77" height="20" uuid="38dff995-0b2f-4132-977b-b127e1fb4998"/>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="488" y="0" width="67" height="20" uuid="27913c32-9dc7-42fa-a4f7-776d1a145bfb"/>
-				<textElement textAlignment="Center">
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
+			<textField isBlankWhenNull="true">
+				<reportElement x="488" y="0" width="67" height="20" uuid="73e328b3-8127-4c3f-a165-beeafaa7f575"/>
+				<textFieldExpression><![CDATA[$P{apellido}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

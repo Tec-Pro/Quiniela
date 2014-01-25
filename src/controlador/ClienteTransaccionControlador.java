@@ -42,8 +42,6 @@ public class ClienteTransaccionControlador implements ActionListener {
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
         tablaTransacciones.setRowCount(0);
         listaTransacciones = Transaccion.find(" cliente_id = ?", id);
-        System.out.println(listaTransacciones);
-        System.out.println(Quiniela.id_caja);
         Iterator<Transaccion> it = listaTransacciones.iterator();
         while(it.hasNext()){
             Transaccion t = it.next();

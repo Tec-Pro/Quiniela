@@ -148,7 +148,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
             Object row[] = new Object[3];
             row[0] = p.get("id");
             row[1] = p.getString("nombre");
-            row[2] = p.get("stock");
+            //row[2] = p.get("stock");
             tablaArticulos.addRow(row);
         }
         if (Base.hasConnection()) {
@@ -224,10 +224,11 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                         }
                         BigDecimal monto = BigDecimal.valueOf(Double.parseDouble(view.getTotalField().getText()));
                         if (!view.getClienteSel().getText().trim().isEmpty()) {
-                            model.altaTransaccion(motivo, "Venta", monto, 1,id_caja, id_cliente, 1);
+                            model.altaTransaccion(motivo, "Venta", monto, 1,id_caja, id_cliente, Quiniela.id_usuario);
+                            view.getClienteSel().setText("");
                         }else{
                             System.out.println(id_caja);
-                            model.altaTransaccion(motivo, "Venta", monto, 1,id_caja, 1);
+                            model.altaTransaccion(motivo, "Venta", monto, 1,id_caja, Quiniela.id_usuario);
                         actualizarPrecio();
                         if (Base.hasConnection()) {
                                  Base.close();

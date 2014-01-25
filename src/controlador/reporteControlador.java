@@ -7,8 +7,10 @@ package controlador;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -40,6 +42,11 @@ public class reporteControlador {
         connection.close();
     }
     
+    public void mostrarReporte(Map parametros) throws ClassNotFoundException, SQLException, JRException {
+        System.out.println(parametros);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, new    JREmptyDataSource());
+        JasperViewer.viewReport(jasperPrint, false);
+    }
     public void mostrarLista() throws ClassNotFoundException, SQLException, JRException {
         Class.forName("com.mysql.jdbc.Driver");
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/quiniela", "root", "root");

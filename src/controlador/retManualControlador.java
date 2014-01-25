@@ -60,17 +60,8 @@ public class retManualControlador implements ActionListener {
                 if (retM.motivoRepMan.getText().trim().isEmpty()) {
                     JOptionPane.showMessageDialog(retM, "Error: Falta especificar motivo");
                 } else {
-                    if (abmTrans.altaTransaccion(motivo, "Retiro Manual", monto.negate(), 1, id_caja, 1) == false) {
-                        JFrame error = new JFrame();
-                        JPanel panel = new JPanel();
-                        error.setTitle("Error");
-                        JLabel mensaje = new JLabel();
-                        mensaje.setText("No hay fondos suficientes para realizar este retiro");
-                        panel.add(mensaje);
-                        error.add(panel);
-                        error.setSize(320, 240);
-                        error.setLocationRelativeTo(null);
-                        error.setVisible(true);
+                    if (abmTrans.altaTransaccion(motivo, "Ret. Man", monto.negate(), 1, id_caja, Quiniela.id_usuario) == false) {
+                        JOptionPane.showMessageDialog(retM, "No hay fondos suficientes para realizar este retiro");
                     }
                     cc.cargarTransacciones();
                     retM.dispose();

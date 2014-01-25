@@ -37,6 +37,7 @@ public class MainControlador implements ActionListener {
     
     private void iniciar(){
         principal.setTitle("Gestión de Quiniela");
+        principal.setVisible(true);
         principal.setLocationRelativeTo(null);//centrado en pantalla
         principal.setExtendedState(principal.MAXIMIZED_BOTH);//estado maximizado
         //se añade las acciones a los controles del formulario padre

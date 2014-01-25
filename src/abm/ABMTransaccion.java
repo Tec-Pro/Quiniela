@@ -109,7 +109,7 @@ public class ABMTransaccion {
     public boolean altaTransaccion(String motivo, String tipo, BigDecimal monto, int visible, int caja, int cliente, int usuario) {
         Caja c = Caja.findById(caja);
         Cliente cl = Cliente.findById(cliente);
-        //Usuario u = Usuario.findById(usuario);
+        Usuario u = Usuario.findById(usuario);
         if (c != null) {
             if (cl != null){
             Base.openTransaction();
@@ -123,7 +123,7 @@ public class ABMTransaccion {
             nuevo.saveIt();
             c.add(nuevo);
             cl.add(nuevo);
-            //u.add(nuevo);
+            u.add(nuevo);
             ABMCaja abmc = new ABMCaja();
             abmc.modificarCaja(caja, monto);
             Base.commitTransaction();
@@ -135,7 +135,7 @@ public class ABMTransaccion {
 
     public boolean altaTransaccion(String motivo, String tipo, BigDecimal monto, int visible, int caja,  int usuario) {
         Caja c = Caja.findById(caja);
-        //Usuario u = Usuario.findById(usuario);
+        Usuario u = Usuario.findById(usuario);
         if (c != null) {
             Base.openTransaction();
             if (monto.signum() == -1) {
@@ -147,7 +147,7 @@ public class ABMTransaccion {
             Transaccion nuevo = Transaccion.create("motivo", motivo, "tipo", tipo, "monto", monto, "visible", visible);
             nuevo.saveIt();
             c.add(nuevo);
-            //u.add(nuevo);
+            u.add(nuevo);
             ABMCaja abmc = new ABMCaja();
             abmc.modificarCaja(caja, monto);
             Base.commitTransaction();
