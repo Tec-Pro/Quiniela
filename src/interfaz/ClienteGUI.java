@@ -1,25 +1,25 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package interfaz;
 
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author max
+ * @author joako
  */
-public class ClienteGUI extends javax.swing.JPanel {
-  
+public class ClienteGUI extends javax.swing.JFrame {
     private DefaultTableModel tablaClienteDef;
-    
     /**
-     * Creates new form ClienteGUI
+     * Creates new form ClienteGUI1
      */
     public ClienteGUI() {
-        tablaClienteDef= (DefaultTableModel) tablaCliente.getModel();
-        initComponents();      
+        initComponents();
+        tablaClienteDef = (DefaultTableModel) tablaClientes.getModel();
     }
 
     /**
@@ -32,29 +32,30 @@ public class ClienteGUI extends javax.swing.JPanel {
     private void initComponents() {
 
         panelCliente = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaCliente = new javax.swing.JTable();
-        buttonTransacciones = new javax.swing.JButton();
-        buttonAgregar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        contTabCli = new javax.swing.JScrollPane();
+        tablaClientes = new javax.swing.JTable();
+        botonNuevo = new javax.swing.JButton();
+        botonCambios = new javax.swing.JButton();
+        botonEliminar = new javax.swing.JButton();
+        botonTransacciones = new javax.swing.JButton();
 
-        panelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        panelCliente.setName(""); // NOI18N
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tablaCliente.setModel(new javax.swing.table.DefaultTableModel(
+        panelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 0, 14))); // NOI18N
+
+        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Nombre", "Apellido", "Deber", "Saldo", "Haber"
+                "ID", "Nombre", "Apellido", "Debe", "Haber", "Saldo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, true
+                false, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -65,101 +66,145 @@ public class ClienteGUI extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tablaCliente.setColumnSelectionAllowed(true);
-        tablaCliente.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tablaCliente);
-        tablaCliente.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tablaCliente.getColumnModel().getColumn(4).setPreferredWidth(10);
-        tablaCliente.getColumnModel().getColumn(5).setPreferredWidth(10);
+        contTabCli.setViewportView(tablaClientes);
+        if (tablaClientes.getColumnModel().getColumnCount() > 0) {
+            tablaClientes.getColumnModel().getColumn(0).setMinWidth(30);
+            tablaClientes.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tablaClientes.getColumnModel().getColumn(0).setMaxWidth(50);
+        }
 
-        jScrollPane2.setViewportView(jScrollPane1);
+        botonNuevo.setText("Nuevo");
+
+        botonCambios.setText("Guardar Cambios");
+
+        botonEliminar.setText("Eliminar");
+
+        botonTransacciones.setText("Transacciones");
 
         javax.swing.GroupLayout panelClienteLayout = new javax.swing.GroupLayout(panelCliente);
         panelCliente.setLayout(panelClienteLayout);
         panelClienteLayout.setHorizontalGroup(
             panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addGroup(panelClienteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(contTabCli)
+                .addContainerGap())
+            .addGroup(panelClienteLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(botonNuevo)
+                .addGap(63, 63, 63)
+                .addComponent(botonCambios)
+                .addGap(31, 31, 31)
+                .addComponent(botonEliminar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(botonTransacciones)
+                .addGap(55, 55, 55))
         );
         panelClienteLayout.setVerticalGroup(
             panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+            .addGroup(panelClienteLayout.createSequentialGroup()
+                .addComponent(contTabCli, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonNuevo)
+                    .addComponent(botonCambios)
+                    .addComponent(botonEliminar)
+                    .addComponent(botonTransacciones))
+                .addGap(0, 18, Short.MAX_VALUE))
         );
 
-        buttonTransacciones.setText("Transacciones");
-
-        buttonAgregar.setText("Agregar");
-
-        jButton2.setText("Borrar");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(80, Short.MAX_VALUE)
-                .addComponent(buttonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addComponent(buttonTransacciones, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonTransacciones, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+            .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        panelCliente.getAccessibleContext().setAccessibleName("");
-        panelCliente.getAccessibleContext().setAccessibleDescription("");
+        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ClienteGUI().setVisible(true);
+            }
+        });
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonAgregar;
-    private javax.swing.JButton buttonTransacciones;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton botonCambios;
+    private javax.swing.JButton botonEliminar;
+    private javax.swing.JButton botonNuevo;
+    private javax.swing.JButton botonTransacciones;
+    private javax.swing.JScrollPane contTabCli;
     private javax.swing.JPanel panelCliente;
-    private javax.swing.JTable tablaCliente;
+    private javax.swing.JTable tablaClientes;
     // End of variables declaration//GEN-END:variables
 
     /**
-     * @return the buttonBorrar
+     * @return the botonCambios
      */
-    public javax.swing.JButton getButtonBorrar() {
-        return buttonTransacciones;
+    public javax.swing.JButton getBotonCambios() {
+        return botonCambios;
     }
 
     /**
-     * @return the buttonAgregar
+     * @return the botonEliminar
      */
-    public javax.swing.JButton getButtonAgregar() {
-        return buttonAgregar;
+    public javax.swing.JButton getBotonEliminar() {
+        return botonEliminar;
     }
 
     /**
-     * @return the tablaCliente
+     * @return the botonNuevo
      */
-    public javax.swing.JTable getTablaCliente() {
-        return tablaCliente;
+    public javax.swing.JButton getBotonNuevo() {
+        return botonNuevo;
     }
-    
+
     /**
-     * @return the buttonTransacciones
+     * @return the botonTransacciones
      */
-    public javax.swing.JButton getButtonTransacciones() {
-        return buttonTransacciones;
+    public javax.swing.JButton getBotonTransacciones() {
+        return botonTransacciones;
+    }
+
+    /**
+     * @return the tablaClientes
+     */
+    public javax.swing.JTable getTablaClientes() {
+        return tablaClientes;
     }
 
     /**
@@ -168,12 +213,4 @@ public class ClienteGUI extends javax.swing.JPanel {
     public DefaultTableModel getTablaClienteDef() {
         return tablaClienteDef;
     }
-
-    /**
-     * @param tablaClienteDef the tablaClienteDef to set
-     */
-    public void setTablaClienteDef(DefaultTableModel tablaClienteDef) {
-        this.tablaClienteDef = tablaClienteDef;
-    }
-    
 }
