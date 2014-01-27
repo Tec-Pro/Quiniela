@@ -27,6 +27,7 @@ public class MainControlador implements ActionListener {
     
     private MainGUI principal;
     private ABMCaja abmc;
+    private CajaControlador cc;
     
     //Formularios Hijos
     
@@ -51,7 +52,10 @@ public class MainControlador implements ActionListener {
         principal.getImprimirClientes().addActionListener(this);
         principal.getImprimirParcial().addActionListener(this);
         principal.getImprimirProductos().addActionListener(this);
+        principal.getProducto().setEnabled(false);
+        principal.getCuenta().setEnabled(false);
         abmc = new ABMCaja();
+        cc = null;
     }
     
     public void run(){
@@ -75,8 +79,10 @@ public class MainControlador implements ActionListener {
                     if (Base.hasConnection()){
                         Base.close();
                     }
-                    CajaControlador cc = new CajaControlador(principal.getCaja());
+                    cc = new CajaControlador(principal.getCaja());
                     principal.getImprimirParcial().setEnabled(true);
+                    principal.getCuenta().setEnabled(true);
+                    principal.getProducto().setEnabled(true);
                     break;
                 case "Cerrar e Imprimir":
                     reporteControlador rc = new reporteControlador("transacciones.jasper");
@@ -111,10 +117,10 @@ public class MainControlador implements ActionListener {
                     rcProd.mostrarLista();
                     break;
                 case "VentanaProductos":
-                    ProductoControlador pc = new ProductoControlador(new ProductoGUI());
+                    ProductoControlador pc = new ProductoControlador(new ProductoGUI(), cc);
                     break;
                 case "VentanaClientes":
-                    ClienteControlador contCli = new ClienteControlador(new ClienteGUI());
+                    ClienteControlador contCli = new ClienteControlador(new ClienteGUI(), cc);
                     break;
             }
         } catch (JRException ex) {

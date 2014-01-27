@@ -33,10 +33,18 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
     private DefaultTableModel tablaFechaStock;
     private List<Producto> listaProd;
     private List<Fecha> listaFS;
+    private CajaControlador cc;
 
     public ProductoControlador(ProductoGUI producto) {
         this.view = producto;
         iniciar();
+    }
+
+    ProductoControlador(ProductoGUI productoGUI, CajaControlador cajaControlador) {
+        this.view = productoGUI;
+        this.cc = cajaControlador;
+        iniciar();
+    
     }
 
     private void iniciar() {
@@ -59,10 +67,8 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
         view.getTablaProductos().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    view.getProdModificar().setEnabled(true);
-                }
                 if (e.getClickCount() == 1) {
+                    view.getProdModificar().setEnabled(true);
                     view.getProdEliminar().setEnabled(true);
                 }
             }
@@ -141,6 +147,7 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
             }
             if (ae.getActionCommand().equals("Nuevo")) { //si presiono nuevo
                 Object row[] = new Object[6];//creo una fila nueva vacia
+                view.getProdModificar().setEnabled(true);
                 tablaProducto.addRow(row);
             }
             if (ae.getActionCommand().equals("Modificar")) { //si presiono guardar cambios en una fila
@@ -190,9 +197,11 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
                         (String) tablaFechaStock.getValueAt(view.getTablaStockFecha().getSelectedRow(), 1));
             }
         }
+        
         if (Base.hasConnection()) {
             Base.close();
         }
+        cc.cargarProductos();
     }
 
     @Override

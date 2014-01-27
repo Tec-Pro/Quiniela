@@ -223,4 +223,11 @@ public class MainGUI extends javax.swing.JFrame {
     public javax.swing.JMenuItem getImprimirProductos() {
         return imprimirProducto;
     }
+
+    /**
+     * @return the cuenta
+     */
+    public javax.swing.JMenu getCuenta() {
+        return cuenta;
+    }
 }

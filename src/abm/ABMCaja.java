@@ -17,36 +17,7 @@ import quiniela.Quiniela;
  * @author joako
  */
 public class ABMCaja {
-    private Timestamp fecha;
-    private BigDecimal saldo;
     private List<Caja> cajas;
-    /**
-     * @return the fecha
-     */
-    public Timestamp getFecha() {
-        return fecha;
-    }
-
-    /**
-     * @param fecha the fecha to set
-     */
-    public void setFecha(Timestamp fecha) {
-        this.fecha = fecha;
-    }
-
-    /**
-     * @return the saldo
-     */
-    public BigDecimal getSaldo() {
-        return saldo;
-    }
-
-    /**
-     * @param saldo the saldo to set
-     */
-    public void setSaldo(BigDecimal saldo) {
-        this.saldo = saldo;
-    }
     
     /**
      * @param fecha de creación de la caja.
@@ -94,11 +65,7 @@ public class ABMCaja {
         if (mod != null){
             if (mod.getInteger("visible")==1){
                 Base.openTransaction();
-                if (n.signum() == 1){ 
-                    mod.set("saldo",mod.getBigDecimal("saldo").add(n));
-                } if (n.signum() ==-1){
-                    mod.set("saldo",mod.getBigDecimal("saldo").add(n));
-                } 
+                mod.set("saldo",mod.getBigDecimal("saldo").add(n));
                 mod.saveIt();
                 Base.commitTransaction();
             return true;

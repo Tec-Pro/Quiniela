@@ -106,21 +106,9 @@ public class ABMCliente {
      * @return true si el cliente se creo con exito, false si ya existía o introdujo datos erroneos
      *
      */
-    public boolean altaCliente(String nombre, String apellido, BigDecimal deber, BigDecimal saldo, BigDecimal haber){
+    public boolean altaCliente(String nombre, String apellido){
         Base.openTransaction();
-        if (deber.signum()==-1){
-            System.out.println("No se aceptan numeros negativos");   
-            return false;
-        }
-        if (saldo.signum()==-1){
-            System.out.println("No se aceptan numeros negativos");  
-            return false;
-        }
-        if (haber.signum()==-1){
-            System.out.println("No se aceptan numeros negativos");   
-            return false;
-        }
-        Cliente nuevo = Cliente.create("nombre",nombre,"apellido",apellido,"deber",deber,"saldo",saldo,"haber",haber,"visible",1);
+        Cliente nuevo = Cliente.create("nombre",nombre,"apellido",apellido,"visible",1);
         nuevo.saveIt();
         Base.commitTransaction();
         return true;

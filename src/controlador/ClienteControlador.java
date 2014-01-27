@@ -36,11 +36,19 @@ public class ClienteControlador implements ActionListener {
     private ClienteGUI view;
     private ABMCliente abmC;
     private ABMTransaccion abmT;
+    private CajaControlador cc;
     private List<Cliente> listaClientes;
 
     public ClienteControlador(ClienteGUI clienteGui){
         this.view = clienteGui;
         this.abmC = new ABMCliente();
+        iniciar();
+    }
+
+    ClienteControlador(ClienteGUI clienteGUI, CajaControlador cc) {
+        this.view = clienteGUI;
+        this.abmC = new ABMCliente();
+        this.cc = cc;
         iniciar();
     }
     
@@ -81,8 +89,8 @@ public class ClienteControlador implements ActionListener {
             row[1] = c.getString("nombre");
             row[2] = c.get("apellido");
             row[3] = c.get("deber");
-            row[4] = c.get("saldo");
-            row[5] = c.get("haber");
+            row[4] = c.get("haber");
+            row[5] = c.get("saldo");
             tablaClientes.addRow(row);
         }
         Base.close();
@@ -136,20 +144,23 @@ public class ClienteControlador implements ActionListener {
         String comando = e.getActionCommand();
         switch (comando) {
             case "Agregar":
-                CrearCliente cc = new CrearCliente();
-                CrearClienteControlador ccc = new CrearClienteControlador(cc, abmC);
-                                
+                CrearCliente crearCliente = new CrearCliente();
+                CrearClienteControlador ccc = new CrearClienteControlador(crearCliente, abmC);
+                break;                
             case "Eliminar":
                 if (view.getTablaClientes().getSelectedRow() > 0){
                     BorrarCliente bc = new BorrarCliente();
                     BorrarClienteControlador bcc = new BorrarClienteControlador(bc, abmC,(int) view.getTablaClientes().getValueAt(view.getTablaClientes().getSelectedRow(), 0));  
                 }
+                break;
             case "Transacciones":
                 if (view.getTablaClientes().getSelectedRow() > 0){
                     ClienteTransaccion ct = new ClienteTransaccion();
                     ClienteTransaccionControlador ctc = new ClienteTransaccionControlador(ct, (int) view.getTablaClientes().getValueAt(view.getTablaClientes().getSelectedRow(), 0));
                     ctc.run((String) tablaClientes.getValueAt(view.getTablaClientes().getSelectedRow(), 1)+" "+tablaClientes.getValueAt(view.getTablaClientes().getSelectedRow(), 1)); 
                 }
+                break;
         }
+        cc.cargarCuentas();
     }
 }

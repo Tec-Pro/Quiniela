@@ -140,7 +140,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
         if (!Base.hasConnection()) {
             abrirBase();
         }
-
+        listaProd = Producto.findAll();
         tablaArticulos.setRowCount(0);
         Iterator<Producto> it = listaProd.iterator();
         while (it.hasNext()) {
@@ -149,7 +149,9 @@ public class CajaControlador implements ActionListener, CellEditorListener {
             row[0] = p.get("id");
             row[1] = p.getString("nombre");
             //row[2] = p.get("stock");
-            tablaArticulos.addRow(row);
+            if (p.get("visible").equals(1)){
+                tablaArticulos.addRow(row);
+            }
         }
         if (Base.hasConnection()) {
             Base.close();
@@ -160,8 +162,9 @@ public class CajaControlador implements ActionListener, CellEditorListener {
         if (!Base.hasConnection()) {
             abrirBase();
         }
+        
         tablaClientes.setRowCount(0);
-        System.out.println(listaCliente);
+        listaCliente = Cliente.findAll();
         Iterator<Cliente> it = listaCliente.iterator();
         System.out.println(it);
         while (it.hasNext()) {
@@ -169,7 +172,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
             Object row[] = new Object[2];
             row[0] = cli.get("id");
             row[1] = cli.getString("nombre") + " " + cli.getString("apellido");
-            if ((cli.get("visible") != null) && (cli.get("visible").equals(1))){
+            if ((cli.get("visible").equals(1))){
                 tablaClientes.addRow(row);
             }
         }
