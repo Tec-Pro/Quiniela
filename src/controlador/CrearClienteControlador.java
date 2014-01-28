@@ -39,7 +39,7 @@ public class CrearClienteControlador implements ActionListener {
         BigDecimal saldo = new BigDecimal(crearC.getTextSaldo().toString());
         BigDecimal haber = new BigDecimal(crearC.getTextHaber().toString());
         
-        abmC.altaCliente(nombre, apellido, deber, saldo, haber);
+        abmC.altaCliente(nombre, apellido);
         
         if (Base.hasConnection()) {
             Base.close();
