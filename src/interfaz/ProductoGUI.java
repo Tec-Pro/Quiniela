@@ -80,10 +80,8 @@ public final class ProductoGUI extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(TablaProductos);
-        if (TablaProductos.getColumnModel().getColumnCount() > 0) {
-            TablaProductos.getColumnModel().getColumn(4).setCellEditor(TablaProductos.getDefaultEditor(Boolean.class));
-            TablaProductos.getColumnModel().getColumn(4).setCellRenderer(TablaProductos.getDefaultRenderer(Boolean.class));
-        }
+        TablaProductos.getColumnModel().getColumn(4).setCellEditor(TablaProductos.getDefaultEditor(Boolean.class));
+        TablaProductos.getColumnModel().getColumn(4).setCellRenderer(TablaProductos.getDefaultRenderer(Boolean.class));
 
         ProdNuevo.setText("Nuevo");
         ProdNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +131,7 @@ public final class ProductoGUI extends javax.swing.JFrame {
         jLabel2.setText("Detalles de:");
 
         Insertar.setText("Insertar");
+        Insertar.setEnabled(false);
         Insertar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InsertarActionPerformed(evt);
@@ -140,6 +139,7 @@ public final class ProductoGUI extends javax.swing.JFrame {
         });
 
         Quitar.setText("Quitar");
+        Quitar.setEnabled(false);
         Quitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 QuitarActionPerformed(evt);

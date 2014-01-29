@@ -14,6 +14,8 @@ import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
@@ -70,6 +72,7 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
                 if (e.getClickCount() == 1) {
                     view.getProdModificar().setEnabled(true);
                     view.getProdEliminar().setEnabled(true);
+                    cargarStockFecha((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(),0));
                 }
             }
         });
@@ -106,22 +109,31 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
     }
 
     //no funciona
-    public void cargarStockFecha() {
+    public void cargarStockFecha(int id) {
         if (!Base.hasConnection()) {
             Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
         }
-        tablaFechaStock.setRowCount(0);
-        tablaProducto.setRowCount(0);
-        int id = (int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(),0);
-        listaFS = Fecha.where("producto_id = ?", id);
-        Iterator<Fecha> itr = listaFS.iterator();
-        while (itr.hasNext()) {
-            Fecha p = itr.next();
-            Object row[] = new Object[2];
-            row[0] = p.getInteger("stock");
-            row[1] = p.getString("diaSorteo");
-            tablaFechaStock.addRow(row);
+        if (!(tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(),4)==false)){
+            view.getInsertar().setEnabled(true);
+            view.getQuitar().setEnabled(true);
+            tablaFechaStock.setRowCount(0);
+            listaFS = Fecha.where("producto_id = ?", id);
+            Iterator<Fecha> itr = listaFS.iterator();
+            while (itr.hasNext()) {
+                Fecha p = itr.next();
+                Object row[] = new Object[2];
+                row[0] = p.getInteger("stock");
+                row[1] = p.getString("diaSorteo");
+                tablaFechaStock.addRow(row);
+            }
+            tablaFechaStock.addRow(new Object[2]);
         }
+        else{
+            view.getInsertar().setEnabled(false);
+            view.getQuitar().setEnabled(false);
+        }
+        
+
         if (Base.hasConnection()) {
             Base.close();
         }
