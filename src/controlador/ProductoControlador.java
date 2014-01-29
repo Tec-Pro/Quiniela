@@ -153,6 +153,11 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
             if (ae.getActionCommand().equals("Actualizar")) { //si presiono actualizar
                 cargarProductos(); //actualizo la tabla de productos
             }
+            if (ae.getActionCommand().equals("Quitar")) { //si presiono quitar
+                abmp.bajaStockFecha((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0),
+                        (int) tablaFechaStock.getValueAt(view.getTablaStockFecha().getSelectedRow(), 0),
+                        (String) tablaFechaStock.getValueAt(view.getTablaStockFecha().getSelectedRow(), 1)); 
+            }
             if (ae.getActionCommand().equals("Eliminar")) { //si presiono eliminar
                 abmp.bajaProducto((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0)); //saco el id de la fila en la primer columna
                 cargarProductos();

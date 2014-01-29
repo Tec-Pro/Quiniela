@@ -16,57 +16,7 @@ import org.javalite.activejdbc.Base;
  */
 public class ABMProducto {
 
-    private String nombre;
-    private BigDecimal precio;
-    private int hayStock;
-    private BigDecimal comision;
-    private int visible;
 
-    public ABMProducto(String nombre, BigDecimal precio, BigDecimal comision, int visible) {
-        this.nombre = nombre;
-        this.precio = precio;
-        this.comision = comision;
-        this.visible = visible;
-    }
-
-    public ABMProducto() {
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public BigDecimal getPrecio() {
-        return precio;
-    }
-
-
-    public BigDecimal getComision() {
-        return comision;
-    }
-
-
-    public int getVisible() {
-        return visible;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setPrecio(BigDecimal precio) {
-        this.precio = precio;
-    }
-
-
-    public void setComision(BigDecimal comision) {
-        this.comision = comision;
-    }
-
-
-    public void setVisible(int visible) {
-        this.visible = visible;
-    }
 
     public boolean altaProducto(String nombre, BigDecimal precio, BigDecimal comision, int hayStock) {
         boolean result;
@@ -119,6 +69,23 @@ public class ABMProducto {
         Fecha fechaStock = Fecha.create("stock",stock,"diaSorteo",diaSorteo);
         fechaStock.saveIt();
         prod.add(fechaStock);
+    }
+    
+    public boolean bajaStockFecha(int idProd, int stock, String diaSorteo){
+        boolean result;
+        Base.openTransaction();
+        Fecha fecha = Fecha.first("stock = ? and diaSorteo= ? and producto_id= ?",stock,diaSorteo,idProd);
+        if (fecha!=null){
+            fecha.delete();
+            result = true;
+            System.out.print("Producto eliminado satisfactoriamente");
+        } else {
+            result = false;
+            System.out.print("Producto no encontrado en Base de Datos");
+        }
+        System.out.println(result);
+        Base.commitTransaction();
+        return result;
     }
     
 }
