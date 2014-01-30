@@ -130,4 +130,11 @@ public class ClienteTransaccion extends javax.swing.JFrame {
     public javax.swing.JButton getButtonAceptar() {
         return buttonAceptar;
     }
+
+    /**
+     * @return the tablaTransaccionDef
+     */
+    public DefaultTableModel getTablaTransaccionDef() {
+        return tablaTransaccionDef;
+    }
 }

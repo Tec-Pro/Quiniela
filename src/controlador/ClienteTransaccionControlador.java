@@ -23,14 +23,13 @@ public class ClienteTransaccionControlador implements ActionListener {
     
     private DefaultTableModel tablaTransacciones;
     private List<Transaccion> listaTransacciones;
-    private int idCliente;
     private ClienteTransaccion clienteT;
     
     public ClienteTransaccionControlador(ClienteTransaccion ct,int id){
         clienteT = ct;
-        idCliente = id;
         clienteT.getButtonAceptar().addActionListener(this);
-        cargarTransacciones(idCliente);
+        tablaTransacciones = clienteT.getTablaTransaccionDef();
+        cargarTransacciones(id);
     }
     
     public void run(String nombre){
