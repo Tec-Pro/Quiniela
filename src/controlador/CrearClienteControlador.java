@@ -9,6 +9,7 @@ import interfaz.CrearCliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import javax.swing.JOptionPane;
 import org.javalite.activejdbc.Base;
 
 /**
@@ -52,6 +53,8 @@ public class CrearClienteControlador implements ActionListener {
         switch (comando) {
             case "Confirmar":
                 if (crearC.getTextNombre() == null || crearC.getTextApellido() == null){
+                    JOptionPane.showInputDialog("Error: Uno de los Campos Obligatorios esta vacío");
+                }else{
                     agregar();
                     crearC.dispose();
                 }
