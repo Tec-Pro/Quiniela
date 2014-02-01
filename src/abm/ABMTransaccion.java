@@ -5,8 +5,11 @@
 package abm;
 
 import java.math.BigDecimal;
+import java.util.List;
 import models.Caja;
 import models.Cliente;
+import models.Producto;
+import models.ProductosTransaccions;
 import models.Transaccion;
 import models.Usuario;
 import org.javalite.activejdbc.Base;
@@ -156,6 +159,12 @@ public class ABMTransaccion {
         return false;
     }
     
+  /*  public boolean altaProductoTransaccion(int producto, int cantidad, int transaccion) {
+        Producto p = Producto.first("id = ?", producto);
+        Transaccion t = Transaccion.first("id = ?", transaccion);
+        
+    }
+    
     /**
      *
      * @param id
@@ -174,6 +183,18 @@ public class ABMTransaccion {
         return false;
     }
 
+    public Transaccion getLastTransaccion(){
+        abrirBase();
+        List<Transaccion> t = Transaccion.findAll();
+        return Transaccion.findById((t.get(t.size() - 1).getInteger("id")));
+    }
+    
+    public ProductosTransaccions getLastProdTrans(){
+        abrirBase();
+        List<ProductosTransaccions> pt = ProductosTransaccions.findAll();
+        return ProductosTransaccions.findById(pt.get(pt.size()-1).getInteger("id"));
+    }
+    
     /**
      * @return the usuario_id
      */
@@ -202,4 +223,9 @@ public class ABMTransaccion {
         this.cliente_id = cliente_id;
     }
 
+    private void abrirBase() {
+        if (!Base.hasConnection()) {
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
+        }
+    }
 }

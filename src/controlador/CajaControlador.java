@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import models.Caja;
 import models.Cliente;
 import models.Producto;
+import models.ProductosTransaccions;
 import models.Transaccion;
 import org.javalite.activejdbc.Base;
 import org.javalite.activejdbc.Model;
@@ -230,14 +231,24 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                             model.altaTransaccion(motivo, "Venta", monto, 1,id_caja, id_cliente, Quiniela.id_usuario);
                             view.getClienteSel().setText("");
                         }else{
-                            System.out.println(id_caja);
-                            model.altaTransaccion(motivo, "Venta", monto, 1,id_caja, Quiniela.id_usuario);
-                        actualizarPrecio();
-                        if (Base.hasConnection()) {
-                                 Base.close();
+                            model.altaTransaccion(motivo, "Venta", monto, 1,id_caja, Quiniela.id_usuario);                       
                         }
+                    if (Base.hasConnection()) {
+                                 Base.close();
                     }
-
+                    Transaccion t = model.getLastTransaccion();
+                    for (int i = 0; i < rows; i++) {
+                            Producto p = Producto.findById(tablaDetalles.getValueAt(i, 0));
+                          /*  if (p.getInteger("hayStock").equals(1)){
+                                
+                            }*/
+                            t.add(p);
+                            ProductosTransaccions pt = model.getLastProdTrans();
+                            pt.set("cantidad", tablaDetalles.getValueAt(i, 2));
+                            pt.saveIt();
+                    }
+                    tablaDetalles.setRowCount(0);
+                    actualizarPrecio();
                 }
             break;
             case "Detalles":
