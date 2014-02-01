@@ -113,7 +113,7 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
         if (!Base.hasConnection()) {
             Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
         }
-        if (!(tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(),4)==false)){
+        if (!(tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(),4).equals(Boolean.FALSE))){
             view.getInsertar().setEnabled(true);
             view.getQuitar().setEnabled(true);
             tablaFechaStock.setRowCount(0);
