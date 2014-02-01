@@ -49,7 +49,7 @@ public class ClienteGUI extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, false
+                false, false, false, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -115,7 +115,6 @@ public class ClienteGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     /**
      * @param args the command line arguments
      */
@@ -145,6 +144,7 @@ public class ClienteGUI extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new ClienteGUI().setVisible(true);
             }

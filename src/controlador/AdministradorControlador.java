@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import models.Usuario;
 import org.javalite.activejdbc.Base;

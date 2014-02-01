@@ -93,7 +93,7 @@
                     <Column editable="false" title="Apellido" type="java.lang.String"/>
                     <Column editable="true" title="Debe" type="java.lang.Double"/>
                     <Column editable="true" title="Haber" type="java.lang.Double"/>
-                    <Column editable="false" title="Saldo" type="java.lang.Double"/>
+                    <Column editable="true" title="Saldo" type="java.lang.Double"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

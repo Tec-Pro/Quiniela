@@ -40,11 +40,18 @@ public class ClienteControlador implements ActionListener {
     private DefaultTableModel tablaTransacciones;
     private List<Transaccion> listaTransacciones;
     private ClienteTransaccion clienteT;
+    private CrearCliente crearC;
 
     public ClienteControlador(ClienteGUI clienteGUI, CajaControlador cc) {
         this.view = clienteGUI;
         this.abmC = new ABMCliente();
         this.cc = cc;
+        
+        //Ventana CrearCliente
+        crearC = new CrearCliente();
+        crearC.setVisible(false);
+        
+        //Ventana ClienteTansaccion
         clienteT = new ClienteTransaccion();
         clienteT.setVisible(false);
         iniciar();
@@ -70,9 +77,13 @@ public class ClienteControlador implements ActionListener {
         tablaClientes = view.getTablaClienteDef();
         cargarClientes();
         
-        //ventana ClienteTransaccion
+        //Ventana ClienteTransaccion
         clienteT.getButtonAceptar().addActionListener(this);
         tablaTransacciones = clienteT.getTablaTransaccionDef();
+        
+        //Ventana CrearCliente
+        crearC.getButtonCancelar().addActionListener(this);
+        crearC.getButtonConfirmar().addActionListener(this);
     }
     
 
@@ -161,9 +172,7 @@ public class ClienteControlador implements ActionListener {
         String comando = e.getActionCommand();
         switch (comando) {
             case "Agregar":
-                CrearCliente crearCliente = new CrearCliente();
-                CrearClienteControlador ccc = new CrearClienteControlador(crearCliente, abmC);
-                cargarClientes();
+                crearC.setVisible(true);
                 break;                
             case "Eliminar":
                 if (view.getTablaClientes().getSelectedRow() > 0){
@@ -194,6 +203,30 @@ public class ClienteControlador implements ActionListener {
             case "Aceptar": //clienteTransaccion
                 clienteT.setVisible(false);
                 break;
+            case "Confirmar":
+                if (crearC.getTextNombre() == null || crearC.getTextApellido() == null){
+                    JOptionPane.showInputDialog("Error: Uno de los Campos Obligatorios esta vacío");
+                }else{
+                    if (!Base.hasConnection()) {
+                        abrirBase();
+                    }
+        
+                    String nombre = crearC.getTextNombre().toString();
+                    String apellido = crearC.getTextApellido().toString();
+                    BigDecimal deber = new BigDecimal(crearC.getTextDeber().toString());
+                    BigDecimal saldo = new BigDecimal(crearC.getTextSaldo().toString());
+                    BigDecimal haber = new BigDecimal(crearC.getTextHaber().toString());
+        
+                    abmC.altaCliente(nombre, apellido);
+        
+                    if (Base.hasConnection()) {
+                        Base.close();
+                    }
+                    crearC.setVisible(false);
+                }
+                cargarClientes();
+            case "Cancelar":
+                crearC.setVisible(false); 
         }
         cc.cargarCuentas();
     }
