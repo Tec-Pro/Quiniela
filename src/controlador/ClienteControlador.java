@@ -41,19 +41,16 @@ public class ClienteControlador implements ActionListener {
     private List<Transaccion> listaTransacciones;
     private ClienteTransaccion clienteT;
     private CrearCliente crearC;
-
+    
+    public ClienteControlador(ClienteGUI clienteGUI){
+        this.view = clienteGUI;
+        this.abmC = new ABMCliente();
+    }
+    
     public ClienteControlador(ClienteGUI clienteGUI, CajaControlador cc) {
         this.view = clienteGUI;
         this.abmC = new ABMCliente();
         this.cc = cc;
-        
-        //Ventana CrearCliente
-        crearC = new CrearCliente();
-        crearC.setVisible(false);
-        
-        //Ventana ClienteTansaccion
-        clienteT = new ClienteTransaccion();
-        clienteT.setVisible(false);
         iniciar();
     }
     
@@ -78,10 +75,16 @@ public class ClienteControlador implements ActionListener {
         cargarClientes();
         
         //Ventana ClienteTransaccion
+        clienteT = new ClienteTransaccion();
+        clienteT.setVisible(false);
+        
         clienteT.getButtonAceptar().addActionListener(this);
         tablaTransacciones = clienteT.getTablaTransaccionDef();
         
-        //Ventana CrearCliente
+         //Ventana CrearCliente
+        crearC = new CrearCliente();
+        crearC.setVisible(false);
+        
         crearC.getButtonCancelar().addActionListener(this);
         crearC.getButtonConfirmar().addActionListener(this);
     }
@@ -134,7 +137,6 @@ public class ClienteControlador implements ActionListener {
                 abrirBase();
         }
         abmC.modificarCliente(id, deber, saldo, haber);
-        
         if (Base.hasConnection()) {
             Base.close();
         }
@@ -217,7 +219,7 @@ public class ClienteControlador implements ActionListener {
                     BigDecimal saldo = new BigDecimal(crearC.getTextSaldo().toString());
                     BigDecimal haber = new BigDecimal(crearC.getTextHaber().toString());
         
-                    abmC.altaCliente(nombre, apellido);
+                    abmC.altaCliente(nombre, apellido, deber, saldo, haber);
         
                     if (Base.hasConnection()) {
                         Base.close();
