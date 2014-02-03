@@ -14,14 +14,17 @@ import javax.swing.JPanel;
 public class MainGUI extends javax.swing.JFrame {
     
     private CajaGUI caja;
+    private EstadisticasGUI estadisticas;
     /**
      * Creates new form MainGUI
      */
     public MainGUI() {
         initComponents();
         caja = new CajaGUI();
+        estadisticas = new EstadisticasGUI();
         caja.disableAll();
         tab.add("Caja",caja);
+        tab.add("Estadísticas", estadisticas);
         tab.setToolTipTextAt(0, "Manejo de la Caja Diaria");
 
         

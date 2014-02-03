@@ -213,11 +213,11 @@ public class ClienteControlador implements ActionListener {
                         abrirBase();
                     }
         
-                    String nombre = crearC.getTextNombre().toString();
-                    String apellido = crearC.getTextApellido().toString();
-                    BigDecimal deber = new BigDecimal(crearC.getTextDeber().toString());
-                    BigDecimal saldo = new BigDecimal(crearC.getTextSaldo().toString());
-                    BigDecimal haber = new BigDecimal(crearC.getTextHaber().toString());
+                    String nombre = crearC.getTextNombre().getText().toString();
+                    String apellido = crearC.getTextApellido().getText().toString();              
+                    BigDecimal deber = new BigDecimal(crearC.getTextDeber().getText().toString());
+                    BigDecimal saldo = new BigDecimal(crearC.getTextSaldo().getText().toString());
+                    BigDecimal haber = new BigDecimal(crearC.getTextHaber().getText().toString());
         
                     abmC.altaCliente(nombre, apellido, deber, saldo, haber);
         
