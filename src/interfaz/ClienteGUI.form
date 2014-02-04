@@ -47,19 +47,24 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="contTabCli" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="botonAgregar" pref="131" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="botonEliminar" pref="129" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="botonTransacciones" pref="125" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="buttonGuardar" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="contTabCli" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                  <Component id="botonAgregar" pref="131" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                  <Component id="botonEliminar" pref="131" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                  <Component id="botonTransacciones" pref="123" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -73,6 +78,7 @@
                       <Component id="botonAgregar" alignment="3" max="32767" attributes="0"/>
                       <Component id="botonEliminar" alignment="3" max="32767" attributes="0"/>
                       <Component id="botonTransacciones" alignment="3" max="32767" attributes="0"/>
+                      <Component id="buttonGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -150,6 +156,11 @@
         <Component class="javax.swing.JButton" name="botonTransacciones">
           <Properties>
             <Property name="text" type="java.lang.String" value="Transacciones"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="buttonGuardar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Guardar"/>
           </Properties>
         </Component>
       </SubComponents>

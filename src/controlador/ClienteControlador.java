@@ -59,6 +59,7 @@ public class ClienteControlador implements ActionListener {
         view.getBotonAgregar().addActionListener(this);
         view.getBotonEliminar().addActionListener(this);
         view.getBotonTransacciones().addActionListener(this);
+        view.getButtonGuardar().addActionListener(this);
         view.getTablaClientes().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -66,7 +67,6 @@ public class ClienteControlador implements ActionListener {
                     JTable target = (JTable) e.getSource();
                     if (target.getSelectedColumn() > 3){
                         setCellEditor();
-                        actualizarDeberSaldoHaber(target);
                     }
                 }
             }
@@ -128,15 +128,21 @@ public class ClienteControlador implements ActionListener {
         Base.close();
     }
     
-    public void actualizarDeberSaldoHaber(JTable tabla){
-        int id = (int) tabla.getValueAt(tabla.getSelectedRow(), 0);
-        BigDecimal deber = (BigDecimal) tabla.getValueAt(tabla.getSelectedRow(), 4);
-        BigDecimal saldo = (BigDecimal) tabla.getValueAt(tabla.getSelectedRow(), 5);
-        BigDecimal haber = (BigDecimal) tabla.getValueAt(tabla.getSelectedRow(), 6);
+    public void guardarCambios(DefaultTableModel tabla){
         if (!Base.hasConnection()) {
                 abrirBase();
         }
+        int i = 0;
+        while(i<tabla.getColumnCount()){
+            
+        int id = (int) tabla.getValueAt(i, 0);
+        BigDecimal deber = (BigDecimal) tabla.getValueAt(i, 4);
+        BigDecimal saldo = (BigDecimal) tabla.getValueAt(i, 5);
+        BigDecimal haber = (BigDecimal) tabla.getValueAt(i, 6);
+        
         abmC.modificarCliente(id, deber, saldo, haber);
+        }
+        
         if (Base.hasConnection()) {
             Base.close();
         }
@@ -155,18 +161,6 @@ public class ClienteControlador implements ActionListener {
             view.getTablaClientes().getCellEditor(i, 5).addCellEditorListener((CellEditorListener) this);
             view.getTablaClientes().getCellEditor(i, 6).addCellEditorListener((CellEditorListener) this);
         }
-    }
-    
-    
-    public void editingStopped(ChangeEvent ce) {
-        JTable target = (JTable) ce.getSource();
-        actualizarDeberSaldoHaber(target);      
-    }
-
-    
-    public void editingCanceled(ChangeEvent ce) {
-        JTable target = (JTable) ce.getSource();
-        actualizarDeberSaldoHaber(target);      
     }
     
     @Override
@@ -227,8 +221,13 @@ public class ClienteControlador implements ActionListener {
                     crearC.setVisible(false);
                 }
                 cargarClientes();
+                break;
             case "Cancelar":
-                crearC.setVisible(false); 
+                crearC.setVisible(false);
+                break;
+            case "Guardar":
+                guardarCambios(tablaClientes);
+                break;
         }
         cc.cargarCuentas();
     }
