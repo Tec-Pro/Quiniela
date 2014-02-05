@@ -107,19 +107,24 @@ public class EstadisticasControlador implements ActionListener {
 }
 
     public void cargarEstadisticas(JTextField idProd, JTextField dia, java.util.Date desde, java.util.Date hasta){
-        abrirBase();
-        tablaEstadisticas.setRowCount(0);
-        if (idProd.getText().trim().length()==0){
-            listaProd=Producto.findAll();
-            for (Producto p : listaProd){
-                cargarEstadisticasInd((Integer)p.getId(),dia,desde,hasta);
+        if (desde.toString().trim().length()!=0 && hasta.toString().trim().length()!=0) {
+            abrirBase();
+            tablaEstadisticas.setRowCount(0);
+            if (idProd.getText().trim().length()==0){
+                listaProd=Producto.findAll();
+                for (Producto p : listaProd){
+                    cargarEstadisticasInd((Integer)p.getId(),dia,desde,hasta);
+                }
             }
+            else{
+                cargarEstadisticasInd(Integer.parseInt(idProd.getText()),dia,desde,hasta);
+            }
+            if (Base.hasConnection())
+                Base.close();
+         }
+        else {
+            JOptionPane.showMessageDialog(view, "Error: Falta especificar motivo");
         }
-        else{
-            cargarEstadisticasInd(Integer.parseInt(idProd.getText()),dia,desde,hasta);
-        }
-        if (Base.hasConnection())
-            Base.close();
         
     }
     
@@ -147,11 +152,12 @@ public class EstadisticasControlador implements ActionListener {
             }
         }
         ganancia=cantidad * esteProducto.getDouble("precio") * esteProducto.getDouble("comision")/100;
-        String row[] = new String[4];
+        String row[] = new String[5];
         row[0]=esteProducto.getId().toString();
-        row[1]=cantidad.toString();
-        row[2]=ganancia.toString();
-        row[3]=perdida.toString();
+        row[1]=esteProducto.getString("nombre");
+        row[2]=cantidad.toString();
+        row[3]=ganancia.toString();
+        row[4]=perdida.toString();
         tablaEstadisticas.addRow(row);
         if (Base.hasConnection())
             Base.close();
