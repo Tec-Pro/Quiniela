@@ -49,10 +49,11 @@ public class EstadisticasGUI extends javax.swing.JPanel {
         campoDia = new javax.swing.JTextField();
         calendarioDesde = new com.toedter.calendar.JDateChooser();
         calendarioHasta = new com.toedter.calendar.JDateChooser();
+        botonBuscar = new javax.swing.JButton();
+        campoProd = new javax.swing.JTextField();
+        labelProd = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(903, 581));
-
-        jPanel1.setBackground(new java.awt.Color(187, 239, 229));
 
         tablaEstadisticas.setBackground(new java.awt.Color(254, 254, 254));
         tablaEstadisticas.setName("Estadisticas"); // NOI18N
@@ -91,6 +92,21 @@ public class EstadisticasGUI extends javax.swing.JPanel {
 
         calendarioHasta.setDateFormatString("yyyy-MM-dd");
 
+        botonBuscar.setText("Buscar");
+        botonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBuscarActionPerformed(evt);
+            }
+        });
+
+        campoProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoProdActionPerformed(evt);
+            }
+        });
+
+        labelProd.setText("Cod.Producto");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -98,25 +114,38 @@ public class EstadisticasGUI extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
+                        .addContainerGap()
+                        .addComponent(tablaEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(botonBuscar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelDesde)
-                            .addComponent(labelHasta)
-                            .addComponent(labelDia))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelDesde)
+                                    .addComponent(labelHasta)
+                                    .addComponent(labelDia)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(labelProd)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(campoDia, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(calendarioDesde, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                            .addComponent(calendarioHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(tablaEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                            .addComponent(calendarioHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(campoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelProd))
+                .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelDia)
                     .addComponent(campoDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -128,7 +157,9 @@ public class EstadisticasGUI extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelHasta)
                     .addComponent(calendarioHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(botonBuscar)
+                .addGap(18, 18, 18)
                 .addComponent(tablaEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
@@ -140,7 +171,7 @@ public class EstadisticasGUI extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(471, Short.MAX_VALUE))
+                .addContainerGap(481, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,14 +185,25 @@ public class EstadisticasGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoDiaActionPerformed
 
+    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonBuscarActionPerformed
+
+    private void campoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoProdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoProdActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonBuscar;
     private com.toedter.calendar.JDateChooser calendarioDesde;
     private com.toedter.calendar.JDateChooser calendarioHasta;
     private javax.swing.JTextField campoDia;
+    private javax.swing.JTextField campoProd;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelDesde;
     private javax.swing.JLabel labelDia;
     private javax.swing.JLabel labelHasta;
+    private javax.swing.JLabel labelProd;
     private javax.swing.JTable tablaEst;
     private javax.swing.JScrollPane tablaEstadisticas;
     // End of variables declaration//GEN-END:variables
@@ -304,5 +346,47 @@ public class EstadisticasGUI extends javax.swing.JPanel {
      */
     public void setTablaEstDef(DefaultTableModel tablaEstDef) {
         this.tablaEstDef = tablaEstDef;
+    }
+
+    /**
+     * @return the botonBuscar
+     */
+    public javax.swing.JButton getBotonBuscar() {
+        return botonBuscar;
+    }
+
+    /**
+     * @param botonBuscar the botonBuscar to set
+     */
+    public void setBotonBuscar(javax.swing.JButton botonBuscar) {
+        this.botonBuscar = botonBuscar;
+    }
+
+    /**
+     * @return the campoProd
+     */
+    public javax.swing.JTextField getCampoProd() {
+        return campoProd;
+    }
+
+    /**
+     * @param campoProd the campoProd to set
+     */
+    public void setCampoProd(javax.swing.JTextField campoProd) {
+        this.campoProd = campoProd;
+    }
+
+    /**
+     * @return the labelProd
+     */
+    public javax.swing.JLabel getLabelProd() {
+        return labelProd;
+    }
+
+    /**
+     * @param labelProd the labelProd to set
+     */
+    public void setLabelProd(javax.swing.JLabel labelProd) {
+        this.labelProd = labelProd;
     }
 }
