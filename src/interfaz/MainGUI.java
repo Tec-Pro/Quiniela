@@ -233,4 +233,11 @@ public class MainGUI extends javax.swing.JFrame {
     public javax.swing.JMenu getCuenta() {
         return cuenta;
     }
+
+    /**
+     * @return the estadisticas
+     */
+    public EstadisticasGUI getEstadisticas() {
+        return estadisticas;
+    }
 }
