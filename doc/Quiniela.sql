@@ -9,9 +9,9 @@ DROP TABLE IF EXISTS productos_transaccions;
 
 CREATE TABLE cajas (  id int auto_increment PRIMARY KEY,  fecha DATE NOT NULL,  saldo DECIMAL(18,2), visible SMALLINT);
 
-CREATE TABLE transaccions (  id int auto_increment PRIMARY KEY,  motivo varchar(100) NOT NULL,  tipo varchar(40),  monto DECIMAL(18,2), visible SMALLINT,  caja_id int, usuario_id int, cliente_id int);
+CREATE TABLE transaccions (  id int auto_increment PRIMARY KEY,  motivo varchar(140) NOT NULL,  tipo varchar(40),  monto DECIMAL(18,2), visible SMALLINT,  caja_id int, usuario_id int, cliente_id int);
 
-CREATE TABLE clientes (id int auto_increment PRIMARY KEY, nombre varchar(40) NOT NULL, apellido varchar(40) NOT NULL, deber DECIMAL(18,2), saldo DECIMAL(18,2), haber DECIMAL(18,2), visible SMALLINT);
+CREATE TABLE clientes (id int auto_increment PRIMARY KEY, nombre varchar(40) NOT NULL, apellido varchar(40) NOT NULL, deber DECIMAL(18,2) DEFAULT 0, haber DECIMAL(18,2) DEFAULT 0, visible SMALLINT);
 
 CREATE TABLE productos (id int auto_increment PRIMARY KEY, nombre varchar(40) NOT NULL UNIQUE, precio DECIMAL(18,2), comision DECIMAL(18,2), visible SMALLINT, hayStock SMALLINT);
 

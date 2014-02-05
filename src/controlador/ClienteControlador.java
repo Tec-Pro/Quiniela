@@ -94,7 +94,6 @@ public class ClienteControlador implements ActionListener {
             row[2] = c.get("apellido");
             row[3] = c.get("deber");
             row[4] = c.get("haber");
-            row[5] = c.get("saldo");
             tablaClientes.addRow(row);
         }
         Base.close();

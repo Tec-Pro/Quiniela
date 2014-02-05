@@ -166,7 +166,7 @@ Order by id]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="411" y="0" width="77" height="20" uuid="ae7b4515-3f3b-45e1-a6e8-ab477582105a"/>
 				<textElement textAlignment="Center">
 					<font size="14"/>
@@ -187,7 +187,7 @@ Order by id]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="488" y="0" width="67" height="20" uuid="27913c32-9dc7-42fa-a4f7-776d1a145bfb"/>
 				<textElement textAlignment="Center">
 					<font size="14"/>
