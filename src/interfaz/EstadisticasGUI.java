@@ -63,11 +63,11 @@ public class EstadisticasGUI extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Cod.Producto", "Cant. vendidos", "Ganancia", "Perdida"
+                "Cod.Producto", "Nombre", "Cant. vendidos", "Ganancia", "Perdida"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -92,7 +92,7 @@ public class EstadisticasGUI extends javax.swing.JPanel {
 
         calendarioHasta.setDateFormatString("yyyy-MM-dd");
 
-        botonBuscar.setText("Buscar");
+        botonBuscar.setText("Calcular");
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonBuscarActionPerformed(evt);
