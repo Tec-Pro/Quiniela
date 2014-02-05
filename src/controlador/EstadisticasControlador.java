@@ -50,6 +50,7 @@ public class EstadisticasControlador implements ActionListener {
     private JDateChooser calenHasta;
     private String dateDesde;
     private String dateHasta;
+    private JButton calcular;
     
     public EstadisticasControlador(EstadisticasGUI gui){
         this.view=gui;
@@ -60,12 +61,15 @@ public class EstadisticasControlador implements ActionListener {
         tablaEstadisticas=view.getTablaEstDef();
         calenDesde = view.getCalendarioDesde();
         calenHasta = view.getCalendarioHasta();
+        calcular = view.getBotonBuscar();
+        calcular.addActionListener(this);
         cajas= new LinkedList<Caja>();
         listaTransaccion= new LinkedList<Transaccion>();
         listaProdTrans= new LinkedList<ProductosTransaccions>();
         listaProd= new LinkedList<Producto>();
         dateDesde = "0-0-0";
         dateHasta = "9999-0-0";
+                
         
         calenDesde.getJCalendar().addPropertyChangeListener("calendar", new PropertyChangeListener() {
             @Override
@@ -87,13 +91,13 @@ public class EstadisticasControlador implements ActionListener {
     public void calenDesdePropertyChange(PropertyChangeEvent e) {
         final Calendar c = (Calendar) e.getNewValue();
         dateDesde = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
-        cargarEstadisticas(view.getCampoProd(),view.getCampoDia(),view.getCalendarioDesde().getDate(),view.getCalendarioHasta().getDate());
+        
     }
 
     public void calenHastaPropertyChange(PropertyChangeEvent e) {
         final Calendar c = (Calendar) e.getNewValue();
         dateHasta = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
-        cargarEstadisticas(view.getCampoProd(),view.getCampoDia(),view.getCalendarioDesde().getDate(),view.getCalendarioHasta().getDate());
+        
     }
     
     public static int getDayOfTheWeek(Date d){
@@ -105,7 +109,7 @@ public class EstadisticasControlador implements ActionListener {
     public void cargarEstadisticas(JTextField idProd, JTextField dia, java.util.Date desde, java.util.Date hasta){
         abrirBase();
         tablaEstadisticas.setRowCount(0);
-        if (idProd.getText().equals("")){
+        if (idProd.getText().trim().length()==0){
             listaProd=Producto.findAll();
             for (Producto p : listaProd){
                 cargarEstadisticasInd((Integer)p.getId(),dia,desde,hasta);
@@ -126,10 +130,11 @@ public class EstadisticasControlador implements ActionListener {
         Double perdida=0.0;
         Producto esteProducto=Producto.findById(idProd);
         cajas = Caja.findAll();
+        listaProdTrans = ProductosTransaccions.findAll();
         for (Caja c : cajas) { //filtrar cajas que esten entre las fechas especificadas
-            if (getDayOfTheWeek(c.getDate("fecha"))==Integer.parseInt(dia.getText()) || dia.getText().equals("")){
-                if (c.getDate("fecha").compareTo(desde)<=0 && c.getDate("fecha").compareTo(hasta)>=0){
-                    listaTransaccion=Transaccion.where("caja_id=?", c.getId());
+            if (dia.getText().trim().length()==0 || getDayOfTheWeek(c.getDate("fecha"))==Integer.parseInt(dia.getText()) ){
+                if (c.getDate("fecha").compareTo(desde)>=0 && c.getDate("fecha").compareTo(hasta)<=0){
+                    listaTransaccion=Transaccion.where("caja_id=?",c.getId());
                     for (Transaccion t : listaTransaccion){ //filtrar transacciones que tengan que ver con el producto
                         for (ProductosTransaccions pt : listaProdTrans){
                             if (pt.getInteger("transaccion_id").equals(t.getId()) && pt.getInteger("producto_id").equals(idProd)){
@@ -141,7 +146,7 @@ public class EstadisticasControlador implements ActionListener {
                 
             }
         }
-        ganancia=cantidad * esteProducto.getDouble("precio") * esteProducto.getDouble("comision");
+        ganancia=cantidad * esteProducto.getDouble("precio") * esteProducto.getDouble("comision")/100;
         String row[] = new String[4];
         row[0]=esteProducto.getId().toString();
         row[1]=cantidad.toString();
@@ -156,9 +161,8 @@ public class EstadisticasControlador implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         abrirBase();
         JButton b = (JButton) ae.getSource();
-        if (b.equals(view.getBotonBuscar()))
+        if (b.equals(calcular))
             cargarEstadisticas(view.getCampoProd(),view.getCampoDia(),view.getCalendarioDesde().getDate(),view.getCalendarioHasta().getDate());
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     private void abrirBase() {
