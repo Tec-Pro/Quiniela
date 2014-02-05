@@ -28,7 +28,6 @@ public class MainControlador implements ActionListener {
     private MainGUI principal;
     private ABMCaja abmc;
     private CajaControlador cc;
-    private EstadisticasControlador ec;
     
     //Formularios Hijos
     
@@ -57,7 +56,6 @@ public class MainControlador implements ActionListener {
         principal.getCuenta().setEnabled(false);
         abmc = new ABMCaja();
         cc = null;
-        ec = null;
     }
     
     public void run(){
@@ -82,7 +80,6 @@ public class MainControlador implements ActionListener {
                         Base.close();
                     }
                     cc = new CajaControlador(principal.getCaja());
-                    ec = new EstadisticasControlador(principal.getEstadisticas());
                     principal.getImprimirParcial().setEnabled(true);
                     principal.getCuenta().setEnabled(true);
                     principal.getProducto().setEnabled(true);

@@ -103,7 +103,9 @@ public class EstadisticasControlador implements ActionListener {
 }
 
     public void cargarEstadisticas(JTextField idProd, JTextField dia, java.util.Date desde, java.util.Date hasta){
-        if (idProd.equals("")){
+        abrirBase();
+        tablaEstadisticas.setRowCount(0);
+        if (idProd.getText().equals("")){
             listaProd=Producto.findAll();
             for (Producto p : listaProd){
                 cargarEstadisticasInd((Integer)p.getId(),dia,desde,hasta);
@@ -112,11 +114,12 @@ public class EstadisticasControlador implements ActionListener {
         else{
             cargarEstadisticasInd(Integer.parseInt(idProd.getText()),dia,desde,hasta);
         }
+        if (Base.hasConnection())
+            Base.close();
         
     }
     
     public void cargarEstadisticasInd(int idProd, JTextField dia, java.util.Date desde, java.util.Date hasta) {
-        tablaEstadisticas.setRowCount(0);
         abrirBase();
         Integer cantidad=0;
         Double ganancia=0.0;
