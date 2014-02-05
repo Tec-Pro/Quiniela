@@ -20,6 +20,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
 import models.Caja;
 import models.Cliente;
+import models.Fecha;
 import models.Producto;
 import models.ProductosTransaccions;
 import models.Transaccion;
@@ -36,6 +37,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
     private CajaGUI view;
     private ABMCaja abmc;
     private ABMTransaccion model;
+    private ABMCliente cliente;
     private DefaultTableModel tablaArticulos;
     private DefaultTableModel tablaClientes;
     private DefaultTableModel tablaTrans;
@@ -47,6 +49,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
     private int id_caja;
     private int id_cliente;
     private Cliente c;
+
     //JForm hijos
 
     DepoManual depoManual;
@@ -55,6 +58,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
     public CajaControlador(CajaGUI caja) {
         this.view = caja;
         this.model = new ABMTransaccion();
+        this.cliente = new ABMCliente();
         iniciar();
     }
 
@@ -146,11 +150,15 @@ public class CajaControlador implements ActionListener, CellEditorListener {
         Iterator<Producto> it = listaProd.iterator();
         while (it.hasNext()) {
             Producto p = it.next();
-            Object row[] = new Object[3];
-            row[0] = p.get("id");
-            row[1] = p.getString("nombre");
-            //row[2] = p.get("stock");
-            if (p.get("visible").equals(1)){
+            if (p.get("visible").equals(1)) {
+                Object row[] = new Object[3];
+                row[0] = p.get("id");
+                row[1] = p.getString("nombre");
+                if (p.get("hayStock").equals(1)) {
+                    Fecha f = Fecha.findFirst("producto_id = ?", p.get("id"));
+                    row[2] = f.get("stock");
+                }
+
                 tablaArticulos.addRow(row);
             }
         }
@@ -163,17 +171,16 @@ public class CajaControlador implements ActionListener, CellEditorListener {
         if (!Base.hasConnection()) {
             abrirBase();
         }
-        
+
         tablaClientes.setRowCount(0);
         listaCliente = Cliente.findAll();
         Iterator<Cliente> it = listaCliente.iterator();
-        System.out.println(it);
         while (it.hasNext()) {
             Cliente cli = it.next();
             Object row[] = new Object[2];
             row[0] = cli.get("id");
             row[1] = cli.getString("nombre") + " " + cli.getString("apellido");
-            if ((cli.get("visible").equals(1))){
+            if ((cli.get("visible").equals(1))) {
                 tablaClientes.addRow(row);
             }
         }
@@ -219,43 +226,54 @@ public class CajaControlador implements ActionListener, CellEditorListener {
             case "OK":
                 if (tablaDetalles.getRowCount() > 0) {
                     if (!Base.hasConnection()) {
-                            abrirBase();
+                        abrirBase();
+                    }
+                    String motivo = "";
+                    int rows = tablaDetalles.getRowCount();
+                    Producto pr;
+                    for (int i = 0; i < rows; i++) {
+                        pr = Producto.findById(tablaDetalles.getValueAt(i, 0));
+                        if (pr.get("hayStock").equals(1)) {
+                            Fecha f = Fecha.findFirst("producto_id=?", pr.get("id"));
+                            f.set("stock", f.getInteger("stock") - (Integer) tablaDetalles.getValueAt(i, 2));
+                            f.save();
                         }
-                        String motivo = "";
-                        int rows = tablaDetalles.getRowCount();
-                        for (int i = 0; i < rows; i++) {
-                            motivo = motivo + tablaDetalles.getValueAt(i, 1) + " x" + tablaDetalles.getValueAt(i, 2) + "; ";
-                        }
-                        BigDecimal monto = BigDecimal.valueOf(Double.parseDouble(view.getTotalField().getText()));
-                        if (!view.getClienteSel().getText().trim().isEmpty()) {
-                            model.altaTransaccion(motivo, "Venta", monto, 1,id_caja, id_cliente, Quiniela.id_usuario);
-                            view.getClienteSel().setText("");
-                        }else{
-                            model.altaTransaccion(motivo, "Venta", monto, 1,id_caja, Quiniela.id_usuario);                       
-                        }
+                        motivo = motivo + tablaDetalles.getValueAt(i, 1) + " x" + tablaDetalles.getValueAt(i, 2) + "; ";
+                    }
+                    BigDecimal monto = BigDecimal.valueOf(Double.parseDouble(view.getTotalField().getText()));
+                    if (!view.getClienteSel().getText().trim().isEmpty()) {
+                        model.altaTransaccion(motivo, "Venta", monto, 1, id_caja, id_cliente, Quiniela.id_usuario);
+                        Cliente cl = Cliente.findById(id_cliente);
+                        cliente.modificarCliente(id_cliente, cl.getBigDecimal("deber").add(monto), cl.getBigDecimal("haber"));
+                        view.getClienteSel().setText("");
+                    } else {
+                        model.altaTransaccion(motivo, "Venta", monto, 1, id_caja, Quiniela.id_usuario);
+                    }
                     if (Base.hasConnection()) {
-                                 Base.close();
+                        Base.close();
                     }
                     Transaccion t = model.getLastTransaccion();
                     for (int i = 0; i < rows; i++) {
-                            Producto p = Producto.findById(tablaDetalles.getValueAt(i, 0));
-                          /*  if (p.getInteger("hayStock").equals(1)){
+                        Producto p = Producto.findById(tablaDetalles.getValueAt(i, 0));
+                        /*  if (p.getInteger("hayStock").equals(1)){
                                 
-                            }*/
-                            t.add(p);
-                            ProductosTransaccions pt = model.getLastProdTrans();
-                            pt.set("cantidad", tablaDetalles.getValueAt(i, 2));
-                            pt.saveIt();
+                         }*/
+                        t.add(p);
+                        ProductosTransaccions pt = model.getLastProdTrans();
+                        pt.set("cantidad", tablaDetalles.getValueAt(i, 2));
+                        pt.saveIt();
                     }
                     tablaDetalles.setRowCount(0);
                     actualizarPrecio();
+                    cargarProductos();
                 }
-            break;
-            case "Detalles":
+                break;
+            /*case "Detalles":
                 System.out.println("Mostrar movidas");
                 break;
+        */
         }
-        
+
         cargarTransacciones();
     }
 
@@ -280,7 +298,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
         for (int i = 0; i < view.getTablaDetalles().getRowCount(); i++) {
             total = total + ((Double) view.getTablaDetalles().getValueAt(i, 3));
         }
-        total = Math.round(total*1000.00)/1000.00;
+        total = Math.round(total * 1000.00) / 1000.00;
         view.getTotalField().setText(total.toString());
         if (Base.hasConnection()) {
             Base.close();

@@ -60,17 +60,6 @@ public class ClienteControlador implements ActionListener {
         view.getBotonEliminar().addActionListener(this);
         view.getBotonTransacciones().addActionListener(this);
         view.getButtonGuardar().addActionListener(this);
-        view.getTablaClientes().addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    JTable target = (JTable) e.getSource();
-                    if (target.getSelectedColumn() > 3){
-                        setCellEditor();
-                    }
-                }
-            }
-        });
         tablaClientes = view.getTablaClienteDef();
         cargarClientes();
         
@@ -133,14 +122,14 @@ public class ClienteControlador implements ActionListener {
                 abrirBase();
         }
         int i = 0;
-        while(i<tabla.getColumnCount()){
+        while(i<tabla.getRowCount()){
             
         int id = (int) tabla.getValueAt(i, 0);
-        BigDecimal deber = (BigDecimal) tabla.getValueAt(i, 4);
-        BigDecimal saldo = (BigDecimal) tabla.getValueAt(i, 5);
-        BigDecimal haber = (BigDecimal) tabla.getValueAt(i, 6);
+        BigDecimal deber = new BigDecimal(tabla.getValueAt(i, 3).toString());
+        BigDecimal haber = new BigDecimal(tabla.getValueAt(i, 4).toString());
         
-        abmC.modificarCliente(id, deber, saldo, haber);
+        abmC.modificarCliente(id, deber, haber);
+        i++;
         }
         
         if (Base.hasConnection()) {
@@ -154,14 +143,7 @@ public class ClienteControlador implements ActionListener {
         }
     }
     
-    
-    public void setCellEditor() {
-        for (int i = 0; i < view.getTablaClientes().getRowCount(); i++) {
-            view.getTablaClientes().getCellEditor(i, 4).addCellEditorListener((CellEditorListener) this);
-            view.getTablaClientes().getCellEditor(i, 5).addCellEditorListener((CellEditorListener) this);
-            view.getTablaClientes().getCellEditor(i, 6).addCellEditorListener((CellEditorListener) this);
-        }
-    }
+   
     
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -188,7 +170,7 @@ public class ClienteControlador implements ActionListener {
                 cargarClientes();
                 break;
             case "Transacciones":
-                if (view.getTablaClientes().getSelectedRow() > 0){
+                if (view.getTablaClientes().getSelectedRow() >= 0){
                     String nombre = (String) tablaClientes.getValueAt(view.getTablaClientes().getSelectedRow(), 1)+" "+tablaClientes.getValueAt(view.getTablaClientes().getSelectedRow(), 1);
                     int idCliente = (int) view.getTablaClientes().getValueAt(view.getTablaClientes().getSelectedRow(), 0);
                     clienteT.setVisible(true);
@@ -200,7 +182,7 @@ public class ClienteControlador implements ActionListener {
                 clienteT.setVisible(false);
                 break;
             case "Confirmar":
-                if (crearC.getTextNombre() == null || crearC.getTextApellido() == null){
+                if (crearC.getTextNombre().getText().trim().length() == 0 || crearC.getTextApellido().getText().trim().length() == 0 ){
                     JOptionPane.showInputDialog("Error: Uno de los Campos Obligatorios esta vacío");
                 }else{
                     if (!Base.hasConnection()) {
@@ -210,10 +192,9 @@ public class ClienteControlador implements ActionListener {
                     String nombre = crearC.getTextNombre().getText().toString();
                     String apellido = crearC.getTextApellido().getText().toString();              
                     BigDecimal deber = new BigDecimal(crearC.getTextDeber().getText().toString());
-                    BigDecimal saldo = new BigDecimal(crearC.getTextSaldo().getText().toString());
                     BigDecimal haber = new BigDecimal(crearC.getTextHaber().getText().toString());
         
-                    abmC.altaCliente(nombre, apellido, deber, saldo, haber);
+                    abmC.altaCliente(nombre, apellido, deber, haber);
         
                     if (Base.hasConnection()) {
                         Base.close();
@@ -227,6 +208,7 @@ public class ClienteControlador implements ActionListener {
                 break;
             case "Guardar":
                 guardarCambios(tablaClientes);
+                cargarClientes();
                 break;
         }
         cc.cargarCuentas();

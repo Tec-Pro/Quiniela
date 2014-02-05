@@ -43,14 +43,14 @@ public class ClienteGUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Apellido", "Debe", "Haber", "Saldo"
+                "ID", "Nombre", "Apellido", "Debe", "Haber"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, true
+                false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -63,9 +63,11 @@ public class ClienteGUI extends javax.swing.JFrame {
         });
         tablaClientes.getTableHeader().setReorderingAllowed(false);
         contTabCli.setViewportView(tablaClientes);
-        tablaClientes.getColumnModel().getColumn(0).setMinWidth(30);
-        tablaClientes.getColumnModel().getColumn(0).setPreferredWidth(40);
-        tablaClientes.getColumnModel().getColumn(0).setMaxWidth(50);
+        if (tablaClientes.getColumnModel().getColumnCount() > 0) {
+            tablaClientes.getColumnModel().getColumn(0).setMinWidth(30);
+            tablaClientes.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tablaClientes.getColumnModel().getColumn(0).setMaxWidth(50);
+        }
 
         botonAgregar.setText("Agregar");
 
