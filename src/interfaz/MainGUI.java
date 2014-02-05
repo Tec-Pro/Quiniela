@@ -26,6 +26,7 @@ public class MainGUI extends javax.swing.JFrame {
         tab.add("Caja",caja);
         tab.add("Estadísticas", estadisticas);
         tab.setToolTipTextAt(0, "Manejo de la Caja Diaria");
+        tab.setToolTipTextAt(1, "Estadísticas de transacciones");
 
         
     }
