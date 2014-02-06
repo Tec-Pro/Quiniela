@@ -21,6 +21,7 @@ import models.Usuario;
 import net.sf.jasperreports.engine.JRException;
 import org.javalite.activejdbc.Base;
 import org.javalite.activejdbc.Model;
+import org.joda.time.LocalDate;
 import quiniela.Quiniela;
 
 /**
@@ -84,8 +85,8 @@ public class MainControlador implements ActionListener {
                         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
                     }
                     ABMTransaccion abmt = new ABMTransaccion();;
-                    Date date = new Date();
-                    abmc.altaCaja(date);
+                    LocalDate date = new LocalDate();
+                    System.out.println(abmc.altaCaja( date));
                     principal.getAbrirCaja().setEnabled(false);
                     if (Base.hasConnection()){
                         Base.close();

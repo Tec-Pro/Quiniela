@@ -5,11 +5,11 @@
 package abm;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import models.Caja;
 import org.javalite.activejdbc.Base;
+import org.joda.time.LocalDate;
 import quiniela.Quiniela;
 
 /**
@@ -18,16 +18,15 @@ import quiniela.Quiniela;
  */
 public class ABMCaja {
     private List<Caja> cajas;
-    
     /**
      * @param fecha de creación de la caja.
      * @return true si la caja no existía, false en caso contrario.
      */
     
-    public boolean altaCaja(Date fecha){
+    public boolean altaCaja(LocalDate fecha){
         if (!findCaja(fecha)){ //Busca la caja por la fecha
             Base.openTransaction();
-            Caja nuevo = Caja.create("fecha",fecha,"saldo",0,"visible",1); //Crea una nueva caja con saldo 0
+            Caja nuevo = Caja.create("fecha",fecha.toDate(),"saldo",0,"visible",1); //Crea una nueva caja con saldo 0
             nuevo.saveIt();
             Base.commitTransaction();
             return true;
@@ -96,8 +95,8 @@ public class ABMCaja {
      * @param fecha
      * @return True si encuentra la caja.
      */
-    public boolean findCaja(Date fecha){
-        return (Caja.first("fecha = ?", fecha) != null);
+    public boolean findCaja(LocalDate fecha){
+        return (Caja.first("fecha = ?", fecha.toDate()) != null);
     }
     
 }

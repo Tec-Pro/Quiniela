@@ -155,8 +155,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                 row[0] = p.get("id");
                 row[1] = p.getString("nombre");
                 if (p.get("hayStock").equals(1)) {
-                    Fecha f = Fecha.findFirst("producto_id = ?", p.get("id"));
-                    row[2] = f.get("stock");
+                    row[2] = p.get("stock");
                 }
 
                 tablaArticulos.addRow(row);
@@ -199,12 +198,15 @@ public class CajaControlador implements ActionListener, CellEditorListener {
         Iterator<Transaccion> it = listaTransaccion.iterator();
         while (it.hasNext()) {
             Transaccion t = it.next();
-            Object row[] = new Object[4];
-            row[0] = t.get("id");
-            row[1] = t.getString("motivo");
-            row[2] = t.getString("tipo");
-            row[3] = Double.parseDouble(t.getString("monto"));
-            tablaTrans.addRow(row);
+            String motivo[] = t.getString("motivo").split("; ");
+            for (String mot : motivo) {
+                Object row[] = new Object[4];
+                row[0] = t.get("id");
+                row[1] = mot;
+                row[2] = t.getString("tipo");
+                row[3] = Double.parseDouble(t.getString("monto"));
+                tablaTrans.addRow(row);
+            }
         }
         if (Base.hasConnection()) {
             Base.close();
@@ -234,9 +236,8 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                     for (int i = 0; i < rows; i++) {
                         pr = Producto.findById(tablaDetalles.getValueAt(i, 0));
                         if (pr.get("hayStock").equals(1)) {
-                            Fecha f = Fecha.findFirst("producto_id=?", pr.get("id"));
-                            f.set("stock", f.getInteger("stock") - (Integer) tablaDetalles.getValueAt(i, 2));
-                            f.save();
+                            pr.set("stock", pr.getInteger("stock") - (Integer) tablaDetalles.getValueAt(i, 2));
+                            pr.save();
                         }
                         motivo = motivo + tablaDetalles.getValueAt(i, 1) + " x" + tablaDetalles.getValueAt(i, 2) + "; ";
                     }
@@ -253,14 +254,11 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                         Base.close();
                     }
                     Transaccion t = model.getLastTransaccion();
-                    for (int i = 0; i < rows; i++) {
-                        Producto p = Producto.findById(tablaDetalles.getValueAt(i, 0));
-                        /*  if (p.getInteger("hayStock").equals(1)){
-                                
-                         }*/
+                    for (int j = 0; j < rows; j++) {
+                        Producto p = Producto.findById(tablaDetalles.getValueAt(j, 0));
                         t.add(p);
                         ProductosTransaccions pt = model.getLastProdTrans();
-                        pt.set("cantidad", tablaDetalles.getValueAt(i, 2));
+                        pt.set("cantidad", tablaDetalles.getValueAt(j, 2));
                         pt.saveIt();
                     }
                     tablaDetalles.setRowCount(0);
