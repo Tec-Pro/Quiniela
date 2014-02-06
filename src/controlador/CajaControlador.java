@@ -268,10 +268,10 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                     cargarProductos();
                 }
                 break;
-            /*case "Detalles":
-                System.out.println("Mostrar movidas");
+            case "Detalles":
+                view.detalleProducto();
                 break;
-        */
+        
         }
 
         cargarTransacciones();

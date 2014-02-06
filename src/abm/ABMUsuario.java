@@ -69,6 +69,7 @@ public class ABMUsuario {
          Usuario u;
          u = getUsuario(id);
          if (u!=null){
+             Base.openTransaction();
              u.set("pass",pass);
              u.saveIt();
              Base.commitTransaction();

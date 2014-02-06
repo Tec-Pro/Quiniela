@@ -59,17 +59,21 @@ public class UsuarioControlador implements ActionListener {
                 String user = view.getTextUser().getText();
                 String pass = new String(view.getTextPass().getPassword());
                 if (view.getTextUser().getText().trim().isEmpty() || view.getTextPass().getPassword().length == 0) {
-                    view.getTextStatus().setText("Error: Usuario o contraseña vacíos");
+                    view.getTextStatus().setText("Usuario o contraseña vacíos");
                 } else {
                     if (abmU.verificarUsuario(user, pass)) {
                         Usuario u = Usuario.first("nombre = ?", user);
-                        Quiniela.id_usuario = (int) u.get("id");
-                        view.dispose();
-                        MainGUI mg = new MainGUI();
-                        MainControlador mc = new MainControlador(mg);
-                        mc.run();
+                        if (u.get("visible").equals(1)){
+                            Quiniela.id_usuario = (int) u.get("id");
+                            view.dispose();
+                            MainGUI mg = new MainGUI();
+                            MainControlador mc = new MainControlador(mg);
+                            mc.run();
+                        } else {
+                            view.getTextStatus().setText("Usuario inexistente.");
+                        }
                     } else {
-                        view.getTextStatus().setText("Error: Usuario o contraseña incorrectos");
+                        view.getTextStatus().setText("Usuario o contraseña incorrectos");
                     }
                 }
                 if (Base.hasConnection()) {

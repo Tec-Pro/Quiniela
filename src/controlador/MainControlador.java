@@ -7,6 +7,7 @@ package controlador;
 import abm.ABMCaja;
 import abm.ABMCliente;
 import abm.ABMTransaccion;
+import interfaz.AdministradorGUI;
 import interfaz.ClienteGUI;
 import interfaz.MainGUI;
 import interfaz.ProductoGUI;
@@ -16,8 +17,11 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.Usuario;
 import net.sf.jasperreports.engine.JRException;
 import org.javalite.activejdbc.Base;
+import org.javalite.activejdbc.Model;
+import quiniela.Quiniela;
 
 /**
  *
@@ -28,6 +32,7 @@ public class MainControlador implements ActionListener {
     private MainGUI principal;
     private ABMCaja abmc;
     private CajaControlador cc;
+    private EstadisticasControlador ec;
     
     //Formularios Hijos
     
@@ -52,10 +57,16 @@ public class MainControlador implements ActionListener {
         principal.getImprimirClientes().addActionListener(this);
         principal.getImprimirParcial().addActionListener(this);
         principal.getImprimirProductos().addActionListener(this);
+        principal.getMenuUsuario().addActionListener(this);
         principal.getProducto().setEnabled(false);
         principal.getCuenta().setEnabled(false);
         abmc = new ABMCaja();
+        Usuario u = Usuario.findById(Quiniela.id_usuario);
+        if (u.get("admin").equals(1)){
+            principal.addMenuAdmin();
+        }
         cc = null;
+        ec = null;
     }
     
     public void run(){
@@ -80,6 +91,7 @@ public class MainControlador implements ActionListener {
                         Base.close();
                     }
                     cc = new CajaControlador(principal.getCaja());
+                    ec = new EstadisticasControlador(principal.getEstadisticas());
                     principal.getImprimirParcial().setEnabled(true);
                     principal.getCuenta().setEnabled(true);
                     principal.getProducto().setEnabled(true);
@@ -121,6 +133,9 @@ public class MainControlador implements ActionListener {
                     break;
                 case "VentanaClientes":
                     ClienteControlador contCli = new ClienteControlador(new ClienteGUI(), cc);
+                    break;
+                case "MenuUsuario":
+                    AdministradorControlador admCont = new AdministradorControlador(new AdministradorGUI());
                     break;
             }
         } catch (JRException ex) {

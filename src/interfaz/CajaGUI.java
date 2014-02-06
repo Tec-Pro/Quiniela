@@ -4,6 +4,7 @@
  */
 package interfaz;
 
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -577,5 +578,10 @@ public class CajaGUI extends javax.swing.JPanel {
         return menuProducto;
     }
 
+    public void detalleProducto() {
+        JFrame frame = new JFrame("Detalles Producto");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+    }
  
 }

@@ -137,7 +137,7 @@ public class EstadisticasControlador implements ActionListener {
         cajas = Caja.findAll();
         listaProdTrans = ProductosTransaccions.findAll();
         for (Caja c : cajas) { //filtrar cajas que esten entre las fechas especificadas
-            if (dia.getText().trim().length()==0 || getDayOfTheWeek(c.getDate("fecha"))==Integer.parseInt(dia.getText()) ){
+            if (dia.getText().trim().isEmpty() || getDayOfTheWeek(c.getDate("fecha"))==Integer.parseInt(dia.getText()) ){
                 if (c.getDate("fecha").compareTo(desde)>=0 && c.getDate("fecha").compareTo(hasta)<=0){
                     listaTransaccion=Transaccion.where("caja_id=?",c.getId());
                     for (Transaccion t : listaTransaccion){ //filtrar transacciones que tengan que ver con el producto
@@ -158,7 +158,9 @@ public class EstadisticasControlador implements ActionListener {
         row[2]=cantidad.toString();
         row[3]=ganancia.toString();
         row[4]=perdida.toString();
-        tablaEstadisticas.addRow(row);
+        if (esteProducto.get("visible").equals(1)){
+            tablaEstadisticas.addRow(row);
+        }
         if (Base.hasConnection())
             Base.close();
 

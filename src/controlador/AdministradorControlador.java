@@ -121,13 +121,15 @@ public class AdministradorControlador implements ActionListener {
                 }else{
                     String pass1 = new String(modificarU.getTextPass1().getPassword());
                     String pass2 = new String(modificarU.getTextPass2().getPassword());
-                    if (!(pass1 == pass2)) {
+                    if (!(pass1.equals(pass2))) {
                         JOptionPane.showInputDialog("Error: Contraseñas no coinciden");
                     }else{
                         if (!Base.hasConnection()) {
                             abrirBase();
                         }
                         abmU.modificarUsuario(idUsuarioM,pass1,0);
+                        modificarU.getTextPass1().setText("");
+                        modificarU.getTextPass2().setText("");
                         if (Base.hasConnection()) {
                             Base.close();
                         }
@@ -136,18 +138,21 @@ public class AdministradorControlador implements ActionListener {
                 cargarUsuarios();//Actualiza la tabla
                 break;
             case "Agregar"://Ventana AgregarUsuario
-                if (agregarU.getTextUsuario() == null || agregarU.getTextPass1().getPassword().length == 0 || agregarU.getTextPass2().getPassword().length == 0){
+                if (agregarU.getTextUsuario().getText().trim().isEmpty() || agregarU.getTextPass1().getPassword().length == 0 || agregarU.getTextPass2().getPassword().length == 0){
                     JOptionPane.showInputDialog("Error: Usuario y/o contraseña vacía");
                 }else{
                     String pass1 = new String(agregarU.getTextPass1().getPassword());
                     String pass2 = new String(agregarU.getTextPass2().getPassword());
-                    if (!(pass1 == pass2)) {
+                    if (!(pass1.equals(pass2))) {
                         JOptionPane.showInputDialog("Error: Contraseñas no coinciden");
                     }else{
                         if (!Base.hasConnection()) {
                             abrirBase();
                         }
-                        abmU.altaUsuario(agregarU.getTextUsuario().toString(),pass1,0);
+                        abmU.altaUsuario(agregarU.getTextUsuario().getText().trim().toString(),pass1,0);
+                        agregarU.getTextPass1().setText("");
+                        agregarU.getTextPass2().setText("");
+                        agregarU.getTextUsuario().setText("");
                         if (Base.hasConnection()) {
                             Base.close();
                         }
