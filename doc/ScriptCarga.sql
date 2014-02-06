@@ -1,3 +1,5 @@
+InSERT INTO usuarios (nombre,pass,admin,visible) values ('juan','asd',1,1);
+
 INSERT INTO cajas (fecha,  saldo, visible) VALUES ('2012-04-05', 5994.00,1);
 INSERT INTO cajas (fecha,  saldo, visible) VALUES ('2012-06-10', 3000.00,1);
 INSERT INTO cajas (fecha,  saldo, visible) VALUES ('2013-01-15', 3000.00,1);
@@ -14,7 +16,7 @@ INSERT INTO clientes(nombre, apellido, deber, haber, visible) values ('Pablo','S
 
 INSERT INTO productos(nombre, precio, comision, visible, hayStock) values ('Quini 6',5.50,15,1,0);
 INSERT INTO productos(nombre, precio, comision, visible, hayStock) values ('Loto',6.50,15,1,0);
-INSERT INTO productos(nombre, precio, comision, visible, hayStock) values ('Raspadita',3.50,12,1,1);
+INSERT INTO productos(nombre, precio, comision, visible, hayStock,stock) values ('Raspadita',3.50,12,1,1,50);
 INSERT INTO productos(nombre, precio, comision, visible, hayStock) values ('Nulo',0.50,15,0,0);
 
 insert into transaccions(motivo, tipo, monto, visible, caja_id, usuario_id) values ('Quini 6 x3','Venta',16.50,1,4,1);
@@ -34,8 +36,8 @@ insert into transaccions(motivo, tipo, monto, visible, caja_id, usuario_id, clie
 insert into transaccions(motivo, tipo, monto, visible, caja_id, usuario_id, cliente_id) values ('Quini 6 x3','Venta',16.50,1,5,1,5);
 insert into transaccions(motivo, tipo, monto, visible, caja_id, usuario_id, cliente_id) values ('Quini 6 x3','Venta',16.50,1,5,1,4);
 
-INSERT INTO fechas(stock,  diaSorteo, producto_id) VALUES (50, 'Lunes',3);
-INSERT INTO fechas(stock,  diaSorteo, producto_id) VALUES (30, 'Jueves',3);
+INSERT INTO fechas(diaDeposito, producto_id) VALUES ( 'Lunes',3);
+INSERT INTO fechas(diaDeposito, producto_id) VALUES ('Jueves',3);
 
 insert into productos_transaccions (producto_id, transaccion_id, cantidad) values (1,1,3);
 insert into productos_transaccions (producto_id, transaccion_id, cantidad) values (1,2,3);
@@ -53,5 +55,3 @@ insert into productos_transaccions (producto_id, transaccion_id, cantidad) value
 insert into productos_transaccions (producto_id, transaccion_id, cantidad) values (1,14,3);
 insert into productos_transaccions (producto_id, transaccion_id, cantidad) values (1,15,3);
 insert into productos_transaccions (producto_id, transaccion_id, cantidad) values (1,16,3);
-insert into productos_transaccions (producto_id, transaccion_id, cantidad) values (1,17,3);
-insert into productos_transaccions (producto_id, transaccion_id, cantidad) values (1,18,3);

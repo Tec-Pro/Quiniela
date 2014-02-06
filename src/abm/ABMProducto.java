@@ -18,15 +18,15 @@ public class ABMProducto {
 
 
 
-    public boolean altaProducto(String nombre, BigDecimal precio, BigDecimal comision, int hayStock) {
+    public boolean altaProducto(String nombre, BigDecimal precio, BigDecimal comision, int hayStock, int stock) {
         boolean result;
         Base.openTransaction();
         Producto prodViejo = Producto.first("nombre = ?", nombre);
         if (prodViejo != null) {
-            prodViejo.set("precio", precio, "comision", comision, "visible", 1,"hayStock",hayStock).saveIt();
+            prodViejo.set("precio", precio, "comision", comision, "visible", 1,"hayStock",hayStock, "stock",stock).saveIt();
             result = true;
         } else {
-            Producto nuevoProd = Producto.create("nombre", nombre, "precio", precio, "comision", comision, "visible", 1,"hayStock",hayStock);
+            Producto nuevoProd = Producto.create("nombre", nombre, "precio", precio, "comision", comision, "visible", 1,"hayStock",hayStock, "stock",stock);
             result = nuevoProd.saveIt();
         }
         Base.commitTransaction();
@@ -48,12 +48,12 @@ public class ABMProducto {
         return result;
     }
 
-    public boolean modificarProducto(int id, String nombre, BigDecimal precio, BigDecimal comision,int hayStock) {
+    public boolean modificarProducto(int id, String nombre, BigDecimal precio, BigDecimal comision,int hayStock, int stock) {
         boolean result;
         Base.openTransaction();
         if (Producto.exists(id)) {
             Producto prodModif = Producto.findById(id);
-            prodModif.set("nombre", nombre, "precio", precio, "comision", comision,"hayStock",hayStock).saveIt();
+            prodModif.set("nombre", nombre, "precio", precio, "comision", comision,"hayStock",hayStock, "stock",stock).saveIt();
             result = true;
             System.out.print("Producto modificado satisfactoriamente");
         } else {
@@ -64,24 +64,24 @@ public class ABMProducto {
         return result;
     }
 
-    public void altaStockFecha(int idProd, int stock, String diaSorteo){
+    public void altaFecha(int idProd, String diaDepo){
         Producto prod = Producto.findById(idProd);
-        Fecha fechaStock = Fecha.create("stock",stock,"diaSorteo",diaSorteo);
-        fechaStock.saveIt();
-        prod.add(fechaStock);
+        Fecha fecha = Fecha.create("diaDeposito",diaDepo);
+        fecha.saveIt();
+        prod.add(fecha);
     }
     
-    public boolean bajaStockFecha(int idProd, int stock, String diaSorteo){
+    public boolean bajaFecha(int idProd,String diaDepo){
         boolean result;
         Base.openTransaction();
-        Fecha fecha = Fecha.first("stock = ? and diaSorteo= ? and producto_id= ?",stock,diaSorteo,idProd);
+        Fecha fecha = Fecha.first("diaDeposito= ? and producto_id= ?",diaDepo,idProd);
         if (fecha!=null){
             fecha.delete();
             result = true;
-            System.out.print("Producto eliminado satisfactoriamente");
+            System.out.print("Fecha eliminado satisfactoriamente");
         } else {
             result = false;
-            System.out.print("Producto no encontrado en Base de Datos");
+            System.out.print("Fecha no encontrado en Base de Datos");
         }
         System.out.println(result);
         Base.commitTransaction();

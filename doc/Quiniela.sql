@@ -13,7 +13,7 @@ CREATE TABLE transaccions (  id int auto_increment PRIMARY KEY,  motivo varchar(
 
 CREATE TABLE clientes (id int auto_increment PRIMARY KEY, nombre varchar(40) NOT NULL, apellido varchar(40) NOT NULL, deber DECIMAL(18,2) DEFAULT 0, haber DECIMAL(18,2) DEFAULT 0, visible SMALLINT);
 
-CREATE TABLE productos (id int auto_increment PRIMARY KEY, nombre varchar(40) NOT NULL UNIQUE, precio DECIMAL(18,2), comision DECIMAL(18,2), visible SMALLINT, hayStock SMALLINT);
+CREATE TABLE productos (id int auto_increment PRIMARY KEY, nombre varchar(40) NOT NULL UNIQUE, precio DECIMAL(18,2), comision DECIMAL(18,2), visible SMALLINT, hayStock SMALLINT,stock int not null default 0);
 
 CREATE TABLE  diaDeposito (nombre varchar(40), dia_deposito DATE, 
 CONSTRAINT pk_diaDeposito PRIMARY KEY (nombre,dia_deposito));
@@ -22,4 +22,4 @@ CREATE TABLE usuarios (id int auto_increment PRIMARY KEY, nombre varchar(40), pa
 
 CREATE TABLE productos_transaccions (id int auto_increment PRIMARY KEY, producto_id int, transaccion_id int, cantidad int);
 
-CREATE TABLE fechas (id int auto_increment PRIMARY KEY, stock int NOT NULL DEFAULT 0, diaSorteo varchar(12) NOT NULL, producto_id int);
+CREATE TABLE fechas (id int auto_increment PRIMARY KEY, diaDeposito varchar(12) NOT NULL, producto_id int);

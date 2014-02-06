@@ -32,7 +32,7 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
     private ProductoGUI view; //ventana ProductoGUI
     private ABMProducto abmp;
     private DefaultTableModel tablaProducto;
-    private DefaultTableModel tablaFechaStock;
+    private DefaultTableModel tablaFecha;
     private List<Producto> listaProd;
     private List<Fecha> listaFS;
     private CajaControlador cc;
@@ -72,12 +72,12 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
                 if (e.getClickCount() == 1) {
                     view.getProdModificar().setEnabled(true);
                     view.getProdEliminar().setEnabled(true);
-                    cargarStockFecha((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(),0));
+                    cargarFecha((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(),0));
                 }
             }
         });
         tablaProducto = view.getTablaProductosDef();
-        tablaFechaStock = view.getTablaStockFechaDef();
+        tablaFecha = view.getTablaStockFechaDef();
         cargarProductos();
     }
 
@@ -99,6 +99,7 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
                 row[4] = false;
             } else {
                 row[4] = true;
+                row[5] = p.getInteger("stock");
             }
             tablaProducto.addRow(row);
 
@@ -109,24 +110,23 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
     }
 
     //no funciona
-    public void cargarStockFecha(int id) {
+    public void cargarFecha(int id) {
         if (!Base.hasConnection()) {
             Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
         }
         if (!(tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(),4).equals(Boolean.FALSE))){
             view.getInsertar().setEnabled(true);
             view.getQuitar().setEnabled(true);
-            tablaFechaStock.setRowCount(0);
+            tablaFecha.setRowCount(0);
             listaFS = Fecha.where("producto_id = ?", id);
             Iterator<Fecha> itr = listaFS.iterator();
             while (itr.hasNext()) {
                 Fecha p = itr.next();
-                Object row[] = new Object[2];
-                row[0] = p.getInteger("stock");
-                row[1] = p.getString("diaSorteo");
-                tablaFechaStock.addRow(row);
+                Object row[] = new Object[1];
+                row[0] = p.getString("diaSorteo");
+                tablaFecha.addRow(row);
             }
-            tablaFechaStock.addRow(new Object[2]);
+            tablaFecha.addRow(new Object[1]);
         }
         else{
             view.getInsertar().setEnabled(false);
@@ -154,9 +154,8 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
                 cargarProductos(); //actualizo la tabla de productos
             }
             if (ae.getActionCommand().equals("Quitar")) { //si presiono quitar
-                abmp.bajaStockFecha((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0),
-                        (int) tablaFechaStock.getValueAt(view.getTablaStockFecha().getSelectedRow(), 0),
-                        (String) tablaFechaStock.getValueAt(view.getTablaStockFecha().getSelectedRow(), 1)); 
+                abmp.bajaFecha((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0),
+                        (String) tablaFecha.getValueAt(view.getTablaStockFecha().getSelectedRow(), 1)); 
             }
             if (ae.getActionCommand().equals("Eliminar")) { //si presiono eliminar
                 abmp.bajaProducto((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0)); //saco el id de la fila en la primer columna
@@ -171,6 +170,7 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
                 BigDecimal b1, b2;
                 String nombre;
                 int hayStock;
+                int stock;
                 //tomo el nombre de la tabla
                 if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 1) != null) {
                     nombre = (String) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 1);
@@ -197,21 +197,25 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
                 } else {
                     hayStock = 1;
                 }
+                if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 5) != null) {
+                    stock = new Integer((Integer)tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 5));
+                } else {
+                    stock = new Integer(0);
+                }
                 //Si el producto es nuevo(no tiene id)
                 if (tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0) == null) {
-                    abmp.altaProducto(nombre, b1, b2, hayStock);
+                    abmp.altaProducto(nombre, b1, b2, hayStock,stock);
                 } else { // si el producto existe y solo sera modificado
                     int id = (int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0);
-                    abmp.modificarProducto(id, nombre, b1, b2, hayStock);
+                    abmp.modificarProducto(id, nombre, b1, b2, hayStock,stock);
                 }
                 cargarProductos(); //actualizo la tabla de productos
             }
             if (ae.getActionCommand().equals("Insertar")) { //si presiono insertar
                 //cargo stock y fecha de la tabla junto con el id del producto
-                abmp.altaStockFecha(
+                abmp.altaFecha(
                         (int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0),
-                        (int) tablaFechaStock.getValueAt(view.getTablaStockFecha().getSelectedRow(), 0),
-                        (String) tablaFechaStock.getValueAt(view.getTablaStockFecha().getSelectedRow(), 1));
+                        (String) tablaFecha.getValueAt(view.getTablaStockFecha().getSelectedRow(), 1));
             }
         }
         
