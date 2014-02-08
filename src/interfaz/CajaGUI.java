@@ -92,14 +92,14 @@ public class CajaGUI extends javax.swing.JPanel {
         });
         contTabArt.setViewportView(tablaArticulos);
         if (tablaArticulos.getColumnModel().getColumnCount() > 0) {
-            tablaArticulos.getColumnModel().getColumn(0).setMinWidth(50);
-            tablaArticulos.getColumnModel().getColumn(0).setPreferredWidth(50);
-            tablaArticulos.getColumnModel().getColumn(0).setMaxWidth(80);
+            tablaArticulos.getColumnModel().getColumn(0).setMinWidth(20);
+            tablaArticulos.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tablaArticulos.getColumnModel().getColumn(0).setMaxWidth(60);
             tablaArticulos.getColumnModel().getColumn(1).setMinWidth(100);
             tablaArticulos.getColumnModel().getColumn(1).setPreferredWidth(100);
             tablaArticulos.getColumnModel().getColumn(1).setMaxWidth(200);
             tablaArticulos.getColumnModel().getColumn(2).setMinWidth(30);
-            tablaArticulos.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tablaArticulos.getColumnModel().getColumn(2).setPreferredWidth(50);
             tablaArticulos.getColumnModel().getColumn(2).setMaxWidth(100);
         }
 
@@ -329,18 +329,19 @@ public class CajaGUI extends javax.swing.JPanel {
                         .addComponent(panelArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 20, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelTransacciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelNuevaVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelArticulos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelNuevaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 270, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
@@ -348,7 +349,7 @@ public class CajaGUI extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(panelTransacciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
     }// </editor-fold>//GEN-END:initComponents
 
