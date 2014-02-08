@@ -112,7 +112,7 @@ public final class ProductoGUI extends javax.swing.JFrame {
 
         TablaStockFecha.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null}
+
             },
             new String [] {
                 "Dias de Deposito"

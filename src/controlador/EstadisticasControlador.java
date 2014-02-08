@@ -6,6 +6,7 @@ package controlador;
 
 
 
+import abm.ABMCaja;
 import com.toedter.calendar.JDateChooser;
 import interfaz.EstadisticasGUI;
 import java.awt.event.ActionEvent;
@@ -28,6 +29,7 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
 import models.Caja;
+import models.Fecha;
 import models.Producto;
 import models.ProductosTransaccions;
 import models.Transaccion;
@@ -51,6 +53,12 @@ public class EstadisticasControlador implements ActionListener {
     private String dateDesde;
     private String dateHasta;
     private JButton calcular;
+    private JButton calcularDep;
+    private JButton calcularProm;
+    private JButton calcularProm2;
+    private JTextField campoDepo;
+    private JTextField campoProm;
+    private JTextField campoProm2;
     
     public EstadisticasControlador(EstadisticasGUI gui){
         this.view=gui;
@@ -59,14 +67,13 @@ public class EstadisticasControlador implements ActionListener {
     
     private void iniciar(){
         tablaEstadisticas=view.getTablaEstDef();
+        campoDepo = view.getCampoDep();
         calenDesde = view.getCalendarioDesde();
         calenHasta = view.getCalendarioHasta();
         calcular = view.getBotonBuscar();
         calcular.addActionListener(this);
-        cajas= new LinkedList<Caja>();
-        listaTransaccion= new LinkedList<Transaccion>();
-        listaProdTrans= new LinkedList<ProductosTransaccions>();
-        listaProd= new LinkedList<Producto>();
+        calcularDep = view.getBotoncalcularDep();
+        calcularDep.addActionListener(this);
         dateDesde = "0-0-0";
         dateHasta = "9999-0-0";
                 
@@ -107,7 +114,7 @@ public class EstadisticasControlador implements ActionListener {
 }
 
     public void cargarEstadisticas(JTextField idProd, JTextField dia, java.util.Date desde, java.util.Date hasta){
-        if (desde.toString().trim().length()!=0 && hasta.toString().trim().length()!=0) {
+        if (desde!=null && hasta!=null) {
             abrirBase();
             tablaEstadisticas.setRowCount(0);
             if (idProd.getText().trim().length()==0){
@@ -123,7 +130,7 @@ public class EstadisticasControlador implements ActionListener {
                 Base.close();
          }
         else {
-            JOptionPane.showMessageDialog(view, "Error: Falta especificar motivo");
+            JOptionPane.showMessageDialog(view, "Error: Falta especificar fechas");
         }
         
     }
@@ -133,11 +140,15 @@ public class EstadisticasControlador implements ActionListener {
         Integer cantidad=0;
         Double ganancia=0.0;
         Double perdida=0.0;
+        Double promVentas=0.0;
+        Double promVentas2=0.0; 
+        int contador=0;
         Producto esteProducto=Producto.findById(idProd);
         cajas = Caja.findAll();
         listaProdTrans = ProductosTransaccions.findAll();
         for (Caja c : cajas) { //filtrar cajas que esten entre las fechas especificadas
-            if (dia.getText().trim().isEmpty() || getDayOfTheWeek(c.getDate("fecha"))==Integer.parseInt(dia.getText()) ){
+            contador++;
+            if (dia.getText().trim().isEmpty() || getDayOfTheWeek(c.getDate("fecha"))==transformarDia(dia.getText()) ){
                 if (c.getDate("fecha").compareTo(desde)>=0 && c.getDate("fecha").compareTo(hasta)<=0){
                     listaTransaccion=Transaccion.where("caja_id=?",c.getId());
                     for (Transaccion t : listaTransaccion){ //filtrar transacciones que tengan que ver con el producto
@@ -152,12 +163,16 @@ public class EstadisticasControlador implements ActionListener {
             }
         }
         ganancia=cantidad * esteProducto.getDouble("precio") * esteProducto.getDouble("comision")/100;
-        String row[] = new String[5];
+        promVentas=cantidad.doubleValue()/contador;
+        promVentas2=ganancia/contador;
+        String row[] = new String[7];
         row[0]=esteProducto.getId().toString();
         row[1]=esteProducto.getString("nombre");
         row[2]=cantidad.toString();
         row[3]=ganancia.toString();
         row[4]=perdida.toString();
+        row[5]=promVentas.toString();
+        row[6]=promVentas2.toString();
         if (esteProducto.get("visible").equals(1)){
             tablaEstadisticas.addRow(row);
         }
@@ -171,6 +186,8 @@ public class EstadisticasControlador implements ActionListener {
         JButton b = (JButton) ae.getSource();
         if (b.equals(calcular))
             cargarEstadisticas(view.getCampoProd(),view.getCampoDia(),view.getCalendarioDesde().getDate(),view.getCalendarioHasta().getDate());
+        if (b.equals(calcularDep))
+            calcularDeposito(view.getCampoProd());
     }
     
     private void abrirBase() {
@@ -178,6 +195,61 @@ public class EstadisticasControlador implements ActionListener {
             Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
         }
     }
+
+    private int transformarDia(String dia) {
+        if ("Domingo".equals(dia) || "domingo".equals(dia) ) return 1;
+        if ("Lunes".equals(dia) || "lunes".equals(dia)) return 2;
+        if ("Martes".equals(dia) || "martes".equals(dia)) return 3;
+        if ("Miercoles".equals(dia) || "miercoles".equals(dia)) return 4;
+        if ("Jueves".equals(dia) || "jueves".equals(dia)) return 5;
+        if ("Viernes".equals(dia) || "viernes".equals(dia)) return 6;
+        if ("Sabado".equals(dia) || "sabado".equals(dia)) return 7;
+        return -1;
+    }
+
+    private void calcularDeposito(JTextField idProd) {
+        if (idProd.getText().trim().isEmpty()) 
+            JOptionPane.showMessageDialog(view, "Error: Falta especificar codigo de producto");
+        else{
+            abrirBase();
+            listaProdTrans = ProductosTransaccions.findAll();
+            ABMCaja abm = new ABMCaja();
+            Producto esteProducto=Producto.findById(Integer.parseInt(idProd.getText()));
+            Caja cajaActual= Caja.findById(abm.getLastCaja());
+            Double deposito=0.0;
+            /*aca tira error*/
+            while (!esDiaDeDeposito(Integer.parseInt(idProd.getText()),getDayOfTheWeek(cajaActual.getDate("fecha")))){
+                int cantidad=0;
+                Double gananciaDelDia;
+                listaTransaccion=Transaccion.where("caja_id=?",cajaActual.getId());
+                for (Transaccion t : listaTransaccion){ //filtrar transacciones que tengan que ver con el producto
+                     for (ProductosTransaccions pt : listaProdTrans){
+                         if (pt.getInteger("transaccion_id").equals(t.getId()) && pt.getInteger("producto_id").equals(Integer.parseInt(idProd.getText()))){
+                             cantidad+=pt.getInteger("cantidad");
+                         }
+                     }
+                 }
+                gananciaDelDia=cantidad * esteProducto.getDouble("precio") * esteProducto.getDouble("comision")/100;
+                deposito+=gananciaDelDia; //acumulo ganancias diarias de ventas del producto   
+                cajaActual = Caja.findById((int)cajaActual.getId()-1);//le asigno la caja de ayer    
+            }
+            if (Base.hasConnection())
+                Base.close();
+            campoDepo.setText(deposito.toString());
+        }
+    }
+
+
+    private boolean esDiaDeDeposito(int idProd, int dia) {
+         List<Fecha> fechas = Fecha.where("producto_id=?", idProd);
+         for (Fecha f : fechas){
+             if (transformarDia(f.getString("diaDeposito"))==dia)
+                 return true;
+         }
+         return false;
+        
+    }
+        
 
 
 }

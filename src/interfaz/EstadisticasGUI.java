@@ -52,6 +52,9 @@ public class EstadisticasGUI extends javax.swing.JPanel {
         botonBuscar = new javax.swing.JButton();
         campoProd = new javax.swing.JTextField();
         labelProd = new javax.swing.JLabel();
+        labelProxDep = new javax.swing.JLabel();
+        campoDep = new javax.swing.JTextField();
+        botoncalcularDep = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(903, 581));
 
@@ -63,11 +66,11 @@ public class EstadisticasGUI extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Cod.Producto", "Nombre", "Cant. vendidos", "Ganancia", "Perdida"
+                "Cod.Producto", "Nombre", "Cant. vendidos", "Ganancia", "Perdida", "Prom.Cant.Vendidos", "Prom.Ventas"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -107,35 +110,53 @@ public class EstadisticasGUI extends javax.swing.JPanel {
 
         labelProd.setText("Cod.Producto");
 
+        labelProxDep.setText("Proximo Deposito");
+
+        campoDep.setEditable(false);
+
+        botoncalcularDep.setText("Calcular");
+        botoncalcularDep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botoncalcularDepActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(tablaEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tablaEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, 1016, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(144, 144, 144)
-                        .addComponent(botonBuscar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelDesde)
-                                    .addComponent(labelHasta)
-                                    .addComponent(labelDia)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(labelProd)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(campoDia, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(calendarioDesde, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                            .addComponent(calendarioHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(campoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(31, 31, 31)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(labelDesde)
+                                            .addComponent(labelHasta)
+                                            .addComponent(labelDia)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(labelProd)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(campoDia, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(calendarioDesde, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                                    .addComponent(calendarioHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(campoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelProxDep)
+                        .addGap(33, 33, 33)
+                        .addComponent(campoDep, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(botoncalcularDep)
+                        .addGap(96, 96, 96)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -145,10 +166,13 @@ public class EstadisticasGUI extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelProd))
-                .addGap(11, 11, 11)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelDia)
-                    .addComponent(campoDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelProxDep)
+                    .addComponent(campoDep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botoncalcularDep))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelDesde)
@@ -157,9 +181,9 @@ public class EstadisticasGUI extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelHasta)
                     .addComponent(calendarioHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(botonBuscar)
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addComponent(tablaEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
@@ -171,32 +195,38 @@ public class EstadisticasGUI extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(481, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 23, Short.MAX_VALUE))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void campoDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDiaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoDiaActionPerformed
-
-    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void campoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoProdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoProdActionPerformed
 
+    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonBuscarActionPerformed
+
+    private void campoDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoDiaActionPerformed
+
+    private void botoncalcularDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoncalcularDepActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botoncalcularDepActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscar;
+    private javax.swing.JButton botoncalcularDep;
     private com.toedter.calendar.JDateChooser calendarioDesde;
     private com.toedter.calendar.JDateChooser calendarioHasta;
+    private javax.swing.JTextField campoDep;
     private javax.swing.JTextField campoDia;
     private javax.swing.JTextField campoProd;
     private javax.swing.JPanel jPanel1;
@@ -204,6 +234,7 @@ public class EstadisticasGUI extends javax.swing.JPanel {
     private javax.swing.JLabel labelDia;
     private javax.swing.JLabel labelHasta;
     private javax.swing.JLabel labelProd;
+    private javax.swing.JLabel labelProxDep;
     private javax.swing.JTable tablaEst;
     private javax.swing.JScrollPane tablaEstadisticas;
     // End of variables declaration//GEN-END:variables
@@ -389,4 +420,39 @@ public class EstadisticasGUI extends javax.swing.JPanel {
     public void setLabelProd(javax.swing.JLabel labelProd) {
         this.labelProd = labelProd;
     }
+
+ 
+
+    /**
+     * @return the botoncalcularDep
+     */
+    public javax.swing.JButton getBotoncalcularDep() {
+        return botoncalcularDep;
+    }
+
+    /**
+     * @param botoncalcularDep the botoncalcularDep to set
+     */
+    public void setBotoncalcularDep(javax.swing.JButton botoncalcularDep) {
+        this.botoncalcularDep = botoncalcularDep;
+    }
+
+    /**
+     * @return the campoDep
+     */
+    public javax.swing.JTextField getCampoDep() {
+        return campoDep;
+    }
+
+    /**
+     * @param campoDep the campoDep to set
+     */
+    public void setCampoDep(javax.swing.JTextField campoDep) {
+        this.campoDep = campoDep;
+    }
+
+ 
+
+ 
+    
 }

@@ -123,12 +123,13 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
             while (itr.hasNext()) {
                 Fecha p = itr.next();
                 Object row[] = new Object[1];
-                row[0] = p.getString("diaSorteo");
+                row[0] = p.getString("diaDeposito");
                 tablaFecha.addRow(row);
             }
             tablaFecha.addRow(new Object[1]);
         }
         else{
+            tablaFecha.setRowCount(0);
             view.getInsertar().setEnabled(false);
             view.getQuitar().setEnabled(false);
         }
@@ -155,7 +156,7 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
             }
             if (ae.getActionCommand().equals("Quitar")) { //si presiono quitar
                 abmp.bajaFecha((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0),
-                        (String) tablaFecha.getValueAt(view.getTablaStockFecha().getSelectedRow(), 1)); 
+                        (String) tablaFecha.getValueAt(view.getTablaStockFecha().getSelectedRow(), 0)); 
             }
             if (ae.getActionCommand().equals("Eliminar")) { //si presiono eliminar
                 abmp.bajaProducto((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0)); //saco el id de la fila en la primer columna
@@ -215,7 +216,8 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
                 //cargo stock y fecha de la tabla junto con el id del producto
                 abmp.altaFecha(
                         (int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0),
-                        (String) tablaFecha.getValueAt(view.getTablaStockFecha().getSelectedRow(), 1));
+                        (String) tablaFecha.getValueAt(view.getTablaStockFecha().getSelectedRow(), 0));
+                
             }
         }
         
