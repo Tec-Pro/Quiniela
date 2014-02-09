@@ -4,11 +4,8 @@
  */
 package interfaz;
 
-import java.awt.event.ActionEvent;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 
 /**
  *
@@ -16,10 +13,10 @@ import javax.swing.JPanel;
  */
 public class MainGUI extends javax.swing.JFrame {
 
-    private CajaGUI caja;
+    private final CajaGUI caja;
     private EstadisticasGUI estadisticas;
-    private JMenu menuAdmin;
-    private javax.swing.JMenuItem menuUsuario;
+    private final JMenu menuAdmin;
+    private final javax.swing.JMenuItem menuUsuario;
 
     /**
      * Creates new form MainGUI
@@ -53,6 +50,7 @@ public class MainGUI extends javax.swing.JFrame {
         archivo = new javax.swing.JMenu();
         abrirCaja = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        cajasAnteriores = new javax.swing.JMenuItem();
         imprimirParcial = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         cerrarCaja = new javax.swing.JMenuItem();
@@ -79,8 +77,12 @@ public class MainGUI extends javax.swing.JFrame {
         jSeparator1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         archivo.add(jSeparator1);
 
+        cajasAnteriores.setText("Ver Cajas Anteriores");
+        cajasAnteriores.setActionCommand("cajasAnteriores");
+        archivo.add(cajasAnteriores);
+
         imprimirParcial.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        imprimirParcial.setText("Imprimir Caja Parcial");
+        imprimirParcial.setText("Ver Caja Parcial");
         imprimirParcial.setActionCommand("cajaParcial");
         archivo.add(imprimirParcial);
 
@@ -153,6 +155,7 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JMenu archivo;
     private javax.swing.JMenu ayuda;
     private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JMenuItem cajasAnteriores;
     private javax.swing.JMenuItem cerrarCaja;
     private javax.swing.JMenu cuenta;
     private javax.swing.JMenuItem imprimirClientes;
@@ -274,6 +277,13 @@ public class MainGUI extends javax.swing.JFrame {
      */
     public javax.swing.JMenuItem getMenuUsuario() {
         return menuUsuario;
+    }
+
+    /**
+     * @return the cajasAnteriores
+     */
+    public javax.swing.JMenuItem getCajasAnteriores() {
+        return cajasAnteriores;
     }
 
 }

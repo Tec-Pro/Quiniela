@@ -13,10 +13,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CajaGUI extends javax.swing.JPanel {
 
-    private DefaultTableModel tablaArtDef;
-    private DefaultTableModel tablaCliDef;
-    private DefaultTableModel tablaTransDef;
-    private DefaultTableModel tablaDetallesDef;
+    private final DefaultTableModel tablaArtDef;
+    private final DefaultTableModel tablaCliDef;
+    private final DefaultTableModel tablaTransDef;
+    private final DefaultTableModel tablaDetallesDef;
     
     /**
      * Creates new form CajaGUI
@@ -38,8 +38,6 @@ public class CajaGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        menuProducto = new javax.swing.JPopupMenu();
-        detallesProd = new javax.swing.JMenuItem();
         panelArticulos = new javax.swing.JPanel();
         contTabArt = new javax.swing.JScrollPane();
         tablaArticulos = new javax.swing.JTable();
@@ -59,11 +57,6 @@ public class CajaGUI extends javax.swing.JPanel {
         tablaCliente = new javax.swing.JTable();
         clienteSel = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-
-        menuProducto.setName(""); // NOI18N
-
-        detallesProd.setText("Detalles");
-        menuProducto.add(detallesProd);
 
         panelArticulos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Articulos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 0, 14))); // NOI18N
 
@@ -359,7 +352,6 @@ public class CajaGUI extends javax.swing.JPanel {
         getDepManual().setEnabled(false);
         getRetManual().setEnabled(false);
         getClienteSel().setEnabled(false);
-        getMenuProducto().setEnabled(false);
         getTablaTransacciones().setEnabled(false);
         contTabCli.setEnabled(false);
     }
@@ -374,7 +366,6 @@ public class CajaGUI extends javax.swing.JPanel {
         getRetManual().setEnabled(true);
         getTablaTransacciones().setEnabled(true);
         getClienteSel().setEnabled(true);
-        getMenuProducto().setEnabled(true);
         contTabCli.setEnabled(true);
         tablaCliente.setEnabled(true);
     }
@@ -384,10 +375,8 @@ public class CajaGUI extends javax.swing.JPanel {
     private javax.swing.JScrollPane contTabCli;
     private javax.swing.JScrollPane contTrans;
     private javax.swing.JButton depManual;
-    private javax.swing.JMenuItem detallesProd;
     private javax.swing.JScrollPane detallesVenta;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPopupMenu menuProducto;
     private javax.swing.JPanel panelArticulos;
     private javax.swing.JPanel panelCliente;
     private javax.swing.JPanel panelNuevaVenta;
@@ -562,19 +551,7 @@ public class CajaGUI extends javax.swing.JPanel {
         return clienteSel;
     }
 
-    /**
-     * @return the detallesProd
-     */
-    public javax.swing.JMenuItem getDetallesProd() {
-        return detallesProd;
-    }
 
-    /**
-     * @return the menuProducto
-     */
-    public javax.swing.JPopupMenu getMenuProducto() {
-        return menuProducto;
-    }
 
     public void detalleProducto() {
         JFrame frame = new JFrame("Detalles Producto");

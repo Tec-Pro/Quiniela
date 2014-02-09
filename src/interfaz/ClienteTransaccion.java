@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ClienteTransaccion extends javax.swing.JFrame {
     
-    private DefaultTableModel tablaTransaccionDef;
+    private final DefaultTableModel tablaTransaccionDef;
     
     /**
      * Creates new form ClienteTransaccion
@@ -37,7 +37,7 @@ public class ClienteTransaccion extends javax.swing.JFrame {
         tablaTransacciones = new javax.swing.JTable();
         buttonAceptar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         panelMain.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Transacciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
@@ -65,9 +65,11 @@ public class ClienteTransaccion extends javax.swing.JFrame {
             }
         });
         jScrollPane4.setViewportView(tablaTransacciones);
-        tablaTransacciones.getColumnModel().getColumn(0).setPreferredWidth(5);
-        tablaTransacciones.getColumnModel().getColumn(1).setPreferredWidth(80);
-        tablaTransacciones.getColumnModel().getColumn(2).setPreferredWidth(5);
+        if (tablaTransacciones.getColumnModel().getColumnCount() > 0) {
+            tablaTransacciones.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tablaTransacciones.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tablaTransacciones.getColumnModel().getColumn(2).setPreferredWidth(5);
+        }
 
         javax.swing.GroupLayout panelMainLayout = new javax.swing.GroupLayout(panelMain);
         panelMain.setLayout(panelMainLayout);
@@ -82,7 +84,7 @@ public class ClienteTransaccion extends javax.swing.JFrame {
         );
         panelMainLayout.setVerticalGroup(
             panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
             .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelMainLayout.createSequentialGroup()
                     .addGap(0, 177, Short.MAX_VALUE)
@@ -128,13 +130,7 @@ public class ClienteTransaccion extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>

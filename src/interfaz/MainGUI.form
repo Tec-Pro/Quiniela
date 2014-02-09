@@ -27,12 +27,18 @@
                 </Property>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="cajasAnteriores">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ver Cajas Anteriores"/>
+                <Property name="actionCommand" type="java.lang.String" value="cajasAnteriores"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="imprimirParcial">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+P"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Imprimir Caja Parcial"/>
+                <Property name="text" type="java.lang.String" value="Ver Caja Parcial"/>
                 <Property name="actionCommand" type="java.lang.String" value="cajaParcial"/>
               </Properties>
             </MenuItem>

@@ -80,8 +80,10 @@ public final class ProductoGUI extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(TablaProductos);
-        TablaProductos.getColumnModel().getColumn(4).setCellEditor(TablaProductos.getDefaultEditor(Boolean.class));
-        TablaProductos.getColumnModel().getColumn(4).setCellRenderer(TablaProductos.getDefaultRenderer(Boolean.class));
+        if (TablaProductos.getColumnModel().getColumnCount() > 0) {
+            TablaProductos.getColumnModel().getColumn(4).setCellEditor(TablaProductos.getDefaultEditor(Boolean.class));
+            TablaProductos.getColumnModel().getColumn(4).setCellRenderer(TablaProductos.getDefaultRenderer(Boolean.class));
+        }
 
         ProdNuevo.setText("Nuevo");
         ProdNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +170,7 @@ public final class ProductoGUI extends javax.swing.JFrame {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(68, 68, 68)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
