@@ -4,6 +4,8 @@
  */
 package controlador;
 
+import abm.ABMCaja;
+import models.Cliente;
 import abm.ABMCliente;
 import abm.ABMTransaccion;
 import interfaz.ClienteGUI;
@@ -24,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 import models.Cliente;
 import models.Transaccion;
 import org.javalite.activejdbc.Base;
+import quiniela.Quiniela;
 
 /**
  *
@@ -35,6 +38,7 @@ public class ClienteControlador implements ActionListener {
     private ClienteGUI view;
     private ABMCliente abmC;
     private ABMTransaccion abmT;
+    private ABMCaja abmCaja;
     private CajaControlador cc;
     private List<Cliente> listaClientes;
     private DefaultTableModel tablaTransacciones;
@@ -50,6 +54,8 @@ public class ClienteControlador implements ActionListener {
     public ClienteControlador(ClienteGUI clienteGUI, CajaControlador cc) {
         this.view = clienteGUI;
         this.abmC = new ABMCliente();
+        this.abmCaja = new ABMCaja();
+        this.abmT = new ABMTransaccion();
         this.cc = cc;
         iniciar();
     }
@@ -126,7 +132,9 @@ public class ClienteControlador implements ActionListener {
         int id = (int) tabla.getValueAt(i, 0);
         BigDecimal deber = new BigDecimal(tabla.getValueAt(i, 3).toString());
         BigDecimal haber = new BigDecimal(tabla.getValueAt(i, 4).toString());
-        
+        if (!Cliente.findById(id).get("haber").equals(haber)){
+            abmT.altaTransaccion("Depósito de cliente: "+Cliente.findById(id).getString("nombre")+" "+Cliente.findById(id).getString("apellido"), "Dep. Cuenta", haber.subtract(Cliente.findById(id).getBigDecimal("haber")), 1, abmCaja.getLastCaja(), id, Quiniela.id_usuario);
+        }
         abmC.modificarCliente(id, deber, haber);
         i++;
         }
@@ -211,5 +219,6 @@ public class ClienteControlador implements ActionListener {
                 break;
         }
         cc.cargarCuentas();
+        cc.cargarTransacciones();
     }
 }

@@ -5,22 +5,20 @@
 package controlador;
 
 import abm.ABMCaja;
-import abm.ABMCliente;
 import abm.ABMTransaccion;
 import interfaz.AdministradorGUI;
 import interfaz.ClienteGUI;
+import interfaz.ListaCajas;
 import interfaz.MainGUI;
 import interfaz.ProductoGUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Usuario;
 import net.sf.jasperreports.engine.JRException;
 import org.javalite.activejdbc.Base;
-import org.javalite.activejdbc.Model;
 import org.joda.time.LocalDate;
 import quiniela.Quiniela;
 
@@ -30,7 +28,7 @@ import quiniela.Quiniela;
  */
 public class MainControlador implements ActionListener {
     
-    private MainGUI principal;
+    private final MainGUI principal;
     private ABMCaja abmc;
     private CajaControlador cc;
     private EstadisticasControlador ec;
@@ -46,7 +44,7 @@ public class MainControlador implements ActionListener {
         principal.setTitle("Gestión de Quiniela");
         principal.setVisible(true);
         principal.setLocationRelativeTo(null);//centrado en pantalla
-        principal.setExtendedState(principal.MAXIMIZED_BOTH);//estado maximizado
+        principal.setExtendedState(MainGUI.MAXIMIZED_BOTH);//estado maximizado
         //se añade las acciones a los controles del formulario padre
         this.principal.getAbrirCaja().setActionCommand("ABRIR CAJA");
         principal.getImprimirParcial().setEnabled(false);
@@ -58,9 +56,11 @@ public class MainControlador implements ActionListener {
         principal.getImprimirClientes().addActionListener(this);
         principal.getImprimirParcial().addActionListener(this);
         principal.getImprimirProductos().addActionListener(this);
+        principal.getCajasAnteriores().addActionListener(this);
         principal.getMenuUsuario().addActionListener(this);
         principal.getProducto().setEnabled(false);
         principal.getCuenta().setEnabled(false);
+        principal.getCajasAnteriores().setEnabled(false);
         abmc = new ABMCaja();
         Usuario u = Usuario.findById(Quiniela.id_usuario);
         if (u.get("admin").equals(1)){
@@ -86,7 +86,7 @@ public class MainControlador implements ActionListener {
                     }
                     ABMTransaccion abmt = new ABMTransaccion();;
                     LocalDate date = new LocalDate();
-                    System.out.println(abmc.altaCaja( date));
+                    abmc.altaCaja(date);
                     principal.getAbrirCaja().setEnabled(false);
                     if (Base.hasConnection()){
                         Base.close();
@@ -96,6 +96,7 @@ public class MainControlador implements ActionListener {
                     principal.getImprimirParcial().setEnabled(true);
                     principal.getCuenta().setEnabled(true);
                     principal.getProducto().setEnabled(true);
+                    principal.getCajasAnteriores().setEnabled(true);
                     break;
                 case "Cerrar e Imprimir":
                     reporteControlador rc = new reporteControlador("transacciones.jasper");
@@ -103,7 +104,7 @@ public class MainControlador implements ActionListener {
                         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
                     }
                     int id_caja = abmc.getLastCaja();
-                    rc.mostrarReporte(id_caja);
+                    rc.mostrarReporte(id_caja, abmc.getTotalVentas(id_caja),abmc.getTotalOtros(id_caja));
                     if (Base.hasConnection()){
                         Base.close();
                     }
@@ -115,8 +116,7 @@ public class MainControlador implements ActionListener {
                         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
                     }
                     int id_parcial = abmc.getLastCaja();
-                    System.out.println("ID CAJA: "+id_parcial);
-                    rc2.mostrarReporte(id_parcial);
+                    rc2.mostrarReporte(id_parcial, abmc.getTotalVentas(id_parcial), abmc.getTotalOtros(id_parcial));
                     if (Base.hasConnection()){
                         Base.close();
                     }
@@ -135,15 +135,14 @@ public class MainControlador implements ActionListener {
                 case "VentanaClientes":
                     ClienteControlador contCli = new ClienteControlador(new ClienteGUI(), cc);
                     break;
+                case "cajasAnteriores":
+                    listaCajasControlador lcc = new listaCajasControlador(new ListaCajas());
+                    break;
                 case "MenuUsuario":
                     AdministradorControlador admCont = new AdministradorControlador(new AdministradorGUI());
                     break;
             }
-        } catch (JRException ex) {
-            Logger.getLogger(MainControlador.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MainControlador.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (JRException | ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MainControlador.class.getName()).log(Level.SEVERE, null, ex);
         }
         

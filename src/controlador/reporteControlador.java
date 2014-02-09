@@ -7,7 +7,6 @@ package controlador;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import net.sf.jasperreports.engine.JREmptyDataSource;
@@ -23,7 +22,7 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class reporteControlador {
 
-    private JasperReport reporte;
+    private final JasperReport reporte;
 
     public reporteControlador(String jasper) throws JRException, ClassNotFoundException, SQLException {
         //cargo el reporte
@@ -31,15 +30,17 @@ public class reporteControlador {
     }
 
     //listado de clientes productos y proveedores.
-    public void mostrarReporte(int caja_id) throws ClassNotFoundException, SQLException, JRException {
+    public void mostrarReporte(int caja_id, Double totalVentas, Double totalOtros) throws ClassNotFoundException, SQLException, JRException {
         Class.forName("com.mysql.jdbc.Driver");
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/quiniela", "root", "root");
-        Map parametros = new HashMap();
-        parametros.clear();
-        parametros.put("idCaja", caja_id);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, connection);
-        JasperViewer.viewReport(jasperPrint, false);
-        connection.close();
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/quiniela", "root", "root")) {
+            Map parametros = new HashMap();
+            parametros.clear();
+            parametros.put("idCaja", caja_id);
+            parametros.put("totalSinVentas", totalOtros);
+            parametros.put("ventasTotales", totalVentas);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, connection);
+            JasperViewer.viewReport(jasperPrint, false);
+        }
     }
     
     public void mostrarReporte(Map parametros) throws ClassNotFoundException, SQLException, JRException {
@@ -47,11 +48,12 @@ public class reporteControlador {
         JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, new    JREmptyDataSource());
         JasperViewer.viewReport(jasperPrint, false);
     }
+    
     public void mostrarLista() throws ClassNotFoundException, SQLException, JRException {
         Class.forName("com.mysql.jdbc.Driver");
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/quiniela", "root", "root");
-        JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, connection);
-        JasperViewer.viewReport(jasperPrint, false);
-        connection.close();
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/quiniela", "root", "root")) {
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, connection);
+            JasperViewer.viewReport(jasperPrint, false);
+        }
     }
 }

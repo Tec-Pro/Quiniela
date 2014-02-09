@@ -5,18 +5,13 @@
 package controlador;
 
 import abm.ABMTransaccion;
-import interfaz.DepoManual;
 import interfaz.RetManual;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import models.Caja;
-import models.Transaccion;
 import org.javalite.activejdbc.Base;
 import quiniela.Quiniela;
 
@@ -26,9 +21,9 @@ import quiniela.Quiniela;
  */
 public class retManualControlador implements ActionListener {
 
-    private RetManual retM;
-    private ABMTransaccion abmTrans;
-    private CajaControlador cc;
+    private final RetManual retM;
+    private final ABMTransaccion abmTrans;
+    private final CajaControlador cc;
 
     retManualControlador(RetManual rm, CajaControlador cc) {
         this.retM = rm;
@@ -60,7 +55,7 @@ public class retManualControlador implements ActionListener {
                 if (retM.motivoRepMan.getText().trim().isEmpty()) {
                     JOptionPane.showMessageDialog(retM, "Error: Falta especificar motivo");
                 } else {
-                    if (abmTrans.altaTransaccion(motivo, "Ret. Man", monto.negate(), 1, id_caja, Quiniela.id_usuario) == false) {
+                    if (!abmTrans.altaRetiro(motivo, "Ret. Manual", monto, 1, id_caja, Quiniela.id_usuario)) {
                         JOptionPane.showMessageDialog(retM, "No hay fondos suficientes para realizar este retiro");
                     }
                     cc.cargarTransacciones();

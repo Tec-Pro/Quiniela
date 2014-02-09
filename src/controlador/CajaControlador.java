@@ -13,19 +13,16 @@ import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
 import models.Caja;
 import models.Cliente;
-import models.Fecha;
 import models.Producto;
 import models.ProductosTransaccions;
 import models.Transaccion;
 import org.javalite.activejdbc.Base;
-import org.javalite.activejdbc.Model;
 import quiniela.Quiniela;
 
 /**
@@ -34,10 +31,10 @@ import quiniela.Quiniela;
  */
 public class CajaControlador implements ActionListener, CellEditorListener {
 
-    private CajaGUI view;
+    private final CajaGUI view;
     private ABMCaja abmc;
-    private ABMTransaccion model;
-    private ABMCliente cliente;
+    private final ABMTransaccion model;
+    private final ABMCliente cliente;
     private DefaultTableModel tablaArticulos;
     private DefaultTableModel tablaClientes;
     private DefaultTableModel tablaTrans;
@@ -51,9 +48,9 @@ public class CajaControlador implements ActionListener, CellEditorListener {
     private Cliente c;
 
     //JForm hijos
-
     DepoManual depoManual;
     RetManual retManual;
+    ListaCajas listaCajas;
 
     public CajaControlador(CajaGUI caja) {
         this.view = caja;
@@ -68,7 +65,6 @@ public class CajaControlador implements ActionListener, CellEditorListener {
         view.getRetManual().addActionListener(this);
         view.getTotalField().addActionListener(this);
         view.getVentaOk().addActionListener(this);
-        view.getDetallesProd().addActionListener(this);
         tablaDetalles = view.getTablaDetDef();
         view.getTablaArticulos().addMouseListener(new MouseAdapter() {
             @Override
@@ -96,10 +92,6 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                     setCellEditor();
                     actualizarPrecio();
                 }
-                if (e.getButton() == 3) {
-                    view.getMenuProducto().setVisible(true);
-                    view.getMenuProducto().show(e.getComponent(), e.getX(), e.getY());
-                }
             }
 
         });
@@ -119,10 +111,12 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                 if (!Base.hasConnection()) {
                     abrirBase();
                 }
-                JTable t = (JTable) e.getSource();
-                c = Cliente.findById(t.getValueAt(t.getSelectedRow(), 0));
-                view.getClienteSel().setText(c.getString("nombre") + " " + c.getString("apellido"));
-                id_cliente = (int) t.getValueAt(t.getSelectedRow(), 0);
+                if (e.getClickCount() == 2) {
+                    JTable t = (JTable) e.getSource();
+                    c = Cliente.findById(t.getValueAt(t.getSelectedRow(), 0));
+                    view.getClienteSel().setText(c.getString("nombre") + " " + c.getString("apellido"));
+                    id_cliente = (int) t.getValueAt(t.getSelectedRow(), 0);
+                }
                 if (Base.hasConnection()) {
                     Base.close();
                 }
@@ -269,9 +263,8 @@ public class CajaControlador implements ActionListener, CellEditorListener {
             case "Detalles":
                 view.detalleProducto();
                 break;
-        
-        }
 
+        }
         cargarTransacciones();
     }
 
