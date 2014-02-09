@@ -8,9 +8,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import models.Caja;
+import models.Transaccion;
 import org.javalite.activejdbc.Base;
 import org.joda.time.LocalDate;
-import quiniela.Quiniela;
 
 /**
  *
@@ -99,4 +99,31 @@ public class ABMCaja {
         return (Caja.first("fecha = ?", fecha.toDate()) != null);
     }
     
+    public Double getTotalVentas(int id){
+        Caja c = Caja.findById(id);
+        Double totalVentas = 0.0;
+        List<Transaccion> ventas = Transaccion.where("caja_id = ?", id);
+        for (Transaccion t : ventas) {
+                        if (t.get("visible").equals(1)) {
+                            if (t.get("tipo").equals("Venta")) {
+                                totalVentas += t.getDouble("monto");
+                            }
+                        }
+        }
+        return totalVentas;
+    }
+    
+    public Double getTotalOtros(int id){
+        Caja c = Caja.findById(id);
+        Double totalOtros = 0.0;
+        List<Transaccion> ventas = Transaccion.where("caja_id = ?", id);
+        for (Transaccion t : ventas) {
+                        if (t.get("visible").equals(1)) {
+                            if (!t.get("tipo").equals("Venta")) {
+                                totalOtros += t.getDouble("monto");
+                            }
+                        }
+        }
+        return totalOtros;
+    }
 }

@@ -106,6 +106,7 @@ public class ABMTransaccion {
      * @param monto
      * @param visible
      * @param caja
+     * @param cliente
      * @param usuario
      * @return true si la transacción fue creada con éxito.
      */
@@ -116,12 +117,6 @@ public class ABMTransaccion {
         if (c != null) {
             if (cl != null){
             Base.openTransaction();
-            if (monto.signum() == -1) {
-                BigDecimal montoCaja = c.getBigDecimal("saldo");
-                if (montoCaja.compareTo(monto.negate()) == -1) {
-                    return false;
-                }
-            }
             Transaccion nuevo = Transaccion.create("motivo", motivo, "tipo", tipo, "monto", monto, "visible", visible);
             nuevo.saveIt();
             c.add(nuevo);
@@ -141,12 +136,6 @@ public class ABMTransaccion {
         Usuario u = Usuario.findById(usuario);
         if (c != null) {
             Base.openTransaction();
-            if (monto.signum() == -1) {
-                BigDecimal montoCaja = c.getBigDecimal("saldo");
-                if (montoCaja.compareTo(monto.negate()) == -1) {
-                    return false;
-                }
-            }
             Transaccion nuevo = Transaccion.create("motivo", motivo, "tipo", tipo, "monto", monto, "visible", visible);
             nuevo.saveIt();
             c.add(nuevo);
@@ -159,10 +148,24 @@ public class ABMTransaccion {
         return false;
     }
     
-  /*  public boolean altaProductoTransaccion(int producto, int cantidad, int transaccion) {
-        Producto p = Producto.first("id = ?", producto);
-        Transaccion t = Transaccion.first("id = ?", transaccion);
-        
+    public boolean altaRetiro(String motivo, String tipo, BigDecimal monto, int visible, int caja,  int usuario){
+       Caja c = Caja.findById(caja);
+       Usuario u = Usuario.findById(usuario);
+       if (c != null) {
+           if (c.getBigDecimal("saldo").subtract(monto).compareTo(BigDecimal.ZERO)<0){
+               return false;
+           }
+           Base.openTransaction();
+           Transaccion nuevo = Transaccion.create("motivo", motivo, "tipo", tipo, "monto", monto, "visible", visible);
+           nuevo.saveIt();
+           c.add(nuevo);
+           u.add(nuevo);
+           ABMCaja abmc = new ABMCaja();
+           abmc.modificarCaja(caja, monto);
+           Base.commitTransaction();
+           return true;
+       }
+       return false;
     }
     
     /**
