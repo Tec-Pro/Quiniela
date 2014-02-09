@@ -98,9 +98,9 @@ public class CajaGUI extends javax.swing.JPanel {
             tablaArticulos.getColumnModel().getColumn(1).setMinWidth(100);
             tablaArticulos.getColumnModel().getColumn(1).setPreferredWidth(100);
             tablaArticulos.getColumnModel().getColumn(1).setMaxWidth(200);
-            tablaArticulos.getColumnModel().getColumn(2).setMinWidth(30);
-            tablaArticulos.getColumnModel().getColumn(2).setPreferredWidth(50);
-            tablaArticulos.getColumnModel().getColumn(2).setMaxWidth(100);
+            tablaArticulos.getColumnModel().getColumn(2).setMinWidth(50);
+            tablaArticulos.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tablaArticulos.getColumnModel().getColumn(2).setMaxWidth(115);
         }
 
         javax.swing.GroupLayout panelArticulosLayout = new javax.swing.GroupLayout(panelArticulos);
@@ -208,11 +208,8 @@ public class CajaGUI extends javax.swing.JPanel {
         detallesVenta.setViewportView(tablaDetalles);
         if (tablaDetalles.getColumnModel().getColumnCount() > 0) {
             tablaDetalles.getColumnModel().getColumn(0).setMinWidth(20);
-            tablaDetalles.getColumnModel().getColumn(0).setPreferredWidth(30);
-            tablaDetalles.getColumnModel().getColumn(0).setMaxWidth(40);
-            tablaDetalles.getColumnModel().getColumn(1).setMinWidth(50);
-            tablaDetalles.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tablaDetalles.getColumnModel().getColumn(1).setMaxWidth(300);
+            tablaDetalles.getColumnModel().getColumn(0).setPreferredWidth(45);
+            tablaDetalles.getColumnModel().getColumn(0).setMaxWidth(50);
             tablaDetalles.getColumnModel().getColumn(2).setMinWidth(30);
             tablaDetalles.getColumnModel().getColumn(2).setPreferredWidth(50);
             tablaDetalles.getColumnModel().getColumn(2).setMaxWidth(70);
