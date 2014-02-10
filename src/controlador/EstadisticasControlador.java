@@ -197,13 +197,14 @@ public class EstadisticasControlador implements ActionListener {
     }
 
     private int transformarDia(String dia) {
-        if ("Domingo".equals(dia) || "domingo".equals(dia) ) return 1;
-        if ("Lunes".equals(dia) || "lunes".equals(dia)) return 2;
-        if ("Martes".equals(dia) || "martes".equals(dia)) return 3;
-        if ("Miercoles".equals(dia) || "miercoles".equals(dia)) return 4;
-        if ("Jueves".equals(dia) || "jueves".equals(dia)) return 5;
-        if ("Viernes".equals(dia) || "viernes".equals(dia)) return 6;
-        if ("Sabado".equals(dia) || "sabado".equals(dia)) return 7;
+        String fecha = dia.toLowerCase();
+        if ("domingo".equals(fecha)) return 1;
+        if ("lunes".equals(fecha)) return 2;
+        if ("martes".equals(fecha)) return 3;
+        if ("miercoles".equals(fecha)) return 4;
+        if ("jueves".equals(fecha)) return 5;
+        if ("viernes".equals(fecha)) return 6;
+        if ("sabado".equals(fecha)) return 7;
         return -1;
     }
 
