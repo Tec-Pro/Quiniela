@@ -218,7 +218,7 @@ public class EstadisticasControlador implements ActionListener {
             Producto esteProducto=Producto.findById(Integer.parseInt(idProd.getText()));
             Caja cajaActual= Caja.findById(abm.getLastCaja());
             Double deposito=0.0;
-            /*aca tira error*/
+            if (esteProducto.getInteger("hayStock")==1){
             while (!esDiaDeDeposito(Integer.parseInt(idProd.getText()),getDayOfTheWeek(cajaActual.getDate("fecha")))){
                 int cantidad=0;
                 Double gananciaDelDia;
@@ -235,11 +235,31 @@ public class EstadisticasControlador implements ActionListener {
                  }
                 gananciaDelDia=cantidad * esteProducto.getDouble("precio") * esteProducto.getDouble("comision")/100;
                 deposito+= cantidad * esteProducto.getDouble("precio")-gananciaDelDia; //acumulo ganancias diarias de ventas del producto   
-                cajaActual = Caja.findById((int)cajaActual.getId()-1);//le asigno la caja de ayer    
+                cajaActual = Caja.findById((int)cajaActual.getId()-1);//le asigno la caja de ayer  
+                campoDepo.setText(deposito.toString());
             }
+            }
+            else{
+                int cantidad=0;
+                Double gananciaDelDia;
+                System.out.println("Entra acá");
+                System.out.println(cajaActual.getId());
+                listaTransaccion=Transaccion.where("caja_id=?",cajaActual.getId());
+                for (Transaccion t : listaTransaccion){ //filtrar transacciones que tengan que ver con el producto
+                    System.out.println("For 1"); 
+                    for (ProductosTransaccions pt : listaProdTrans){
+                         if (pt.getInteger("transaccion_id").equals(t.getId()) && pt.getInteger("producto_id").equals(Integer.parseInt(idProd.getText()))){
+                             cantidad+=pt.getInteger("cantidad");
+                         }
+                     }
+                 }
+                gananciaDelDia=cantidad * esteProducto.getDouble("precio") * esteProducto.getDouble("comision")/100;
+                deposito+= cantidad * esteProducto.getDouble("precio")-gananciaDelDia; //acumulo ganancias diarias de ventas del producto    
+                campoDepo.setText(deposito.toString());
+            }
+            
             if (Base.hasConnection())
                 Base.close();
-            campoDepo.setText(deposito.toString());
         }
     }
 

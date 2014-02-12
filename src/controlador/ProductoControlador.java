@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
@@ -157,6 +158,7 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
             if (ae.getActionCommand().equals("Quitar")) { //si presiono quitar
                 abmp.bajaFecha((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0),
                         (String) tablaFecha.getValueAt(view.getTablaStockFecha().getSelectedRow(), 0)); 
+                cargarFecha((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0));
             }
             if (ae.getActionCommand().equals("Eliminar")) { //si presiono eliminar
                 abmp.bajaProducto((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0)); //saco el id de la fila en la primer columna
@@ -211,13 +213,23 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
                     abmp.modificarProducto(id, nombre, b1, b2, hayStock,stock);
                 }
                 cargarProductos(); //actualizo la tabla de productos
+                JOptionPane.showMessageDialog(view, "Cambios guardados con exito!");
             }
             if (ae.getActionCommand().equals("Insertar")) { //si presiono insertar
                 //cargo stock y fecha de la tabla junto con el id del producto
-                abmp.altaFecha(
-                        (int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0),
-                        (String) tablaFecha.getValueAt(view.getTablaStockFecha().getSelectedRow(), 0));
-                
+                String diaDepo=(String) tablaFecha.getValueAt(view.getTablaStockFecha().getSelectedRow(), 0);
+                diaDepo=diaDepo.toLowerCase();
+                if ("lunes".equals(diaDepo) || "martes".equals(diaDepo) || "miercoles".equals(diaDepo) || "jueves".equals(diaDepo) || "viernes".equals(diaDepo) ||  "sabado".equals(diaDepo) || "domingo".equals(diaDepo)  ){
+                        abmp.altaFecha(
+                            (int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0),
+                            (String) tablaFecha.getValueAt(view.getTablaStockFecha().getSelectedRow(), 0));
+                        cargarFecha((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0));
+                        JOptionPane.showMessageDialog(view, "Dia cargado con exito!");
+                }
+                else {
+                    cargarFecha((int) tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(), 0));
+                    JOptionPane.showMessageDialog(view, "El dia esta mal escrito!");
+                }
             }
         }
         
