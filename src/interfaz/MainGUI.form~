@@ -6,7 +6,7 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="archivo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Caja"/>
+            <Property name="text" type="java.lang.String" value="Archivo"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="abrirCaja">
@@ -14,7 +14,7 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+A"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Abrir"/>
+                <Property name="text" type="java.lang.String" value="Abrir Caja"/>
                 <Property name="toolTipText" type="java.lang.String" value="Abre una caja para empezar a registrar transacciones."/>
               </Properties>
             </MenuItem>
@@ -29,7 +29,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="cajasAnteriores">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Anteriores"/>
+                <Property name="text" type="java.lang.String" value="Ver Cajas Anteriores"/>
                 <Property name="actionCommand" type="java.lang.String" value="cajasAnteriores"/>
               </Properties>
             </MenuItem>
@@ -38,7 +38,7 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+P"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Parcial"/>
+                <Property name="text" type="java.lang.String" value="Ver Caja Parcial"/>
                 <Property name="actionCommand" type="java.lang.String" value="cajaParcial"/>
               </Properties>
             </MenuItem>
@@ -56,14 +56,14 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+C"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Cerrar"/>
+                <Property name="text" type="java.lang.String" value="Cerrar e Imprimir"/>
               </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="cuenta">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Clientes"/>
+            <Property name="text" type="java.lang.String" value="Cuenta"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="ventanaClientes">
@@ -71,13 +71,13 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Alt+C"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Detalles"/>
+                <Property name="text" type="java.lang.String" value="Detalles de Clientes"/>
                 <Property name="actionCommand" type="java.lang.String" value="VentanaClientes"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="imprimirClientes">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Imprimir"/>
+                <Property name="text" type="java.lang.String" value="Imprimir Lista de Clientes"/>
                 <Property name="actionCommand" type="java.lang.String" value="imprimirClientes"/>
               </Properties>
             </MenuItem>
@@ -85,7 +85,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="producto">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Productos"/>
+            <Property name="text" type="java.lang.String" value="Producto"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="ventanaProductos">
@@ -93,13 +93,13 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Alt+P"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Detalles"/>
+                <Property name="text" type="java.lang.String" value="Abrir ventana de productos"/>
                 <Property name="actionCommand" type="java.lang.String" value="VentanaProductos"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="imprimirProducto">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Imprimir"/>
+                <Property name="text" type="java.lang.String" value="Imprimir Lista de Productos"/>
                 <Property name="actionCommand" type="java.lang.String" value="imprimirProductos"/>
               </Properties>
             </MenuItem>

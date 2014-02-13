@@ -67,22 +67,22 @@ public class MainGUI extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(tab);
 
-        archivo.setText("Archivo");
+        archivo.setText("Caja");
 
         abrirCaja.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        abrirCaja.setText("Abrir Caja");
+        abrirCaja.setText("Abrir");
         abrirCaja.setToolTipText("Abre una caja para empezar a registrar transacciones.");
         archivo.add(abrirCaja);
 
         jSeparator1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         archivo.add(jSeparator1);
 
-        cajasAnteriores.setText("Ver Cajas Anteriores");
+        cajasAnteriores.setText("Anteriores");
         cajasAnteriores.setActionCommand("cajasAnteriores");
         archivo.add(cajasAnteriores);
 
         imprimirParcial.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        imprimirParcial.setText("Ver Caja Parcial");
+        imprimirParcial.setText("Parcial");
         imprimirParcial.setActionCommand("cajaParcial");
         archivo.add(imprimirParcial);
 
@@ -90,32 +90,32 @@ public class MainGUI extends javax.swing.JFrame {
         archivo.add(jSeparator2);
 
         cerrarCaja.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
-        cerrarCaja.setText("Cerrar e Imprimir");
+        cerrarCaja.setText("Cerrar");
         archivo.add(cerrarCaja);
 
         barraMenu.add(archivo);
 
-        cuenta.setText("Cuenta");
+        cuenta.setText("Clientes");
 
         ventanaClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
-        ventanaClientes.setText("Detalles de Clientes");
+        ventanaClientes.setText("Detalles");
         ventanaClientes.setActionCommand("VentanaClientes");
         cuenta.add(ventanaClientes);
 
-        imprimirClientes.setText("Imprimir Lista de Clientes");
+        imprimirClientes.setText("Imprimir");
         imprimirClientes.setActionCommand("imprimirClientes");
         cuenta.add(imprimirClientes);
 
         barraMenu.add(cuenta);
 
-        producto.setText("Producto");
+        producto.setText("Productos");
 
         ventanaProductos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
-        ventanaProductos.setText("Abrir ventana de productos");
+        ventanaProductos.setText("Detalles");
         ventanaProductos.setActionCommand("VentanaProductos");
         producto.add(ventanaProductos);
 
-        imprimirProducto.setText("Imprimir Lista de Productos");
+        imprimirProducto.setText("Imprimir");
         imprimirProducto.setActionCommand("imprimirProductos");
         producto.add(imprimirProducto);
 

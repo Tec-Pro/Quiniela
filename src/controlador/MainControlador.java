@@ -6,16 +6,24 @@ package controlador;
 
 import abm.ABMCaja;
 import abm.ABMTransaccion;
+import com.jtattoo.plaf.acryl.AcrylLookAndFeel;
 import interfaz.AdministradorGUI;
 import interfaz.ClienteGUI;
 import interfaz.ListaCajas;
 import interfaz.MainGUI;
 import interfaz.ProductoGUI;
+import interfaz.UsuarioGUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import models.Usuario;
 import net.sf.jasperreports.engine.JRException;
 import org.javalite.activejdbc.Base;
@@ -27,11 +35,23 @@ import quiniela.Quiniela;
  * @author joako
  */
 public class MainControlador implements ActionListener {
-    
+    //Creo variables de Interfaz.
     private final MainGUI principal;
+    private AdministradorGUI administrador;
+    private ClienteGUI cliente;
+    private ListaCajas listaCajas;
+    private ProductoGUI producto;
     private ABMCaja abmc;
+    private UsuarioGUI usuario;
+    //Creo controladores.
     private CajaControlador cc;
     private EstadisticasControlador ec;
+    private ProductoControlador pc;
+    private ClienteControlador clic;
+    private reporteControlador rc;
+    private AdministradorControlador admin;
+    private UsuarioControlador uc;
+    private listaCajasControlador lcc;
     
     //Formularios Hijos
     
@@ -41,6 +61,16 @@ public class MainControlador implements ActionListener {
     }
     
     private void iniciar(){
+        Properties props = new Properties();
+        props.put("logoString", "");
+        AcrylLookAndFeel.setCurrentTheme(props);
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        try {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+        }
+        Quiniela.ventana = 0;
         principal.setTitle("Gestión de Quiniela");
         principal.setVisible(true);
         principal.setLocationRelativeTo(null);//centrado en pantalla
@@ -58,16 +88,49 @@ public class MainControlador implements ActionListener {
         principal.getImprimirProductos().addActionListener(this);
         principal.getCajasAnteriores().addActionListener(this);
         principal.getMenuUsuario().addActionListener(this);
-        principal.getProducto().setEnabled(false);
-        principal.getCuenta().setEnabled(false);
-        principal.getCajasAnteriores().setEnabled(false);
         abmc = new ABMCaja();
+        administrador = new AdministradorGUI();
+        cliente = new ClienteGUI();
+        listaCajas = new ListaCajas();
+        producto = new ProductoGUI();
+        cc = new CajaControlador(principal.getCaja());
+        ec = new EstadisticasControlador(principal.getEstadisticas());
+        pc = new ProductoControlador(producto,cc);
+        clic = new ClienteControlador(cliente,cc);
+        lcc = new listaCajasControlador(listaCajas);
+        principal.getCaja().disableAll();
+        administrador.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e){
+                Quiniela.ventana = 0;
+            }
+        });
+        cliente.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e){
+                Quiniela.ventana = 0;
+            }
+        });
+        listaCajas.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e){
+                Quiniela.ventana = 0;
+            }
+        });
+        producto.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e){
+                Quiniela.ventana = 0;
+            }
+        });
+        abrirBase();
         Usuario u = Usuario.findById(Quiniela.id_usuario);
         if (u.get("admin").equals(1)){
             principal.addMenuAdmin();
+            admin = new AdministradorControlador(administrador);
         }
-        cc = null;
-        ec = null;
+        if (Base.hasConnection())
+            Base.close();
     }
     
     public void run(){
@@ -87,19 +150,15 @@ public class MainControlador implements ActionListener {
                     ABMTransaccion abmt = new ABMTransaccion();;
                     LocalDate date = new LocalDate();
                     abmc.altaCaja(date);
+                    principal.getCaja().enableAll();
                     principal.getAbrirCaja().setEnabled(false);
                     if (Base.hasConnection()){
                         Base.close();
                     }
-                    cc = new CajaControlador(principal.getCaja());
-                    ec = new EstadisticasControlador(principal.getEstadisticas());
                     principal.getImprimirParcial().setEnabled(true);
-                    principal.getCuenta().setEnabled(true);
-                    principal.getProducto().setEnabled(true);
-                    principal.getCajasAnteriores().setEnabled(true);
                     break;
                 case "Cerrar e Imprimir":
-                    reporteControlador rc = new reporteControlador("transacciones.jasper");
+                    rc = new reporteControlador("transacciones.jasper");
                     if (!Base.hasConnection()){
                         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
                     }
@@ -111,35 +170,47 @@ public class MainControlador implements ActionListener {
                     principal.dispose();
                     break;
                 case "cajaParcial":
-                    reporteControlador rc2 = new reporteControlador("transacciones.jasper");
+                    rc = new reporteControlador("transacciones.jasper");
                     if (!Base.hasConnection()){
                         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
                     }
                     int id_parcial = abmc.getLastCaja();
-                    rc2.mostrarReporte(id_parcial, abmc.getTotalVentas(id_parcial), abmc.getTotalOtros(id_parcial));
+                    rc.mostrarReporte(id_parcial, abmc.getTotalVentas(id_parcial), abmc.getTotalOtros(id_parcial));
                     if (Base.hasConnection()){
                         Base.close();
                     }
                     break;
                 case "imprimirClientes":
-                    reporteControlador rccliente = new reporteControlador("listaClientes.jasper");
-                    rccliente.mostrarLista();
+                    rc = new reporteControlador("listaClientes.jasper");
+                    rc.mostrarLista();
                     break;
                 case "imprimirProductos":
-                    reporteControlador rcProd = new reporteControlador("listaProductos.jasper");
-                    rcProd.mostrarLista();
+                    rc= new reporteControlador("listaProductos.jasper");
+                    rc.mostrarLista();
                     break;
                 case "VentanaProductos":
-                    ProductoControlador pc = new ProductoControlador(new ProductoGUI(), cc);
+                    if (Quiniela.ventana == 0){
+                        pc.getView().setVisible(true);
+                        Quiniela.ventana = 1;
+                    }
                     break;
                 case "VentanaClientes":
-                    ClienteControlador contCli = new ClienteControlador(new ClienteGUI(), cc);
+                    if (Quiniela.ventana == 0){
+                        clic.getView().setVisible(true);
+                        Quiniela.ventana = 1;
+                    }
                     break;
                 case "cajasAnteriores":
-                    listaCajasControlador lcc = new listaCajasControlador(new ListaCajas());
+                    if (Quiniela.ventana == 0){
+                        lcc.getView().setVisible(true);
+                        Quiniela.ventana = 1;
+                    }
                     break;
                 case "MenuUsuario":
-                    AdministradorControlador admCont = new AdministradorControlador(new AdministradorGUI());
+                    if (Quiniela.ventana == 0){
+                        admin.getView().setVisible(true);
+                        Quiniela.ventana = 1;
+                    }
                     break;
             }
         } catch (JRException | ClassNotFoundException | SQLException ex) {
@@ -148,4 +219,9 @@ public class MainControlador implements ActionListener {
         
     }
     
+    private void abrirBase() {
+        if (!Base.hasConnection()) {
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
+        }
+    }
 }

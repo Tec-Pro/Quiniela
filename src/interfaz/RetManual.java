@@ -18,6 +18,7 @@ public class RetManual extends javax.swing.JFrame {
      */
     public RetManual() {
         initComponents();
+        this.getRootPane().setDefaultButton(retOk);
     }
 
     /**
@@ -38,17 +39,23 @@ public class RetManual extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        motivoRepMan.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         motivoRepMan.setToolTipText("Detalle el depósito");
 
+        montoRepMan.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         montoRepMan.setText("0");
         montoRepMan.setToolTipText("Ingrese el monto a depositar");
 
+        retOk.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         retOk.setText("Retirar");
 
+        montoText.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         montoText.setText("Monto a retirar");
 
+        motivoText.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         motivoText.setText("Motivo del retiro");
 
+        retCancel.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         retCancel.setText("Cancelar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -71,7 +78,7 @@ public class RetManual extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(retOk)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
                 .addComponent(retCancel)
                 .addGap(45, 45, 45))
         );
@@ -86,7 +93,7 @@ public class RetManual extends javax.swing.JFrame {
                 .addComponent(montoText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(montoRepMan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(retOk)
                     .addComponent(retCancel))

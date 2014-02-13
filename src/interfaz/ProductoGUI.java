@@ -56,6 +56,7 @@ public final class ProductoGUI extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jLabel1.setText("PRODUCTOS");
 
+        TablaProductos.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         TablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -80,9 +81,13 @@ public final class ProductoGUI extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(TablaProductos);
-        TablaProductos.getColumnModel().getColumn(4).setCellEditor(TablaProductos.getDefaultEditor(Boolean.class));
-        TablaProductos.getColumnModel().getColumn(4).setCellRenderer(TablaProductos.getDefaultRenderer(Boolean.class));
+        if (TablaProductos.getColumnModel().getColumnCount() > 0) {
+            TablaProductos.getColumnModel().getColumn(4).setCellEditor(TablaProductos.getDefaultEditor(Boolean.class));
+            TablaProductos.getColumnModel().getColumn(4).setCellRenderer(TablaProductos.getDefaultRenderer(Boolean.class));
+        }
 
+        ProdNuevo.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        ProdNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/new.png"))); // NOI18N
         ProdNuevo.setText("Nuevo");
         ProdNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +95,8 @@ public final class ProductoGUI extends javax.swing.JFrame {
             }
         });
 
+        ProdModificar.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        ProdModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
         ProdModificar.setText("Guardar Cambios");
         ProdModificar.setActionCommand("Modificar");
         ProdModificar.setEnabled(false);
@@ -99,9 +106,12 @@ public final class ProductoGUI extends javax.swing.JFrame {
             }
         });
 
+        ProdEliminar.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        ProdEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/delete.png"))); // NOI18N
         ProdEliminar.setText("Eliminar");
         ProdEliminar.setEnabled(false);
 
+        ProdActualizar.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         ProdActualizar.setText("Actualizar Listado");
         ProdActualizar.setActionCommand("Actualizar");
         ProdActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -110,6 +120,7 @@ public final class ProductoGUI extends javax.swing.JFrame {
             }
         });
 
+        TablaStockFecha.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         TablaStockFecha.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -128,8 +139,10 @@ public final class ProductoGUI extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(TablaStockFecha);
 
+        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel2.setText("Detalles de:");
 
+        Insertar.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         Insertar.setText("Insertar");
         Insertar.setEnabled(false);
         Insertar.addActionListener(new java.awt.event.ActionListener() {
@@ -138,6 +151,7 @@ public final class ProductoGUI extends javax.swing.JFrame {
             }
         });
 
+        Quitar.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         Quitar.setText("Quitar");
         Quitar.setEnabled(false);
         Quitar.addActionListener(new java.awt.event.ActionListener() {

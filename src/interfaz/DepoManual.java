@@ -17,6 +17,7 @@ public class DepoManual extends javax.swing.JFrame {
      */
     public DepoManual() {
         initComponents();
+        this.getRootPane().setDefaultButton(depoOk);
     }
 
     /**
@@ -37,17 +38,23 @@ public class DepoManual extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        motivoDepoMan.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         motivoDepoMan.setToolTipText("Detalle el depósito");
 
+        montoDepoMan.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         montoDepoMan.setText("0");
         montoDepoMan.setToolTipText("Ingrese el monto a depositar");
 
+        depoOk.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         depoOk.setText("Depositar");
 
+        montoText.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         montoText.setText("Monto a depositar");
 
+        motivoText.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         motivoText.setText("Motivo del depósito");
 
+        depoCancel.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         depoCancel.setText("Cancelar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -70,7 +77,7 @@ public class DepoManual extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(depoOk)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                 .addComponent(depoCancel)
                 .addGap(45, 45, 45))
         );
@@ -85,7 +92,7 @@ public class DepoManual extends javax.swing.JFrame {
                 .addComponent(montoText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(montoDepoMan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(depoOk)
                     .addComponent(depoCancel))

@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 public class EstadisticasGUI extends javax.swing.JPanel {
     
     private DefaultTableModel tablaEstDef;
+    private final java.util.Date hoy = new java.util.Date();
 
     /**
      * Creates new form EstadisticasGUI
@@ -61,6 +62,7 @@ public class EstadisticasGUI extends javax.swing.JPanel {
         tablaEstadisticas.setBackground(new java.awt.Color(254, 254, 254));
         tablaEstadisticas.setName("Estadisticas"); // NOI18N
 
+        tablaEst.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         tablaEst.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -79,22 +81,26 @@ public class EstadisticasGUI extends javax.swing.JPanel {
         });
         tablaEstadisticas.setViewportView(tablaEst);
 
+        labelDia.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         labelDia.setText("Dia");
 
+        labelDesde.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         labelDesde.setText("Desde");
 
+        labelHasta.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         labelHasta.setText("Hasta");
 
-        campoDia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoDiaActionPerformed(evt);
-            }
-        });
+        campoDia.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
 
-        calendarioDesde.setDateFormatString("yyyy-MM-dd");
+        calendarioDesde.setDate(new java.util.Date(915163292000L));
+        calendarioDesde.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        calendarioDesde.setMaxSelectableDate(new java.util.Date(253370779292000L));
+        calendarioDesde.setMinSelectableDate(new java.util.Date(-62135755108000L));
 
-        calendarioHasta.setDateFormatString("yyyy-MM-dd");
+        calendarioHasta.setDate(hoy);
+        calendarioHasta.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
 
+        botonBuscar.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         botonBuscar.setText("Calcular");
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,18 +108,23 @@ public class EstadisticasGUI extends javax.swing.JPanel {
             }
         });
 
+        campoProd.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         campoProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoProdActionPerformed(evt);
             }
         });
 
+        labelProd.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         labelProd.setText("Cod.Producto");
 
+        labelProxDep.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         labelProxDep.setText("Proximo Deposito");
 
         campoDep.setEditable(false);
+        campoDep.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
 
+        botoncalcularDep.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         botoncalcularDep.setText("Calcular");
         botoncalcularDep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,10 +157,11 @@ public class EstadisticasGUI extends javax.swing.JPanel {
                                         .addComponent(labelProd)))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(campoDia, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(calendarioDesde, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                                    .addComponent(calendarioHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                    .addComponent(campoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(calendarioDesde, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(campoProd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                                        .addComponent(campoDia, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(calendarioHasta, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(labelProxDep)
                         .addGap(33, 33, 33)
@@ -195,13 +207,13 @@ public class EstadisticasGUI extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addGap(0, 13, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -212,10 +224,6 @@ public class EstadisticasGUI extends javax.swing.JPanel {
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonBuscarActionPerformed
-
-    private void campoDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDiaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoDiaActionPerformed
 
     private void botoncalcularDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoncalcularDepActionPerformed
         // TODO add your handling code here:

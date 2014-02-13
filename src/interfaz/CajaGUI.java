@@ -58,8 +58,9 @@ public class CajaGUI extends javax.swing.JPanel {
         clienteSel = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
-        panelArticulos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Articulos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 0, 14))); // NOI18N
+        panelArticulos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Articulos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 0, 16))); // NOI18N
 
+        tablaArticulos.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         tablaArticulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -107,9 +108,10 @@ public class CajaGUI extends javax.swing.JPanel {
             .addComponent(contTabArt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
         );
 
-        panelTransacciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Transacciones Realizadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 0, 14))); // NOI18N
+        panelTransacciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Transacciones Realizadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 0, 16))); // NOI18N
 
         tablaTransacciones.setAutoCreateRowSorter(true);
+        tablaTransacciones.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         tablaTransacciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -122,7 +124,7 @@ public class CajaGUI extends javax.swing.JPanel {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -146,8 +148,12 @@ public class CajaGUI extends javax.swing.JPanel {
             tablaTransacciones.getColumnModel().getColumn(3).setMaxWidth(80);
         }
 
+        depManual.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        depManual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/depositar.png"))); // NOI18N
         depManual.setText("DEPOSITO MANUAL");
 
+        retManual.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        retManual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/retirar.png"))); // NOI18N
         retManual.setText("RETIRO MANUAL");
 
         javax.swing.GroupLayout panelTransaccionesLayout = new javax.swing.GroupLayout(panelTransacciones);
@@ -156,24 +162,26 @@ public class CajaGUI extends javax.swing.JPanel {
             panelTransaccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(contTrans)
             .addGroup(panelTransaccionesLayout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(36, 36, 36)
                 .addComponent(depManual)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(retManual)
-                .addGap(41, 41, 41))
+                .addGap(38, 38, 38))
         );
         panelTransaccionesLayout.setVerticalGroup(
             panelTransaccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTransaccionesLayout.createSequentialGroup()
                 .addComponent(contTrans, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(panelTransaccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(depManual)
-                    .addComponent(retManual)))
+                    .addComponent(retManual))
+                .addContainerGap())
         );
 
-        panelNuevaVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Venta", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 0, 14))); // NOI18N
+        panelNuevaVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Venta", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 0, 16))); // NOI18N
 
+        tablaDetalles.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         tablaDetalles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -211,10 +219,13 @@ public class CajaGUI extends javax.swing.JPanel {
             tablaDetalles.getColumnModel().getColumn(3).setMaxWidth(100);
         }
 
+        ventaOk.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         ventaOk.setText("OK");
 
         totalField.setEditable(false);
+        totalField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
 
+        totalLabel.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         totalLabel.setText("TOTAL:");
 
         javax.swing.GroupLayout panelNuevaVentaLayout = new javax.swing.GroupLayout(panelNuevaVenta);
@@ -242,9 +253,12 @@ public class CajaGUI extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        contTabCli.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cuentas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 0, 14))); // NOI18N
+        panelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 0, 16))); // NOI18N
+
+        contTabCli.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         contTabCli.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        tablaCliente.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         tablaCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -280,6 +294,9 @@ public class CajaGUI extends javax.swing.JPanel {
             tablaCliente.getColumnModel().getColumn(1).setMaxWidth(300);
         }
 
+        clienteSel.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel1.setText("Cliente Seleccionado");
 
         javax.swing.GroupLayout panelClienteLayout = new javax.swing.GroupLayout(panelCliente);
@@ -287,19 +304,19 @@ public class CajaGUI extends javax.swing.JPanel {
         panelClienteLayout.setHorizontalGroup(
             panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelClienteLayout.createSequentialGroup()
-                .addGroup(panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(contTabCli, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelClienteLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(246, 246, 246))
-                    .addComponent(clienteSel, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(clienteSel, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(contTabCli, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelClienteLayout.setVerticalGroup(
             panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelClienteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(contTabCli, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contTabCli, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -313,12 +330,10 @@ public class CajaGUI extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 20, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelArticulos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 387, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelTransacciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelNuevaVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -330,15 +345,11 @@ public class CajaGUI extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelArticulos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelNuevaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 270, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(panelNuevaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 272, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(panelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(panelTransacciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(panelCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelTransacciones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -361,7 +372,6 @@ public class CajaGUI extends javax.swing.JPanel {
         getTablaArticulos().setEnabled(true);
         getTablaDetalles().setEnabled(true);
         getTotalField().setEnabled(true);
-        getVentaOk().setEnabled(true);
         getDepManual().setEnabled(true);
         getRetManual().setEnabled(true);
         getTablaTransacciones().setEnabled(true);

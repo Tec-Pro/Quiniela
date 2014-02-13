@@ -5,7 +5,6 @@
 package controlador;
 
 import abm.ABMCaja;
-import models.Cliente;
 import abm.ABMCliente;
 import abm.ABMTransaccion;
 import interfaz.ClienteGUI;
@@ -13,15 +12,10 @@ import interfaz.ClienteTransaccion;
 import interfaz.CrearCliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.event.CellEditorListener;
-import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
 import models.Cliente;
 import models.Transaccion;
@@ -35,8 +29,8 @@ import quiniela.Quiniela;
 public class ClienteControlador implements ActionListener {
     
     private DefaultTableModel tablaClientes;
-    private ClienteGUI view;
-    private ABMCliente abmC;
+    private final ClienteGUI view;
+    private final ABMCliente abmC;
     private ABMTransaccion abmT;
     private ABMCaja abmCaja;
     private CajaControlador cc;
@@ -61,12 +55,11 @@ public class ClienteControlador implements ActionListener {
     }
     
     private void iniciar(){
-        view.setVisible(true);
-        view.getBotonAgregar().addActionListener(this);
-        view.getBotonEliminar().addActionListener(this);
-        view.getBotonTransacciones().addActionListener(this);
-        view.getButtonGuardar().addActionListener(this);
-        tablaClientes = view.getTablaClienteDef();
+        getView().getBotonAgregar().addActionListener(this);
+        getView().getBotonEliminar().addActionListener(this);
+        getView().getBotonTransacciones().addActionListener(this);
+        getView().getButtonGuardar().addActionListener(this);
+        tablaClientes = getView().getTablaClienteDef();
         cargarClientes();
         
         //Ventana ClienteTransaccion
@@ -160,11 +153,11 @@ public class ClienteControlador implements ActionListener {
                 crearC.setVisible(true);
                 break;                
             case "Eliminar":
-                if (view.getTablaClientes().getSelectedRow() > 0){
+                if (getView().getTablaClientes().getSelectedRow() > 0){
                     int confirmarBorrar;
                     confirmarBorrar = JOptionPane.showConfirmDialog(null,"¿Esta seguro que quiere borrar este cliente?","Confirmar",JOptionPane.YES_NO_OPTION);
                     if (confirmarBorrar == JOptionPane.YES_OPTION){
-                        int idCliente =(int) view.getTablaClientes().getValueAt(view.getTablaClientes().getSelectedRow(), 0); 
+                        int idCliente =(int) getView().getTablaClientes().getValueAt(getView().getTablaClientes().getSelectedRow(), 0); 
                         if (!Base.hasConnection()) {
                             abrirBase();
                         }
@@ -177,9 +170,9 @@ public class ClienteControlador implements ActionListener {
                 cargarClientes();
                 break;
             case "Transacciones":
-                if (view.getTablaClientes().getSelectedRow() >= 0){
-                    String nombre = (String) tablaClientes.getValueAt(view.getTablaClientes().getSelectedRow(), 1)+" "+tablaClientes.getValueAt(view.getTablaClientes().getSelectedRow(), 1);
-                    int idCliente = (int) view.getTablaClientes().getValueAt(view.getTablaClientes().getSelectedRow(), 0);
+                if (getView().getTablaClientes().getSelectedRow() >= 0){
+                    String nombre = (String) tablaClientes.getValueAt(getView().getTablaClientes().getSelectedRow(), 1)+" "+tablaClientes.getValueAt(getView().getTablaClientes().getSelectedRow(), 1);
+                    int idCliente = (int) getView().getTablaClientes().getValueAt(getView().getTablaClientes().getSelectedRow(), 0);
                     clienteT.setVisible(true);
                     clienteT.setTitle("Transacciones del cliente "+nombre);
                     cargarTransacciones(idCliente);
@@ -220,5 +213,12 @@ public class ClienteControlador implements ActionListener {
         }
         cc.cargarCuentas();
         cc.cargarTransacciones();
+    }
+
+    /**
+     * @return the view
+     */
+    public ClienteGUI getView() {
+        return view;
     }
 }

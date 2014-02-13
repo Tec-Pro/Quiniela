@@ -60,7 +60,6 @@ public class CajaControlador implements ActionListener, CellEditorListener {
     }
 
     private void iniciar() {
-        view.enableAll();
         view.getDepManual().addActionListener(this);
         view.getRetManual().addActionListener(this);
         view.getTotalField().addActionListener(this);
@@ -89,6 +88,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                         Base.close();
                     }
                     tablaDetalles.addRow(row);
+                    view.getVentaOk().setEnabled(true);
                     setCellEditor();
                     actualizarPrecio();
                 }
@@ -102,7 +102,10 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                     JTable t = (JTable) e.getSource();
                     tablaDetalles.removeRow(t.getSelectedRow());
                     actualizarPrecio();
+                } if (tablaDetalles.getRowCount()==0){
+                    view.getVentaOk().setEnabled(false);
                 }
+                
             }
         });
         view.getTablaCliente().addMouseListener(new MouseAdapter() {
@@ -258,6 +261,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                     tablaDetalles.setRowCount(0);
                     actualizarPrecio();
                     cargarProductos();
+                    view.getVentaOk().setEnabled(false);
                 }
                 break;
             case "Detalles":

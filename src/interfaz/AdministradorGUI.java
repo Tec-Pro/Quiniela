@@ -35,8 +35,11 @@ public class AdministradorGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Usuarios", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 0, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Usuarios", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 0, 16))); // NOI18N
 
+        jScrollPane2.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+
+        tablaUsuarios.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         tablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -60,13 +63,19 @@ public class AdministradorGUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaUsuarios.setRowSelectionAllowed(false);
         tablaUsuarios.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tablaUsuarios);
 
+        buttonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/new.png"))); // NOI18N
         buttonNuevo.setText("Nuevo");
 
+        buttonEliminar.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        buttonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/delete.png"))); // NOI18N
         buttonEliminar.setText("Eliminar");
 
+        buttonModificar.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        buttonModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/modificar.png"))); // NOI18N
         buttonModificar.setText("Modificar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -89,7 +98,7 @@ public class AdministradorGUI extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonNuevo)

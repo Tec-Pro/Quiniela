@@ -23,11 +23,11 @@ import org.javalite.activejdbc.Base;
  */
 public class AdministradorControlador implements ActionListener {
     private DefaultTableModel tablaUsuarios;
-    private AdministradorGUI view;
-    private ABMUsuario abmU;
+    private final AdministradorGUI view;
+    private final ABMUsuario abmU;
     private List<Usuario> listaUsuarios;
-    private AgregarUsuario agregarU;
-    private ModificarUsuario modificarU;
+    private final AgregarUsuario agregarU;
+    private final ModificarUsuario modificarU;
     private int idUsuarioE;
     private int idUsuarioM;
     
@@ -42,11 +42,10 @@ public class AdministradorControlador implements ActionListener {
     }
 
     private void iniciar() {
-        view.setVisible(true);
-        view.getButtonNuevo().addActionListener(this);
-        view.getButtonEliminar().addActionListener(this);
-        view.getButtonModificar().addActionListener(this);
-        tablaUsuarios = view.getTablaUsuariosDef();
+        getView().getButtonNuevo().addActionListener(this);
+        getView().getButtonEliminar().addActionListener(this);
+        getView().getButtonModificar().addActionListener(this);
+        tablaUsuarios = getView().getTablaUsuariosDef();
         cargarUsuarios();
         
         //Ventana AgregarUsuario
@@ -91,12 +90,12 @@ public class AdministradorControlador implements ActionListener {
                 agregarU.setVisible(true);
                 break;                
             case "Modificar":
-                idUsuarioM = (int) view.getTablaUsuarios().getValueAt(view.getTablaUsuarios().getSelectedRow(), 0); //Guarda el usuario seleccionado (modificar)
+                idUsuarioM = (int) getView().getTablaUsuarios().getValueAt(getView().getTablaUsuarios().getSelectedRow(), 0); //Guarda el usuario seleccionado (modificar)
                 modificarU.setVisible(true);
                 break;
             case "Eliminar":
-                idUsuarioE = (int) view.getTablaUsuarios().getValueAt(view.getTablaUsuarios().getSelectedRow(), 0); //Guarda el usuario seleccionado (eliminar)
-                if (view.getTablaUsuarios().getSelectedRow() > 0){
+                idUsuarioE = (int) getView().getTablaUsuarios().getValueAt(getView().getTablaUsuarios().getSelectedRow(), 0); //Guarda el usuario seleccionado (eliminar)
+                if (getView().getTablaUsuarios().getSelectedRow() > 0){
                     int confirmarBorrar;
                     confirmarBorrar = JOptionPane.showConfirmDialog(null,"¿Esta seguro que quiere borrar este Usuario?","Confirmar",JOptionPane.YES_NO_OPTION);
                     if (confirmarBorrar == JOptionPane.YES_OPTION){
@@ -161,5 +160,12 @@ public class AdministradorControlador implements ActionListener {
                 cargarUsuarios();//Actualiza la tabla
                 break;
         }
+    }
+
+    /**
+     * @return the view
+     */
+    public AdministradorGUI getView() {
+        return view;
     }
 }

@@ -38,20 +38,29 @@ public class ModificarUsuario extends javax.swing.JFrame {
 
         panelMain.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        labelRepetirContrasenia.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         labelRepetirContrasenia.setText("Repetir Contraseña");
 
+        labelContrasenia.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         labelContrasenia.setText("Contraseña");
 
+        buttonSalir.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         buttonSalir.setText("Salir");
 
-        buttonConfirmar.setText("Confirmar");
+        buttonConfirmar.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        buttonConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
+        buttonConfirmar.setText("Guardar");
+
+        textPass1.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+
+        textPass2.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
 
         javax.swing.GroupLayout panelMainLayout = new javax.swing.GroupLayout(panelMain);
         panelMain.setLayout(panelMainLayout);
         panelMainLayout.setHorizontalGroup(
             panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMainLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(labelContrasenia)
                     .addComponent(labelRepetirContrasenia))
@@ -61,9 +70,9 @@ public class ModificarUsuario extends javax.swing.JFrame {
                     .addComponent(textPass1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(buttonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(buttonConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         panelMainLayout.setVerticalGroup(
             panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

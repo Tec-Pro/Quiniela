@@ -3,7 +3,6 @@
  * and open the template in the editor.
  */
 package interfaz;
-
 /**
  *
  * @author max
@@ -15,6 +14,7 @@ public class UsuarioGUI extends javax.swing.JFrame {
      */
     public UsuarioGUI() {
         initComponents();
+        this.getRootPane().setDefaultButton(buttonIngresar);
     }
 
     /**
@@ -41,15 +41,23 @@ public class UsuarioGUI extends javax.swing.JFrame {
 
         panelMain.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        buttonIngresar.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         buttonIngresar.setText("Ingresar");
 
+        buttonSalir.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         buttonSalir.setText("Salir");
 
         panelUserPass.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
+        textUser.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel1.setText("Usuario :");
 
+        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel2.setText("Contraseña:");
+
+        textPass.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
 
         javax.swing.GroupLayout panelUserPassLayout = new javax.swing.GroupLayout(panelUserPass);
         panelUserPass.setLayout(panelUserPassLayout);
@@ -82,6 +90,7 @@ public class UsuarioGUI extends javax.swing.JFrame {
 
         panelStatus.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
+        textStatus.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         textStatus.setText("StatusBar");
 
         javax.swing.GroupLayout panelStatusLayout = new javax.swing.GroupLayout(panelStatus);
@@ -110,7 +119,7 @@ public class UsuarioGUI extends javax.swing.JFrame {
         panelMainLayout.setHorizontalGroup(
             panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMainLayout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
+                .addContainerGap(33, Short.MAX_VALUE)
                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelUserPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -119,12 +128,12 @@ public class UsuarioGUI extends javax.swing.JFrame {
                         .addComponent(buttonIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(61, 61, 61)
                         .addComponent(buttonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         panelMainLayout.setVerticalGroup(
             panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMainLayout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap(32, Short.MAX_VALUE)
                 .addComponent(panelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(panelUserPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -132,7 +141,7 @@ public class UsuarioGUI extends javax.swing.JFrame {
                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

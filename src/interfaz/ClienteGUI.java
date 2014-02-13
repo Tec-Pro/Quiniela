@@ -36,8 +36,9 @@ public class ClienteGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        panelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 0, 14))); // NOI18N
+        panelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 0, 16))); // NOI18N
 
+        tablaClientes.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -69,12 +70,20 @@ public class ClienteGUI extends javax.swing.JFrame {
             tablaClientes.getColumnModel().getColumn(0).setMaxWidth(50);
         }
 
+        botonAgregar.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        botonAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/new.png"))); // NOI18N
         botonAgregar.setText("Agregar");
 
+        botonEliminar.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        botonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/delete.png"))); // NOI18N
         botonEliminar.setText("Eliminar");
 
+        botonTransacciones.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        botonTransacciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/ticket.png"))); // NOI18N
         botonTransacciones.setText("Transacciones");
 
+        buttonGuardar.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        buttonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
         buttonGuardar.setText("Guardar");
 
         javax.swing.GroupLayout panelClienteLayout = new javax.swing.GroupLayout(panelCliente);
@@ -82,18 +91,16 @@ public class ClienteGUI extends javax.swing.JFrame {
         panelClienteLayout.setHorizontalGroup(
             panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelClienteLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(contTabCli)
                     .addGroup(panelClienteLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(contTabCli))
-                    .addGroup(panelClienteLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(botonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                        .addGap(50, 50, 50)
-                        .addComponent(botonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                        .addGap(50, 50, 50)
-                        .addComponent(botonTransacciones, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                        .addGap(50, 50, 50)
+                        .addComponent(botonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(44, 44, 44)
+                        .addComponent(botonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(77, 77, 77)
+                        .addComponent(botonTransacciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(67, 67, 67)
                         .addComponent(buttonGuardar)))
                 .addContainerGap())
         );
@@ -101,7 +108,7 @@ public class ClienteGUI extends javax.swing.JFrame {
             panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelClienteLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(contTabCli, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+                .addComponent(contTabCli, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

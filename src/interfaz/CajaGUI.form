@@ -18,14 +18,11 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="panelCliente" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Component id="panelArticulos" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="panelArticulos" max="32767" attributes="0"/>
+                  <Component id="panelCliente" pref="387" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="46" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="panelTransacciones" max="32767" attributes="0"/>
                   <Component id="panelNuevaVenta" max="32767" attributes="0"/>
@@ -40,18 +37,12 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="panelArticulos" max="32767" attributes="0"/>
-                  <Component id="panelNuevaVenta" pref="270" max="32767" attributes="0"/>
+                  <Component id="panelNuevaVenta" pref="272" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Component id="panelCliente" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="panelTransacciones" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="panelCliente" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="panelTransacciones" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
           </Group>
@@ -64,7 +55,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder justification="2" title="Articulos">
-              <Font PropertyName="font" name="DejaVu Sans" size="14" style="0"/>
+              <Font PropertyName="font" name="SansSerif" size="16" style="0"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -89,6 +80,9 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="tablaArticulos">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="SansSerif" size="16" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="3" rowCount="0">
                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Integer"/>
@@ -129,7 +123,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder justification="2" title="Transacciones Realizadas">
-              <Font PropertyName="font" name="DejaVu Sans" size="14" style="0"/>
+              <Font PropertyName="font" name="SansSerif" size="16" style="0"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -140,11 +134,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="contTrans" alignment="0" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                   <Component id="depManual" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="retManual" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -152,11 +146,12 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="contTrans" min="-2" pref="187" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="25" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="depManual" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="retManual" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -169,10 +164,13 @@
             <Component class="javax.swing.JTable" name="tablaTransacciones">
               <Properties>
                 <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="SansSerif" size="16" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="0">
                     <Column editable="false" title="Cod." type="java.lang.Integer"/>
-                    <Column editable="true" title="Motivo" type="java.lang.String"/>
+                    <Column editable="false" title="Motivo" type="java.lang.String"/>
                     <Column editable="false" title="Tipo" type="java.lang.String"/>
                     <Column editable="false" title="Monto" type="java.lang.Double"/>
                   </Table>
@@ -210,11 +208,23 @@
         </Container>
         <Component class="javax.swing.JButton" name="depManual">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="16" style="0"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/recursos/depositar.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="DEPOSITO MANUAL"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="retManual">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="16" style="0"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/recursos/retirar.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="RETIRO MANUAL"/>
           </Properties>
         </Component>
@@ -225,7 +235,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder justification="2" title="Venta">
-              <Font PropertyName="font" name="DejaVu Sans" size="14" style="0"/>
+              <Font PropertyName="font" name="SansSerif" size="16" style="0"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -267,6 +277,9 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="tablaDetalles">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="SansSerif" size="16" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="0">
                     <Column editable="false" title="Cod" type="java.lang.Integer"/>
@@ -308,12 +321,18 @@
         </Container>
         <Component class="javax.swing.JButton" name="ventaOk">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="16" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="OK"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="totalField">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="16" style="0"/>
+            </Property>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -321,24 +340,38 @@
         </Component>
         <Component class="javax.swing.JLabel" name="totalLabel">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="16" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="TOTAL:"/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="panelCliente">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder justification="2" title="Clientes">
+              <Font PropertyName="font" name="SansSerif" size="16" style="0"/>
+            </TitledBorder>
+          </Border>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="contTabCli" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="246" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="clienteSel" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="clienteSel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="contTabCli" alignment="0" pref="370" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -347,8 +380,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="contTabCli" min="-2" pref="176" max="-2" attributes="0"/>
+                  <Component id="contTabCli" min="-2" pref="188" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -362,10 +394,8 @@
         <Container class="javax.swing.JScrollPane" name="contTabCli">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder justification="2" title="Cuentas">
-                  <Font PropertyName="font" name="DejaVu Sans" size="14" style="0"/>
-                </TitledBorder>
+              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                <EmptyBorder/>
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -380,6 +410,9 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="tablaCliente">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="SansSerif" size="16" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="2" rowCount="0">
                     <Column editable="false" title="Cod." type="java.lang.Integer"/>
@@ -410,9 +443,17 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JTextField" name="clienteSel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="16" style="0"/>
+            </Property>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="16" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Cliente Seleccionado"/>
           </Properties>
         </Component>

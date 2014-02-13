@@ -19,6 +19,7 @@ public class ClienteTransaccion extends javax.swing.JFrame {
      */
     public ClienteTransaccion() {
         initComponents();
+        this.getRootPane().setDefaultButton(buttonAceptar);
         tablaTransaccionDef = (DefaultTableModel) tablaTransacciones.getModel();
     }
 
@@ -39,8 +40,9 @@ public class ClienteTransaccion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        panelMain.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Transacciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        panelMain.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Transacciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 0, 16))); // NOI18N
 
+        tablaTransacciones.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         tablaTransacciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -84,7 +86,7 @@ public class ClienteTransaccion extends javax.swing.JFrame {
         );
         panelMainLayout.setVerticalGroup(
             panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
             .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelMainLayout.createSequentialGroup()
                     .addGap(0, 177, Short.MAX_VALUE)
@@ -92,6 +94,7 @@ public class ClienteTransaccion extends javax.swing.JFrame {
                     .addGap(0, 178, Short.MAX_VALUE)))
         );
 
+        buttonAceptar.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         buttonAceptar.setText("Aceptar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

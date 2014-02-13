@@ -15,25 +15,17 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Calendar;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.event.CellEditorListener;
-import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
 import models.Caja;
 import models.Fecha;
 import models.Producto;
 import models.ProductosTransaccions;
 import models.Transaccion;
-import net.sf.jasperreports.engine.JRException;
 import org.javalite.activejdbc.Base;
 /**
  *
@@ -222,11 +214,9 @@ public class EstadisticasControlador implements ActionListener {
             while (!esDiaDeDeposito(Integer.parseInt(idProd.getText()),getDayOfTheWeek(cajaActual.getDate("fecha")))){
                 int cantidad=0;
                 Double gananciaDelDia;
-                System.out.println("Entra acá");
-                System.out.println(cajaActual.getId());
+
                 listaTransaccion=Transaccion.where("caja_id=?",cajaActual.getId());
                 for (Transaccion t : listaTransaccion){ //filtrar transacciones que tengan que ver con el producto
-                    System.out.println("For 1"); 
                     for (ProductosTransaccions pt : listaProdTrans){
                          if (pt.getInteger("transaccion_id").equals(t.getId()) && pt.getInteger("producto_id").equals(Integer.parseInt(idProd.getText()))){
                              cantidad+=pt.getInteger("cantidad");
@@ -242,11 +232,9 @@ public class EstadisticasControlador implements ActionListener {
             else{
                 int cantidad=0;
                 Double gananciaDelDia;
-                System.out.println("Entra acá");
                 System.out.println(cajaActual.getId());
                 listaTransaccion=Transaccion.where("caja_id=?",cajaActual.getId());
                 for (Transaccion t : listaTransaccion){ //filtrar transacciones que tengan que ver con el producto
-                    System.out.println("For 1"); 
                     for (ProductosTransaccions pt : listaProdTrans){
                          if (pt.getInteger("transaccion_id").equals(t.getId()) && pt.getInteger("producto_id").equals(Integer.parseInt(idProd.getText()))){
                              cantidad+=pt.getInteger("cantidad");

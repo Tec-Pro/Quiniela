@@ -40,15 +40,27 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         panelMain.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        textUsuario.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+
+        labelRepetirContrasenia.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         labelRepetirContrasenia.setText("Repetir Contraseña");
 
+        labelContrasenia.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         labelContrasenia.setText("Contraseña");
 
+        labelUsuario.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         labelUsuario.setText("Usuario");
 
+        buttonSalir.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         buttonSalir.setText("Salir");
 
-        buttonAgregar.setText("Agregar");
+        buttonAgregar.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        buttonAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
+        buttonAgregar.setText("Guardar");
+
+        textPass1.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+
+        textPass2.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
 
         javax.swing.GroupLayout panelMainLayout = new javax.swing.GroupLayout(panelMain);
         panelMain.setLayout(panelMainLayout);
@@ -68,7 +80,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                     .addComponent(textUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(buttonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                    .addComponent(buttonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

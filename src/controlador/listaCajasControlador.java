@@ -71,9 +71,8 @@ public class listaCajasControlador implements ActionListener {
     }
 
     private void iniciar() {
-        view.setVisible(true);
-        calenDesde = view.getFechaDesde();
-        calenHasta = view.getFechaHasta();
+        calenDesde = getView().getFechaDesde();
+        calenHasta = getView().getFechaHasta();
         dateDesde = "1900-01-01";
         dateHasta = "9999-01-01";
         id_caja = 0;
@@ -94,16 +93,16 @@ public class listaCajasControlador implements ActionListener {
                 dateHasta = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
             }
         });
-        view.getFiltrar().addActionListener(this);
-        view.getReporteCaja().addActionListener(reporteCaja);
-        view.getListaCajas().addMouseListener(new MouseAdapter() {
+        getView().getFiltrar().addActionListener(this);
+        getView().getReporteCaja().addActionListener(reporteCaja);
+        getView().getListaCajas().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == 3) {
                     JTable target = (JTable) e.getSource();
                     id_caja = (int) target.getValueAt(target.getSelectedRow(), 0);
-                    view.getMenuCaja().setVisible(true);
-                    view.getMenuCaja().show(e.getComponent(), e.getX(), e.getY());
+                    getView().getMenuCaja().setVisible(true);
+                    getView().getMenuCaja().show(e.getComponent(), e.getX(), e.getY());
                 }
             }
         });
@@ -141,7 +140,7 @@ public class listaCajasControlador implements ActionListener {
                 Base.close();
             }
         } else {
-            JOptionPane.showMessageDialog(view, "Error: Falta especificar fechas");
+            JOptionPane.showMessageDialog(getView(), "Error: Falta especificar fechas");
         }
 
     }
@@ -157,10 +156,17 @@ public class listaCajasControlador implements ActionListener {
         comando = ae.getActionCommand();
         switch (comando) {
             case "Filtrar":
-                cargarCajas(view.getFechaDesde().getDate(), view.getFechaHasta().getDate());
+                cargarCajas(getView().getFechaDesde().getDate(), getView().getFechaHasta().getDate());
                 break;
         }
 
+    }
+
+    /**
+     * @return the view
+     */
+    public ListaCajas getView() {
+        return view;
     }
 }
 
