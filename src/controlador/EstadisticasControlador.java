@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Calendar;
 import java.sql.Date;
 import java.util.GregorianCalendar;
@@ -161,9 +163,13 @@ public class EstadisticasControlador implements ActionListener {
         row[0]=esteProducto.getId().toString();
         row[1]=esteProducto.getString("nombre");
         row[2]=cantidad.toString();
+        ganancia=round(ganancia,2);
         row[3]=ganancia.toString();
+        perdida=round(perdida,2);
         row[4]=perdida.toString();
+        promVentas=round(promVentas,2);
         row[5]=promVentas.toString();
+        promVentas2=round(promVentas2,2);
         row[6]=promVentas2.toString();
         if (esteProducto.get("visible").equals(1)){
             tablaEstadisticas.addRow(row);
@@ -226,8 +232,20 @@ public class EstadisticasControlador implements ActionListener {
                 gananciaDelDia=cantidad * esteProducto.getDouble("precio") * esteProducto.getDouble("comision")/100;
                 deposito+= cantidad * esteProducto.getDouble("precio")-gananciaDelDia; //acumulo ganancias diarias de ventas del producto   
                 cajaActual = Caja.findById((int)cajaActual.getId()-1);//le asigno la caja de ayer  
-                campoDepo.setText(deposito.toString());
             }
+            int cantidad=0;
+                Double gananciaDelDia;
+
+                listaTransaccion=Transaccion.where("caja_id=?",cajaActual.getId());
+                for (Transaccion t : listaTransaccion){ //filtrar transacciones que tengan que ver con el producto
+                    for (ProductosTransaccions pt : listaProdTrans){
+                         if (pt.getInteger("transaccion_id").equals(t.getId()) && pt.getInteger("producto_id").equals(Integer.parseInt(idProd.getText()))){
+                             cantidad+=pt.getInteger("cantidad");
+                         }
+                     }
+                 }
+                gananciaDelDia=cantidad * esteProducto.getDouble("precio") * esteProducto.getDouble("comision")/100;
+                deposito+= cantidad * esteProducto.getDouble("precio")-gananciaDelDia;
             }
             else{
                 int cantidad=0;
@@ -243,9 +261,9 @@ public class EstadisticasControlador implements ActionListener {
                  }
                 gananciaDelDia=cantidad * esteProducto.getDouble("precio") * esteProducto.getDouble("comision")/100;
                 deposito+= cantidad * esteProducto.getDouble("precio")-gananciaDelDia; //acumulo ganancias diarias de ventas del producto    
-                campoDepo.setText(deposito.toString());
             }
-            
+            deposito=round(deposito,2);
+            campoDepo.setText(deposito.toString());
             if (Base.hasConnection())
                 Base.close();
         }
@@ -261,7 +279,14 @@ public class EstadisticasControlador implements ActionListener {
          return false;
         
     }
-        
+    
+    public static double round(double value, int places) {
+    if (places < 0) throw new IllegalArgumentException();
+
+    BigDecimal bd = new BigDecimal(value);
+    bd = bd.setScale(places, RoundingMode.HALF_UP);
+    return bd.doubleValue();
+}
 
 
 }
