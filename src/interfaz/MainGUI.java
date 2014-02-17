@@ -4,6 +4,7 @@
  */
 package interfaz;
 
+import java.awt.Font;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
@@ -68,8 +69,10 @@ public class MainGUI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tab);
 
         archivo.setText("Caja");
+        archivo.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
 
         abrirCaja.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        abrirCaja.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         abrirCaja.setText("Abrir");
         abrirCaja.setToolTipText("Abre una caja para empezar a registrar transacciones.");
         archivo.add(abrirCaja);
@@ -77,11 +80,13 @@ public class MainGUI extends javax.swing.JFrame {
         jSeparator1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         archivo.add(jSeparator1);
 
+        cajasAnteriores.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         cajasAnteriores.setText("Anteriores");
         cajasAnteriores.setActionCommand("cajasAnteriores");
         archivo.add(cajasAnteriores);
 
         imprimirParcial.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        imprimirParcial.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         imprimirParcial.setText("Parcial");
         imprimirParcial.setActionCommand("cajaParcial");
         archivo.add(imprimirParcial);
@@ -90,18 +95,22 @@ public class MainGUI extends javax.swing.JFrame {
         archivo.add(jSeparator2);
 
         cerrarCaja.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        cerrarCaja.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         cerrarCaja.setText("Cerrar");
         archivo.add(cerrarCaja);
 
         barraMenu.add(archivo);
 
         cuenta.setText("Clientes");
+        cuenta.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
 
         ventanaClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        ventanaClientes.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         ventanaClientes.setText("Detalles");
         ventanaClientes.setActionCommand("VentanaClientes");
         cuenta.add(ventanaClientes);
 
+        imprimirClientes.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         imprimirClientes.setText("Imprimir");
         imprimirClientes.setActionCommand("imprimirClientes");
         cuenta.add(imprimirClientes);
@@ -109,12 +118,15 @@ public class MainGUI extends javax.swing.JFrame {
         barraMenu.add(cuenta);
 
         producto.setText("Productos");
+        producto.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
 
         ventanaProductos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
+        ventanaProductos.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         ventanaProductos.setText("Detalles");
         ventanaProductos.setActionCommand("VentanaProductos");
         producto.add(ventanaProductos);
 
+        imprimirProducto.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         imprimirProducto.setText("Imprimir");
         imprimirProducto.setActionCommand("imprimirProductos");
         producto.add(imprimirProducto);
@@ -122,6 +134,7 @@ public class MainGUI extends javax.swing.JFrame {
         barraMenu.add(producto);
 
         ayuda.setText("Ayuda");
+        ayuda.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         barraMenu.add(ayuda);
 
         setJMenuBar(barraMenu);
@@ -139,7 +152,7 @@ public class MainGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -269,6 +282,9 @@ public class MainGUI extends javax.swing.JFrame {
         this.barraMenu.add(menuAdmin);
         getMenuUsuario().setText("Usuarios");
         getMenuUsuario().setActionCommand("MenuUsuario");
+        Font f = new Font("SansSerif",Font.PLAIN,16);
+        menuAdmin.setFont(f);
+        getMenuUsuario().setFont(f);
         menuAdmin.add(getMenuUsuario());
     }
 

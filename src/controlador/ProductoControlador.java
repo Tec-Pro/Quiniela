@@ -72,7 +72,9 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
                 if (e.getClickCount() == 1) {
                     getView().getProdModificar().setEnabled(true);
                     getView().getProdEliminar().setEnabled(true);
-                    cargarFecha((int) tablaProducto.getValueAt(getView().getTablaProductos().getSelectedRow(),0));
+                    if (tablaProducto.getValueAt(getView().getTablaProductos().getSelectedRow(),0)!= null){
+                        cargarFecha((int) tablaProducto.getValueAt(getView().getTablaProductos().getSelectedRow(),0));
+                    }
                 }
             }
         });
@@ -173,43 +175,48 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
                 String nombre;
                 int hayStock;
                 int stock;
+                for (int j=0;j<tablaProducto.getRowCount(); j++){
                 //tomo el nombre de la tabla
-                if (tablaProducto.getValueAt(getView().getTablaProductos().getSelectedRow(), 1) != null) {
-                    nombre = (String) tablaProducto.getValueAt(getView().getTablaProductos().getSelectedRow(), 1);
+                if (tablaProducto.getValueAt(j, 1) != null) {
+                    nombre = (String) tablaProducto.getValueAt(j, 1);
                 } else {
                     nombre = "";
                     System.out.println("El nombre no puede ser vacio");
                 }
                 //tomo el precio de la tabla
-                if (tablaProducto.getValueAt(getView().getTablaProductos().getSelectedRow(), 2) != null) {
-                    b1 = new BigDecimal((Double) tablaProducto.getValueAt(getView().getTablaProductos().getSelectedRow(), 2));
+                if (tablaProducto.getValueAt(j, 2) != null) {
+                    b1 = new BigDecimal((Double) tablaProducto.getValueAt(j, 2));
                 } else {
                     b1 = new BigDecimal(0);
                 }
                 //tomo la comision de la tabla
-                if (tablaProducto.getValueAt(getView().getTablaProductos().getSelectedRow(), 3) != null) {
-                    b2 = new BigDecimal((Double) tablaProducto.getValueAt(getView().getTablaProductos().getSelectedRow(), 3));
+                if (tablaProducto.getValueAt(j, 3) != null) {
+                    b2 = new BigDecimal((Double) tablaProducto.getValueAt(j, 3));
                 } else {
                     b2 = new BigDecimal(0);
                 }
                 //tomo el valor del checkbox de la tabla(si hay o no stock)
-                if (tablaProducto.getValueAt(getView().getTablaProductos().getSelectedRow(), 4) == null
-                        || (boolean) tablaProducto.getValueAt(getView().getTablaProductos().getSelectedRow(), 4) == false) {
+                if (tablaProducto.getValueAt(j, 4) == null || (boolean) tablaProducto.getValueAt(j, 4) == false) {
                     hayStock = 0;
                 } else {
                     hayStock = 1;
                 }
-                if (tablaProducto.getValueAt(getView().getTablaProductos().getSelectedRow(), 5) != null) {
-                    stock = new Integer((Integer)tablaProducto.getValueAt(getView().getTablaProductos().getSelectedRow(), 5));
+                if (tablaProducto.getValueAt(j, 5) != null) {
+                    stock = new Integer((Integer)tablaProducto.getValueAt(j, 5));
                 } else {
                     stock = new Integer(0);
                 }
                 //Si el producto es nuevo(no tiene id)
-                if (tablaProducto.getValueAt(getView().getTablaProductos().getSelectedRow(), 0) == null) {
+                System.out.println(tablaProducto.getValueAt(j, 0));
+                if (tablaProducto.getValueAt(j, 0) == null) {
+                    System.out.println("aca entra");
                     abmp.altaProducto(nombre, b1, b2, hayStock,stock);
                 } else { // si el producto existe y solo sera modificado
-                    int id = (int) tablaProducto.getValueAt(getView().getTablaProductos().getSelectedRow(), 0);
+                    int id = (int) tablaProducto.getValueAt(j, 0);
                     abmp.modificarProducto(id, nombre, b1, b2, hayStock,stock);
+                }
+                System.out.println("For: "+j);
+                System.out.println(tablaProducto.getRowCount());
                 }
                 cargarProductos(); //actualizo la tabla de productos
                 JOptionPane.showMessageDialog(getView(), "Cambios guardados con exito!");

@@ -125,13 +125,16 @@ public class ClienteControlador implements ActionListener {
         int id = (int) tabla.getValueAt(i, 0);
         BigDecimal deber = new BigDecimal(tabla.getValueAt(i, 3).toString());
         BigDecimal haber = new BigDecimal(tabla.getValueAt(i, 4).toString());
+        if (haber.signum()==-1 || deber.signum() == -1){
+            JOptionPane.showMessageDialog(view, "El haber o el deber no pueden ser negativos.");
+        } else {
         if (!Cliente.findById(id).get("haber").equals(haber)){
             abmT.altaTransaccion("Depósito de cliente: "+Cliente.findById(id).getString("nombre")+" "+Cliente.findById(id).getString("apellido"), "Dep. Cuenta", haber.subtract(Cliente.findById(id).getBigDecimal("haber")), 1, abmCaja.getLastCaja(), id, Quiniela.id_usuario);
         }
         abmC.modificarCliente(id, deber, haber);
         i++;
         }
-        
+        }
         if (Base.hasConnection()) {
             Base.close();
         }
@@ -191,10 +194,8 @@ public class ClienteControlador implements ActionListener {
         
                     String nombre = crearC.getTextNombre().getText().toString();
                     String apellido = crearC.getTextApellido().getText().toString();              
-                    BigDecimal deber = new BigDecimal(crearC.getTextDeber().getText().toString());
-                    BigDecimal haber = new BigDecimal(crearC.getTextHaber().getText().toString());
         
-                    abmC.altaCliente(nombre, apellido, deber, haber);
+                    abmC.altaCliente(nombre, apellido);
         
                     if (Base.hasConnection()) {
                         Base.close();

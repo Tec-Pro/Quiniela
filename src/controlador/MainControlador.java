@@ -6,7 +6,6 @@ package controlador;
 
 import abm.ABMCaja;
 import abm.ABMTransaccion;
-import com.jtattoo.plaf.acryl.AcrylLookAndFeel;
 import com.jtattoo.plaf.aero.AeroLookAndFeel;
 import interfaz.AdministradorGUI;
 import interfaz.ClienteGUI;

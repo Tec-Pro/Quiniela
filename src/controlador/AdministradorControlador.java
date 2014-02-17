@@ -67,11 +67,13 @@ public class AdministradorControlador implements ActionListener {
         Iterator<Usuario> it = listaUsuarios.iterator();
         while(it.hasNext()){
             Usuario u = it.next();
+            if (!u.get("admin").equals(1)){
             Object row[] = new Object[3];
             row[0] = u.get("id");
             row[1] = u.getString("nombre");
             row[2] = u.get("pass");
             tablaUsuarios.addRow(row);
+            }
         }
         Base.close();
     }

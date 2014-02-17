@@ -79,18 +79,9 @@ public class ABMCliente {
      * @return true si el cliente se creo con exito, false si ya existía o introdujo datos erroneos
      *
      */
-    public boolean altaCliente(String nombre, String apellido, BigDecimal deber, BigDecimal haber){
+    public boolean altaCliente(String nombre, String apellido){
         Base.openTransaction();
-        BigDecimal d = deber.subtract(haber);
-        BigDecimal h = haber;
-        if ((d.signum())==-1){
-            d = new BigDecimal(0);
-        }
-        if ((h.signum())==-1){
-            h = new BigDecimal(0);
-        }
-        
-        Cliente nuevo = Cliente.create( "nombre", nombre, "apellido", apellido, "deber", d, "haber", h, "visible",1);
+        Cliente nuevo = Cliente.create( "nombre", nombre, "apellido", apellido, "visible",1);
         nuevo.saveIt();
         Base.commitTransaction();
         return true;
