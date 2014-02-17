@@ -190,7 +190,9 @@ public class CajaControlador implements ActionListener, CellEditorListener {
             abrirBase();
         }
         tablaTrans.setRowCount(0);
-        id_caja = cajas.get(cajas.size() - 1).getInteger("id");
+        if (cajas.size() > 0){
+            id_caja = cajas.get(cajas.size() - 1).getInteger("id");
+        
         listaTransaccion = Transaccion.where("caja_id = ?", id_caja);
         Iterator<Transaccion> it = listaTransaccion.iterator();
         while (it.hasNext()) {
@@ -204,6 +206,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                 row[3] = Double.parseDouble(t.getString("monto"));
                 tablaTrans.addRow(row);
             }
+        }
         }
         if (Base.hasConnection()) {
             Base.close();

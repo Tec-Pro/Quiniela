@@ -18,7 +18,7 @@ CREATE TABLE productos (id int auto_increment PRIMARY KEY, nombre varchar(40) NO
 CREATE TABLE  diaDeposito (nombre varchar(40), dia_deposito DATE, 
 CONSTRAINT pk_diaDeposito PRIMARY KEY (nombre,dia_deposito));
 
-CREATE TABLE usuarios (id int auto_increment PRIMARY KEY, nombre varchar(40), pass varchar(16), admin int NOT NULL DEFAULT 0, visible SMALLINT);
+CREATE TABLE usuarios (id int auto_increment PRIMARY KEY, nombre varchar(40) UNIQUE, pass varchar(16), admin int NOT NULL DEFAULT 0, visible SMALLINT);
 
 CREATE TABLE productos_transaccions (id int auto_increment PRIMARY KEY, producto_id int, transaccion_id int, cantidad int);
 

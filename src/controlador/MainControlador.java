@@ -7,6 +7,7 @@ package controlador;
 import abm.ABMCaja;
 import abm.ABMTransaccion;
 import com.jtattoo.plaf.acryl.AcrylLookAndFeel;
+import com.jtattoo.plaf.aero.AeroLookAndFeel;
 import interfaz.AdministradorGUI;
 import interfaz.ClienteGUI;
 import interfaz.ListaCajas;
@@ -22,6 +23,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import models.Usuario;
@@ -63,11 +65,11 @@ public class MainControlador implements ActionListener {
     private void iniciar(){
         Properties props = new Properties();
         props.put("logoString", "");
-        AcrylLookAndFeel.setCurrentTheme(props);
+        AeroLookAndFeel.setCurrentTheme(props);
         JFrame.setDefaultLookAndFeelDecorated(true);
         try {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+            UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
         }
         Quiniela.ventana = 0;
@@ -157,15 +159,20 @@ public class MainControlador implements ActionListener {
                     }
                     principal.getImprimirParcial().setEnabled(true);
                     break;
-                case "Cerrar e Imprimir":
-                    rc = new reporteControlador("transacciones.jasper");
-                    if (!Base.hasConnection()){
-                        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
-                    }
-                    int id_caja = abmc.getLastCaja();
-                    rc.mostrarReporte(id_caja, abmc.getTotalVentas(id_caja),abmc.getTotalOtros(id_caja));
-                    if (Base.hasConnection()){
-                        Base.close();
+                case "Cerrar":
+                    int imprimir;
+                    imprimir = JOptionPane.showConfirmDialog(null,"¿Desea imprimir el reporte de la caja?","Confirmar",JOptionPane.YES_NO_OPTION);
+                    if (JOptionPane.YES_OPTION == imprimir){
+                        System.out.println("aca");
+                        rc = new reporteControlador("transacciones.jasper");
+                        if (!Base.hasConnection()){
+                            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
+                        }
+                        int id_caja = abmc.getLastCaja();
+                        rc.mostrarReporte(id_caja, abmc.getTotalVentas(id_caja),abmc.getTotalOtros(id_caja));
+                        if (Base.hasConnection()){
+                            Base.close();
+                        }
                     }
                     principal.dispose();
                     break;
