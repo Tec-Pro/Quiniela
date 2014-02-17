@@ -175,6 +175,7 @@ public class MainControlador implements ActionListener {
                         }
                     }
                     principal.dispose();
+                    System.exit(0);
                     break;
                 case "cajaParcial":
                     rc = new reporteControlador("transacciones.jasper");
