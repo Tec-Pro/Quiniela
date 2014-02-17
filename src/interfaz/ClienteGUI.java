@@ -15,6 +15,8 @@ public class ClienteGUI extends javax.swing.JFrame {
     public ClienteGUI() {
         initComponents();
         tablaClienteDef = (DefaultTableModel) tablaClientes.getModel();
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png")).getImage());
+        setTitle("Clientes");
     }
 
     /**

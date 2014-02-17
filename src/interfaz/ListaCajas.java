@@ -22,6 +22,8 @@ public class ListaCajas extends javax.swing.JFrame {
     public ListaCajas() {
         initComponents();
         tablaCajas = (DefaultTableModel) listaCajas.getModel();
+        setTitle("Cajas Anteriores");
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png")).getImage());
         this.getRootPane().setDefaultButton(filtrar);
     }
 

@@ -18,6 +18,8 @@ public class RetManual extends javax.swing.JFrame {
      */
     public RetManual() {
         initComponents();
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png")).getImage());
+        setTitle("Retiro manual");
         this.getRootPane().setDefaultButton(retOk);
     }
 

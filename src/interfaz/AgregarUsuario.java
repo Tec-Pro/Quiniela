@@ -15,6 +15,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
      */
     public AgregarUsuario() {
         initComponents();
+        setTitle("Nuevo Usuario");
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png")).getImage());
     }
 
     /**

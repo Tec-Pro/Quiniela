@@ -7,12 +7,18 @@
         <Menu class="javax.swing.JMenu" name="archivo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Caja"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="16" style="0"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="abrirCaja">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+A"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="SansSerif" size="16" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Abrir"/>
                 <Property name="toolTipText" type="java.lang.String" value="Abre una caja para empezar a registrar transacciones."/>
@@ -29,6 +35,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="cajasAnteriores">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="SansSerif" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Anteriores"/>
                 <Property name="actionCommand" type="java.lang.String" value="cajasAnteriores"/>
               </Properties>
@@ -37,6 +46,9 @@
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+P"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="SansSerif" size="16" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Parcial"/>
                 <Property name="actionCommand" type="java.lang.String" value="cajaParcial"/>
@@ -56,6 +68,9 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+C"/>
                 </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="SansSerif" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cerrar"/>
               </Properties>
             </MenuItem>
@@ -64,6 +79,9 @@
         <Menu class="javax.swing.JMenu" name="cuenta">
           <Properties>
             <Property name="text" type="java.lang.String" value="Clientes"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="16" style="0"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="ventanaClientes">
@@ -71,12 +89,18 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Alt+C"/>
                 </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="SansSerif" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Detalles"/>
                 <Property name="actionCommand" type="java.lang.String" value="VentanaClientes"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="imprimirClientes">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="SansSerif" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Imprimir"/>
                 <Property name="actionCommand" type="java.lang.String" value="imprimirClientes"/>
               </Properties>
@@ -86,6 +110,9 @@
         <Menu class="javax.swing.JMenu" name="producto">
           <Properties>
             <Property name="text" type="java.lang.String" value="Productos"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="16" style="0"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="ventanaProductos">
@@ -93,12 +120,18 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Alt+P"/>
                 </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="SansSerif" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Detalles"/>
                 <Property name="actionCommand" type="java.lang.String" value="VentanaProductos"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="imprimirProducto">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="SansSerif" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Imprimir"/>
                 <Property name="actionCommand" type="java.lang.String" value="imprimirProductos"/>
               </Properties>
@@ -108,7 +141,17 @@
         <Menu class="javax.swing.JMenu" name="ayuda">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ayuda"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="16" style="0"/>
+            </Property>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="acercaDe">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Acerca De"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>
@@ -150,7 +193,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="597" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="599" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>

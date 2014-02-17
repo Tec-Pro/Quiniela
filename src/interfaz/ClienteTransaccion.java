@@ -20,6 +20,7 @@ public class ClienteTransaccion extends javax.swing.JFrame {
     public ClienteTransaccion() {
         initComponents();
         this.getRootPane().setDefaultButton(buttonAceptar);
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png")).getImage());
         tablaTransaccionDef = (DefaultTableModel) tablaTransacciones.getModel();
     }
 

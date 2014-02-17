@@ -14,6 +14,8 @@ public class UsuarioGUI extends javax.swing.JFrame {
      */
     public UsuarioGUI() {
         initComponents();
+        setTitle("Sistema de Gestión de Quiniela");
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png")).getImage());
         this.getRootPane().setDefaultButton(buttonIngresar);
     }
 

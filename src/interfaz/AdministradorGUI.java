@@ -15,6 +15,8 @@ public class AdministradorGUI extends javax.swing.JFrame {
     public AdministradorGUI() {
         initComponents();
         tablaUsuariosDef =(DefaultTableModel) tablaUsuarios.getModel();
+        setTitle("Administración de usuarios");
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png")).getImage());
     }
 
     /**

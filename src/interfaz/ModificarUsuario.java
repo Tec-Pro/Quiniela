@@ -15,6 +15,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
      */
     public ModificarUsuario() {
         initComponents();
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png")).getImage());
     }
 
     /**

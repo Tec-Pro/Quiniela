@@ -33,6 +33,8 @@ public class MainGUI extends javax.swing.JFrame {
         tab.setToolTipTextAt(1, "Estadisticas de ventas y productos");
         menuAdmin = new JMenu("Administrador");
         menuUsuario = new JMenuItem();
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png")).getImage());
+        this.setTitle("Sistema de Gestión de Quiniela");
 
     }
 
@@ -62,6 +64,7 @@ public class MainGUI extends javax.swing.JFrame {
         ventanaProductos = new javax.swing.JMenuItem();
         imprimirProducto = new javax.swing.JMenuItem();
         ayuda = new javax.swing.JMenu();
+        acercaDe = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 600));
@@ -135,6 +138,10 @@ public class MainGUI extends javax.swing.JFrame {
 
         ayuda.setText("Ayuda");
         ayuda.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+
+        acercaDe.setText("Acerca De");
+        ayuda.add(acercaDe);
+
         barraMenu.add(ayuda);
 
         setJMenuBar(barraMenu);
@@ -165,6 +172,7 @@ public class MainGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem abrirCaja;
+    private javax.swing.JMenuItem acercaDe;
     private javax.swing.JMenu archivo;
     private javax.swing.JMenu ayuda;
     private javax.swing.JMenuBar barraMenu;
@@ -300,6 +308,13 @@ public class MainGUI extends javax.swing.JFrame {
      */
     public javax.swing.JMenuItem getCajasAnteriores() {
         return cajasAnteriores;
+    }
+
+    /**
+     * @return the acercaDe
+     */
+    public javax.swing.JMenuItem getAcercaDe() {
+        return acercaDe;
     }
 
 }

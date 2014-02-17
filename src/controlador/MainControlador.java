@@ -7,6 +7,7 @@ package controlador;
 import abm.ABMCaja;
 import abm.ABMTransaccion;
 import com.jtattoo.plaf.aero.AeroLookAndFeel;
+import interfaz.AcercaDeGUI;
 import interfaz.AdministradorGUI;
 import interfaz.ClienteGUI;
 import interfaz.ListaCajas;
@@ -89,6 +90,7 @@ public class MainControlador implements ActionListener {
         principal.getImprimirProductos().addActionListener(this);
         principal.getCajasAnteriores().addActionListener(this);
         principal.getMenuUsuario().addActionListener(this);
+        principal.getAcercaDe().addActionListener(this);
         abmc = new ABMCaja();
         administrador = new AdministradorGUI();
         cliente = new ClienteGUI();
@@ -219,6 +221,10 @@ public class MainControlador implements ActionListener {
                         Quiniela.ventana = 1;
                     }
                     break;
+                case "Acerca De":
+                    if (Quiniela.ventana == 0){
+                        AcercaDeGUI ad = new AcercaDeGUI(principal,true);
+                    }
             }
         } catch (JRException | ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MainControlador.class.getName()).log(Level.SEVERE, null, ex);

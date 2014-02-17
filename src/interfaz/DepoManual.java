@@ -18,6 +18,8 @@ public class DepoManual extends javax.swing.JFrame {
     public DepoManual() {
         initComponents();
         this.getRootPane().setDefaultButton(depoOk);
+        setTitle("Depósito manual");
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png")).getImage());
     }
 
     /**

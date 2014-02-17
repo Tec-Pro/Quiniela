@@ -24,6 +24,8 @@ public final class ProductoGUI extends javax.swing.JFrame {
      */
     public ProductoGUI() {
         initComponents();
+        setTitle("Productos");
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png")).getImage());
         tablaProdDef= (DefaultTableModel) getTablaProductos().getModel();
         tablaStockFechaDef= (DefaultTableModel) getTablaStockFecha().getModel();
     }
