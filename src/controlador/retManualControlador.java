@@ -58,7 +58,7 @@ public class retManualControlador implements ActionListener {
                     if (Caja.findById(id_caja).getDouble("saldo")-Math.abs(Double.valueOf(retM.montoRepMan.getText())) <0) {
                         JOptionPane.showMessageDialog(retM, "No hay fondos suficientes para realizar este retiro");
                     } else {
-                        abmTrans.altaRetiro(motivo, "Ret. Manual", monto.negate(), 1, id_caja, Quiniela.id_usuario);
+                       abmTrans.altaRetiro(motivo, "Ret. Man.", monto.negate(), 1, id_caja, Quiniela.id_usuario);
                         cc.cargarTransacciones();
                         retM.dispose();
                     }
