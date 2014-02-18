@@ -161,19 +161,9 @@ public class MainControlador implements ActionListener {
                     principal.getImprimirParcial().setEnabled(true);
                     break;
                 case "Cerrar":
-                    int imprimir;
-                    imprimir = JOptionPane.showConfirmDialog(null,"¿Desea imprimir el reporte de la caja?","Confirmar",JOptionPane.YES_NO_OPTION);
-                    if (JOptionPane.YES_OPTION == imprimir){
-                        System.out.println("aca");
-                        rc = new reporteControlador("transacciones.jasper");
-                        if (!Base.hasConnection()){
-                            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
-                        }
-                        int id_caja = abmc.getLastCaja();
-                        rc.mostrarReporte(id_caja, abmc.getTotalVentas(id_caja),abmc.getTotalOtros(id_caja));
-                        if (Base.hasConnection()){
-                            Base.close();
-                        }
+                    
+                    if (Base.hasConnection()){
+                        Base.close();
                     }
                     principal.dispose();
                     System.exit(0);
