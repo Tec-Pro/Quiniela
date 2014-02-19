@@ -87,7 +87,11 @@ public class ABMCaja {
 
     public int getLastCaja() {
         cajas = Caja.findAll();
-        return cajas.get(cajas.size() - 1).getInteger("id");
+        if (cajas.size()==1){
+            return cajas.get(0).getInteger("id");
+        } else{
+            return cajas.get(cajas.size() - 1).getInteger("id");
+        }
     }
 
     /**

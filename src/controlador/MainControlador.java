@@ -153,6 +153,9 @@ public class MainControlador implements ActionListener {
                     abmc.altaCaja(date);
                     principal.getCaja().enableAll();
                     principal.getAbrirCaja().setEnabled(false);
+                    cc.cargarCuentas();
+                    cc.cargarProductos();
+                    cc.cargarTransacciones();
                     clic.getView().getButtonGuardar().setEnabled(true);
                     if (Base.hasConnection()){
                         Base.close();

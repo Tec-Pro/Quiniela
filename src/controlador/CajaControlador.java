@@ -174,11 +174,18 @@ public class CajaControlador implements ActionListener, CellEditorListener {
 
     public void cargarTransacciones() {
         abrirBase();
+        System.out.println("Aca si");
         cajas = Caja.findAll();
+        
+            System.out.println(cajas);
         tablaTrans.setRowCount(0);
         if (cajas.size() > 0) {
-            id_caja = cajas.get(cajas.size() - 1).getInteger("id");
-            listaTransaccion = Transaccion.where("caja_id = ?", id_caja);
+            System.out.println(cajas);
+            if (cajas.size()==1){
+                id_caja = 1;
+            } else {
+                id_caja = cajas.get(cajas.size() - 1).getInteger("id");
+            }listaTransaccion = Transaccion.where("caja_id = ?", id_caja);
             Iterator<Transaccion> it = listaTransaccion.iterator();
             view.getTotalVentas().setText("0.0");
             view.getTotalOtros().setText("0.0");
