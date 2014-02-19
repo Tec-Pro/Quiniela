@@ -59,9 +59,7 @@ public class AdministradorControlador implements ActionListener {
     }
 
     private void cargarUsuarios() {
-       if (!Base.hasConnection()) {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
-        }
+        abrirBase();
         tablaUsuarios.setRowCount(0);
         listaUsuarios = Usuario.where("visible = ?", 1);
         Iterator<Usuario> it = listaUsuarios.iterator();
@@ -80,7 +78,7 @@ public class AdministradorControlador implements ActionListener {
 
     private void abrirBase() {
         if (!Base.hasConnection()) {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "tecpro", "tecpro");
         }
     }
     
@@ -101,9 +99,7 @@ public class AdministradorControlador implements ActionListener {
                     int confirmarBorrar;
                     confirmarBorrar = JOptionPane.showConfirmDialog(null,"¿Esta seguro que quiere borrar este Usuario?","Confirmar",JOptionPane.YES_NO_OPTION);
                     if (confirmarBorrar == JOptionPane.YES_OPTION){
-                        if (!Base.hasConnection()) {
-                            abrirBase();
-                        }
+                        abrirBase();
                         abmU.bajaUsuario(idUsuarioE);
                         if (Base.hasConnection()) {
                             Base.close();
@@ -125,9 +121,7 @@ public class AdministradorControlador implements ActionListener {
                     if (!(pass1.equals(pass2))) {
                         JOptionPane.showInputDialog("Error: Contraseñas no coinciden");
                     }else{
-                        if (!Base.hasConnection()) {
-                            abrirBase();
-                        }
+                        abrirBase();
                         abmU.modificarUsuario(idUsuarioM,pass1,0);
                         modificarU.getTextPass1().setText("");
                         modificarU.getTextPass2().setText("");
@@ -147,9 +141,7 @@ public class AdministradorControlador implements ActionListener {
                     if (!(pass1.equals(pass2))) {
                         JOptionPane.showInputDialog("Error: Contraseñas no coinciden");
                     }else{
-                        if (!Base.hasConnection()) {
-                            abrirBase();
-                        }
+                        abrirBase();
                         abmU.altaUsuario(agregarU.getTextUsuario().getText().trim().toString(),pass1,0);
                         agregarU.getTextPass1().setText("");
                         agregarU.getTextPass2().setText("");

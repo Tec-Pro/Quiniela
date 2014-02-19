@@ -32,7 +32,7 @@ public class reporteControlador {
     //listado de clientes productos y proveedores.
     public void mostrarReporte(int caja_id, Double totalVentas, Double totalOtros) throws ClassNotFoundException, SQLException, JRException {
         Class.forName("com.mysql.jdbc.Driver");
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/quiniela", "root", "root")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/quiniela", "tecpro", "tecpro")) {
             Map parametros = new HashMap();
             parametros.clear();
             parametros.put("idCaja", caja_id);
@@ -52,7 +52,7 @@ public class reporteControlador {
     
     public void mostrarLista() throws ClassNotFoundException, SQLException, JRException {
         Class.forName("com.mysql.jdbc.Driver");
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/quiniela", "root", "root")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/quiniela", "tecpro", "tecpro")) {
             JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, connection);
             JasperViewer.viewReport(jasperPrint, false);
         }

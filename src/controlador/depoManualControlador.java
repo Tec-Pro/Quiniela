@@ -21,9 +21,9 @@ import quiniela.Quiniela;
  */
 public class depoManualControlador implements ActionListener {
 
-    private DepoManual depM;
-    private ABMTransaccion abmTrans;
-    private CajaControlador cc;
+    private final DepoManual depM;
+    private final ABMTransaccion abmTrans;
+    private final CajaControlador cc;
 
     depoManualControlador(DepoManual dm, ABMTransaccion abmt, CajaControlador cc) {
         this.depM = dm;
@@ -46,7 +46,7 @@ public class depoManualControlador implements ActionListener {
         switch (comando) {
             case "Depositar":
                 if (!Base.hasConnection()) {
-                    Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
+                    Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "tecpro", "tecpro");
                 }
                 List<Caja> cajas = Caja.findAll();
                 int id_caja = cajas.get(cajas.size() - 1).getInteger("id");

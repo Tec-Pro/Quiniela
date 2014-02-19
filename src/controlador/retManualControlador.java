@@ -46,7 +46,7 @@ public class retManualControlador implements ActionListener {
         switch (comando) {
             case "Retirar":
                 if (!Base.hasConnection()) {
-                    Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
+                    Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "tecpro", "tecpro");
                 }
                 List<Caja> cajas = Caja.findAll();
                 int id_caja = cajas.get(cajas.size() - 1).getInteger("id");

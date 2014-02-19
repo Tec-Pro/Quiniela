@@ -170,9 +170,7 @@ public class MainControlador implements ActionListener {
                     break;
                 case "cajaParcial":
                     rc = new reporteControlador("transacciones.jasper");
-                    if (!Base.hasConnection()){
-                        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
-                    }
+                    abrirBase();
                     int id_parcial = abmc.getLastCaja();
                     rc.mostrarReporte(id_parcial, abmc.getTotalVentas(id_parcial), abmc.getTotalOtros(id_parcial));
                     if (Base.hasConnection()){
@@ -224,7 +222,7 @@ public class MainControlador implements ActionListener {
     
     private void abrirBase() {
         if (!Base.hasConnection()) {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "tecpro", "tecpro");
         }
     }
 }

@@ -14,8 +14,6 @@ import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
@@ -85,7 +83,7 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
 
     public void cargarProductos() {
         if (!Base.hasConnection()) {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "tecpro", "tecpro");
         }
         tablaProducto.setRowCount(0);
         listaProd = Producto.where("visible = ?", 1);
@@ -114,7 +112,7 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
     //no funciona
     public void cargarFecha(int id) {
         if (!Base.hasConnection()) {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "tecpro", "tecpro");
         }
         if (!(tablaProducto.getValueAt(view.getTablaProductos().getSelectedRow(),4).equals(Boolean.FALSE))){
             getView().getInsertar().setEnabled(true);
@@ -152,7 +150,7 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (!Base.hasConnection()) {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "tecpro", "tecpro");
             if (ae.getActionCommand().equals("Actualizar")) { //si presiono actualizar
                 cargarProductos(); //actualizo la tabla de productos
             }

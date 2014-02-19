@@ -5,7 +5,6 @@
 package controlador;
 
 import interfaz.ClienteTransaccion;
-import interfaz.CrearCliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
@@ -13,7 +12,6 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import models.Transaccion;
 import org.javalite.activejdbc.Base;
-import quiniela.Quiniela;
 
 /**
  *
@@ -21,9 +19,9 @@ import quiniela.Quiniela;
  */
 public class ClienteTransaccionControlador implements ActionListener {
     
-    private DefaultTableModel tablaTransacciones;
+    private final DefaultTableModel tablaTransacciones;
     private List<Transaccion> listaTransacciones;
-    private ClienteTransaccion clienteT;
+    private final ClienteTransaccion clienteT;
     
     public ClienteTransaccionControlador(ClienteTransaccion ct,int id){
         clienteT = ct;
@@ -38,7 +36,7 @@ public class ClienteTransaccionControlador implements ActionListener {
     }
     
     private void cargarTransacciones(int id){
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
+        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","tecpro", "tecpro");
         tablaTransacciones.setRowCount(0);
         listaTransacciones = Transaccion.find(" cliente_id = ?", id);
         Iterator<Transaccion> it = listaTransacciones.iterator();

@@ -9,15 +9,10 @@ import interfaz.MainGUI;
 import interfaz.UsuarioGUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import models.Usuario;
-import net.sf.jasperreports.engine.JRException;
 import org.javalite.activejdbc.Base;
 import quiniela.Quiniela;
 
@@ -27,8 +22,8 @@ import quiniela.Quiniela;
  */
 public class UsuarioControlador implements ActionListener {
 
-    private UsuarioGUI view;
-    private ABMUsuario abmU;
+    private final UsuarioGUI view;
+    private final ABMUsuario abmU;
 
     public UsuarioControlador(UsuarioGUI usuarioGui) {
         view = usuarioGui;
@@ -53,7 +48,7 @@ public class UsuarioControlador implements ActionListener {
 
     private void abrirBase() {
         if (!Base.hasConnection()) {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "tecpro", "tecpro");
         }
     }
 
@@ -62,9 +57,7 @@ public class UsuarioControlador implements ActionListener {
         String comando = e.getActionCommand();
         switch (comando) {
             case "Ingresar":
-                if (!Base.hasConnection()) {
-                    abrirBase();
-                }
+                abrirBase();
                 String user = view.getTextUser().getText();
                 String pass = new String(view.getTextPass().getPassword());
                 if (view.getTextUser().getText().trim().isEmpty() || view.getTextPass().getPassword().length == 0) {

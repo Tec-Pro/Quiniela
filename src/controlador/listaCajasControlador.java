@@ -147,7 +147,7 @@ public class listaCajasControlador implements ActionListener {
 
     private void abrirBase() {
         if (!Base.hasConnection()) {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "tecpro", "tecpro");
         }
     }
 

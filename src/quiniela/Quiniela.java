@@ -37,7 +37,7 @@ public class Quiniela {
         }
        
              
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","tecpro", "tecpro");
             UsuarioGUI ug = new UsuarioGUI();
             UsuarioControlador uc = new UsuarioControlador(ug);
             Base.close();

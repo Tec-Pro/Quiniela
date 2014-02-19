@@ -77,10 +77,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                     row[0] = target.getValueAt(target.getSelectedRow(), 0);
                     row[1] = target.getValueAt(target.getSelectedRow(), 1);
                     row[2] = 1;
-                    if (!Base.hasConnection()) {
-                        abrirBase();
-                    }
-
+                    abrirBase();
                     Producto p = Producto.findById(target.getValueAt(target.getSelectedRow(), 0));
                     Double precio = Double.parseDouble(p.getString("precio"));
                     row[3] = (int) row[2] * precio;
@@ -111,9 +108,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
         view.getTablaCliente().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!Base.hasConnection()) {
-                    abrirBase();
-                }
+                abrirBase();
                 if (e.getClickCount() == 2) {
                     JTable t = (JTable) e.getSource();
                     c = Cliente.findById(t.getValueAt(t.getSelectedRow(), 0));
@@ -139,9 +134,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
     }
 
     public void cargarProductos() {
-        if (!Base.hasConnection()) {
-            abrirBase();
-        }
+        abrirBase();
         listaProd = Producto.findAll();
         tablaArticulos.setRowCount(0);
         Iterator<Producto> it = listaProd.iterator();
@@ -164,10 +157,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
     }
 
     public void cargarCuentas() {
-        if (!Base.hasConnection()) {
-            abrirBase();
-        }
-
+        abrirBase();
         tablaClientes.setRowCount(0);
         listaCliente = Cliente.findAll();
         Iterator<Cliente> it = listaCliente.iterator();
@@ -186,9 +176,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
     }
 
     public void cargarTransacciones() {
-        if (!Base.hasConnection()) {
-            abrirBase();
-        }
+        abrirBase();
         tablaTrans.setRowCount(0);
         if (cajas.size() > 0){
             id_caja = cajas.get(cajas.size() - 1).getInteger("id");
@@ -227,9 +215,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                 break;
             case "OK":
                 if (tablaDetalles.getRowCount() > 0) {
-                    if (!Base.hasConnection()) {
-                        abrirBase();
-                    }
+                    abrirBase();
                     String motivo = "";
                     int rows = tablaDetalles.getRowCount();
                     Producto pr;
@@ -286,9 +272,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
         Double total = 0.0;
         Double precio;
         for (int i = 0; i < view.getTablaDetalles().getRowCount(); i++) {
-            if (!Base.hasConnection()) {
-                abrirBase();
-            }
+            abrirBase();
             precio = Double.parseDouble(Producto.findById(view.getTablaDetalles().getValueAt(i, 0)).getString("precio"));
             importe = Double.valueOf((Integer) view.getTablaDetalles().getValueAt(i, 2)) * precio;
             view.getTablaDetalles().setValueAt(importe, i, 3);
@@ -315,7 +299,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
 
     private void abrirBase() {
         if (!Base.hasConnection()) {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "tecpro", "tecpro");
         }
     }
 }

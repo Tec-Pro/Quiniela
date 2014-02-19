@@ -35,7 +35,7 @@ import org.javalite.activejdbc.Base;
  */
 public class EstadisticasControlador implements ActionListener {
     
-    private EstadisticasGUI view;
+    private final EstadisticasGUI view;
     private DefaultTableModel tablaEstadisticas;
     private List<Producto> listaProd;
     private List<Transaccion> listaTransaccion;
@@ -190,7 +190,7 @@ public class EstadisticasControlador implements ActionListener {
     
     private void abrirBase() {
         if (!Base.hasConnection()) {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "tecpro", "tecpro");
         }
     }
 
