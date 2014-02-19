@@ -44,10 +44,11 @@ public class reporteControlador {
     }
     
     public void mostrarReporte(Map parametros) throws ClassNotFoundException, SQLException, JRException {
-        System.out.println(parametros);
         JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, new    JREmptyDataSource());
         JasperViewer.viewReport(jasperPrint, false);
     }
+    
+
     
     public void mostrarLista() throws ClassNotFoundException, SQLException, JRException {
         Class.forName("com.mysql.jdbc.Driver");

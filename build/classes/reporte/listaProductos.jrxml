@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listaProductos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="af000020-fce3-4360-9a22-6541083f6e14">
-	<property name="ireport.zoom" value="2.853116706110003"/>
-	<property name="ireport.x" value="595"/>
-	<property name="ireport.y" value="149"/>
-	<queryString language="SQL">
-		<![CDATA[select id,nombre,precio,comision from productos where visible = 1]]>
+	<property name="ireport.zoom" value="2.1435888100000025"/>
+	<property name="ireport.x" value="608"/>
+	<property name="ireport.y" value="124"/>
+	<queryString>
+		<![CDATA[select productos.id,nombre,precio,comision, SUM(stock) as stock from productos left join fechas on productos.id = fechas.producto_id where visible = 1 group by id]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -12,10 +12,13 @@
 	<field name="nombre" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="precio" class="java.lang.Double">
+	<field name="precio" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="comision" class="java.lang.Double">
+	<field name="comision" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="stock" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
@@ -45,6 +48,13 @@
 			</line>
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="41" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="34120101-20d9-4c97-8b20-da27e48f2798"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -52,6 +62,13 @@
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="41" y="0" width="190" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="a37c5e97-14f2-42e5-8775-cc72b66e0f52"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -59,17 +76,45 @@
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="231" y="0" width="107" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="cd4121fe-eb7c-4083-8c32-ecd5dfe41a59"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[precio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="338" y="0" width="107" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="0837b061-2a0b-4c97-96b9-1148401356c3"/>
+				<reportElement mode="Opaque" x="338" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="0837b061-2a0b-4c97-96b9-1148401356c3"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[comision]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="448" y="0" width="107" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="b797eee4-161f-483c-b536-82c7131f3f79"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[stock]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -80,31 +125,73 @@
 			</line>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="0" y="0" width="41" height="20" uuid="8a783e64-974a-4859-8792-659c10e3d3e2"/>
-				<textElement>
-					<font size="14"/>
+				<box>
+					<pen lineWidth="1.5"/>
+					<topPen lineWidth="1.5"/>
+					<leftPen lineWidth="1.5"/>
+					<bottomPen lineWidth="1.5"/>
+					<rightPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="41" y="0" width="143" height="20" uuid="ae5299a1-5ea6-409b-bbb8-8c8c1eed40eb"/>
-				<textElement>
-					<font size="14"/>
+				<reportElement x="41" y="0" width="190" height="20" uuid="ae5299a1-5ea6-409b-bbb8-8c8c1eed40eb"/>
+				<box>
+					<pen lineWidth="1.5"/>
+					<topPen lineWidth="1.5"/>
+					<leftPen lineWidth="1.5"/>
+					<bottomPen lineWidth="1.5"/>
+					<rightPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="231" y="0" width="107" height="20" uuid="4413716d-f4a9-409c-9ff9-dbefb883dd3f"/>
-				<textElement>
-					<font size="14"/>
+				<box>
+					<pen lineWidth="1.5"/>
+					<topPen lineWidth="1.5"/>
+					<leftPen lineWidth="1.5"/>
+					<bottomPen lineWidth="1.5"/>
+					<rightPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="338" y="0" width="107" height="20" uuid="77c9c346-4024-479b-b63a-a308993ae7cf"/>
-				<textElement>
-					<font size="14"/>
+				<reportElement x="338" y="0" width="110" height="20" uuid="77c9c346-4024-479b-b63a-a308993ae7cf"/>
+				<box>
+					<pen lineWidth="1.5"/>
+					<topPen lineWidth="1.5"/>
+					<leftPen lineWidth="1.5"/>
+					<bottomPen lineWidth="1.5"/>
+					<rightPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{comision}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="448" y="0" width="107" height="20" uuid="950b2843-450f-498d-8ad1-843859a94040"/>
+				<box>
+					<pen lineWidth="1.5"/>
+					<topPen lineWidth="1.5"/>
+					<leftPen lineWidth="1.5"/>
+					<bottomPen lineWidth="1.5"/>
+					<rightPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stock}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
