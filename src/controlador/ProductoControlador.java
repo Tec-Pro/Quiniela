@@ -205,16 +205,12 @@ public class ProductoControlador implements ActionListener, CellEditorListener {
                     stock = new Integer(0);
                 }
                 //Si el producto es nuevo(no tiene id)
-                System.out.println(tablaProducto.getValueAt(j, 0));
                 if (tablaProducto.getValueAt(j, 0) == null) {
-                    System.out.println("aca entra");
                     abmp.altaProducto(nombre, b1, b2, hayStock,stock);
                 } else { // si el producto existe y solo sera modificado
                     int id = (int) tablaProducto.getValueAt(j, 0);
                     abmp.modificarProducto(id, nombre, b1, b2, hayStock,stock);
                 }
-                System.out.println("For: "+j);
-                System.out.println(tablaProducto.getRowCount());
                 }
                 cargarProductos(); //actualizo la tabla de productos
                 JOptionPane.showMessageDialog(getView(), "Cambios guardados con exito!");
