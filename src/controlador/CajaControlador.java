@@ -124,10 +124,6 @@ public class CajaControlador implements ActionListener, CellEditorListener {
         tablaArticulos = view.getTablaArtDef();
         tablaClientes = view.getTablaCliDef();
         tablaTrans = view.getTablaTransDef();
-        cajas = Caja.findAll();
-        listaProd = Producto.findAll();
-        listaCliente = Cliente.findAll();
-        listaTransaccion = Transaccion.find("caja_id = ?", id_caja);
         cargarProductos();
         cargarCuentas();
         cargarTransacciones();
@@ -177,12 +173,15 @@ public class CajaControlador implements ActionListener, CellEditorListener {
 
     public void cargarTransacciones() {
         abrirBase();
+        cajas = Caja.findAll();
         tablaTrans.setRowCount(0);
         if (cajas.size() > 0){
             id_caja = cajas.get(cajas.size() - 1).getInteger("id");
         
         listaTransaccion = Transaccion.where("caja_id = ?", id_caja);
         Iterator<Transaccion> it = listaTransaccion.iterator();
+        view.getTotalVentas().setText("0.0");
+        view.getTotalOtros().setText("0.0");
         while (it.hasNext()) {
             Transaccion t = it.next();
             String motivo[] = t.getString("motivo").split("; ");
@@ -193,6 +192,13 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                 row[2] = t.getString("tipo");
                 row[3] = Double.parseDouble(t.getString("monto"));
                 tablaTrans.addRow(row);
+                if (row[2].equals("Venta") && t.get("cliente_id") == null){
+                    Double ventas = Double.parseDouble(view.getTotalVentas().getText())+(Double)row[3];
+                    view.getTotalVentas().setText(ventas.toString());
+                } else if (!row[2].equals("Venta") && t.get("cliente_id") != null || !row[2].equals("Venta")){
+                    Double otros = Double.parseDouble(view.getTotalOtros().getText())+(Double)row[3];
+                    view.getTotalOtros().setText(otros.toString());
+                }
             }
         }
         }
@@ -253,10 +259,6 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                     view.getVentaOk().setEnabled(false);
                 }
                 break;
-            case "Detalles":
-                view.detalleProducto();
-                break;
-
         }
         cargarTransacciones();
     }
@@ -296,7 +298,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
     public void editingCanceled(ChangeEvent ce) {
         actualizarPrecio();
     }
-
+    
     private void abrirBase() {
         if (!Base.hasConnection()) {
             Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "tecpro", "tecpro");

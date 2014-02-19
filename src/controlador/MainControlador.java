@@ -102,6 +102,7 @@ public class MainControlador implements ActionListener {
         clic = new ClienteControlador(cliente,cc);
         lcc = new listaCajasControlador(listaCajas);
         principal.getCaja().disableAll();
+        clic.getView().getButtonGuardar().setEnabled(false);
         administrador.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e){
@@ -147,14 +148,12 @@ public class MainControlador implements ActionListener {
             //Acciones
             switch (comando) {
                 case "ABRIR CAJA":
-                    if (!Base.hasConnection()){
-                        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela","root", "root");
-                    }
-                    ABMTransaccion abmt = new ABMTransaccion();;
+                    abrirBase();
                     LocalDate date = new LocalDate();
                     abmc.altaCaja(date);
                     principal.getCaja().enableAll();
                     principal.getAbrirCaja().setEnabled(false);
+                    clic.getView().getButtonGuardar().setEnabled(true);
                     if (Base.hasConnection()){
                         Base.close();
                     }

@@ -122,8 +122,10 @@ public class ABMTransaccion {
             c.add(nuevo);
             cl.add(nuevo);
             u.add(nuevo);
-            ABMCaja abmc = new ABMCaja();
-            abmc.modificarCaja(caja, monto);
+            if (!nuevo.get("tipo").equals("Venta")){
+                ABMCaja abmc = new ABMCaja();
+                abmc.modificarCaja(caja, monto);
+            }
             Base.commitTransaction();
             return true;
             }
@@ -228,7 +230,7 @@ public class ABMTransaccion {
 
     private void abrirBase() {
         if (!Base.hasConnection()) {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "tecpro", "tecpro");
         }
     }
 }

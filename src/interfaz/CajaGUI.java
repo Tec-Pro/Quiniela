@@ -46,6 +46,10 @@ public class CajaGUI extends javax.swing.JPanel {
         tablaTransacciones = new javax.swing.JTable();
         depManual = new javax.swing.JButton();
         retManual = new javax.swing.JButton();
+        totalOtros = new javax.swing.JTextField();
+        totalVentas = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         panelNuevaVenta = new javax.swing.JPanel();
         detallesVenta = new javax.swing.JScrollPane();
         tablaDetalles = new javax.swing.JTable();
@@ -156,6 +160,20 @@ public class CajaGUI extends javax.swing.JPanel {
         retManual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/retirar.png"))); // NOI18N
         retManual.setText("RETIRO MANUAL");
 
+        totalOtros.setEditable(false);
+        totalOtros.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        totalOtros.setText("0.0");
+
+        totalVentas.setEditable(false);
+        totalVentas.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        totalVentas.setText("0.0");
+
+        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jLabel2.setText("VENTAS:");
+
+        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jLabel3.setText("OTROS:");
+
         javax.swing.GroupLayout panelTransaccionesLayout = new javax.swing.GroupLayout(panelTransacciones);
         panelTransacciones.setLayout(panelTransaccionesLayout);
         panelTransaccionesLayout.setHorizontalGroup(
@@ -163,20 +181,35 @@ public class CajaGUI extends javax.swing.JPanel {
             .addComponent(contTrans)
             .addGroup(panelTransaccionesLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addComponent(depManual)
+                .addGroup(panelTransaccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(depManual)
+                    .addGroup(panelTransaccionesLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(totalVentas)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(retManual)
-                .addGap(38, 38, 38))
+                .addGroup(panelTransaccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(retManual)
+                    .addGroup(panelTransaccionesLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(totalOtros)))
+                .addGap(51, 51, 51))
         );
         panelTransaccionesLayout.setVerticalGroup(
             panelTransaccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTransaccionesLayout.createSequentialGroup()
                 .addComponent(contTrans, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelTransaccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(depManual)
-                    .addComponent(retManual))
-                .addContainerGap())
+                    .addComponent(retManual)
+                    .addComponent(depManual))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(panelTransaccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(totalOtros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)))
         );
 
         panelNuevaVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Venta", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 0, 16))); // NOI18N
@@ -321,7 +354,7 @@ public class CajaGUI extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(clienteSel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -346,11 +379,11 @@ public class CajaGUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelArticulos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelNuevaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 272, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelTransacciones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
+                    .addComponent(panelTransacciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -387,6 +420,8 @@ public class CajaGUI extends javax.swing.JPanel {
     private javax.swing.JButton depManual;
     private javax.swing.JScrollPane detallesVenta;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel panelArticulos;
     private javax.swing.JPanel panelCliente;
     private javax.swing.JPanel panelNuevaVenta;
@@ -398,6 +433,8 @@ public class CajaGUI extends javax.swing.JPanel {
     private javax.swing.JTable tablaTransacciones;
     public javax.swing.JTextField totalField;
     private javax.swing.JLabel totalLabel;
+    private javax.swing.JTextField totalOtros;
+    private javax.swing.JTextField totalVentas;
     private javax.swing.JButton ventaOk;
     // End of variables declaration//GEN-END:variables
 
@@ -567,6 +604,20 @@ public class CajaGUI extends javax.swing.JPanel {
         JFrame frame = new JFrame("Detalles Producto");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
+    }
+
+    /**
+     * @return the totalOtros
+     */
+    public javax.swing.JTextField getTotalOtros() {
+        return totalOtros;
+    }
+
+    /**
+     * @return the totalVentas
+     */
+    public javax.swing.JTextField getTotalVentas() {
+        return totalVentas;
     }
  
 }
