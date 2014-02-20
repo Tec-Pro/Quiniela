@@ -153,6 +153,7 @@ public class MainControlador implements ActionListener {
                     abmc.altaCaja(date);
                     principal.getCaja().enableAll();
                     principal.getAbrirCaja().setEnabled(false);
+                    cc.setId_caja(abmc.getLastCaja());
                     cc.cargarCuentas();
                     cc.cargarProductos();
                     cc.cargarTransacciones();

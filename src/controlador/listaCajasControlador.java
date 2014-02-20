@@ -32,7 +32,6 @@ import org.javalite.activejdbc.Base;
  *
  * @author joako
  */
-
 public class listaCajasControlador implements ActionListener {
 
     private ABMCaja abmc;
@@ -51,18 +50,19 @@ public class listaCajasControlador implements ActionListener {
 
     public listaCajasControlador(ListaCajas lc) {
         this.reporteCaja = new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent ae) {
                 abrirBase();
                 try {
                     reporteControlador rc = new reporteControlador("transacciones.jasper");
-                    rc.mostrarReporte(id_caja,abmc.getTotalVentas(id_caja),abmc.getTotalOtros(id_caja));
+                    rc.mostrarReporte(id_caja, abmc.getTotalVentas(id_caja), abmc.getTotalOtros(id_caja));
                 } catch (JRException | ClassNotFoundException | SQLException ex) {
                     Logger.getLogger(listaCajasControlador.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                if (Base.hasConnection())
+                if (Base.hasConnection()) {
                     Base.close();
+                }
             }
         };
         this.view = lc;
@@ -119,11 +119,13 @@ public class listaCajasControlador implements ActionListener {
                 if (c.get("visible").equals(1)) {
                     List<Transaccion> transacciones = Transaccion.where("caja_id = ?", c.get("id"));
                     for (Transaccion t : transacciones) {
-                        if (t.get("visible").equals(1)) {
-                            if (t.get("tipo").equals("Venta")) {
-                                totalVentas += t.getDouble("monto");
-                            } else {
-                                totalOtros += t.getDouble("monto");
+                        if (t.get("cliente_id") == null) {
+                            if (t.get("visible").equals(1)) {
+                                if (t.get("tipo").equals("Venta")) {
+                                    totalVentas += t.getDouble("monto");
+                                } else {
+                                    totalOtros += t.getDouble("monto");
+                                }
                             }
                         }
                     }
@@ -169,5 +171,3 @@ public class listaCajasControlador implements ActionListener {
         return view;
     }
 }
-
-    

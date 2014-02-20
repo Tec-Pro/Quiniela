@@ -125,9 +125,6 @@ public class CajaControlador implements ActionListener, CellEditorListener {
         tablaArticulos = view.getTablaArtDef();
         tablaClientes = view.getTablaCliDef();
         tablaTrans = view.getTablaTransDef();
-        cargarProductos();
-        cargarCuentas();
-        cargarTransacciones();
     }
 
     public void cargarProductos() {
@@ -174,18 +171,15 @@ public class CajaControlador implements ActionListener, CellEditorListener {
 
     public void cargarTransacciones() {
         abrirBase();
-        System.out.println("Aca si");
         cajas = Caja.findAll();
-        
-            System.out.println(cajas);
         tablaTrans.setRowCount(0);
         if (cajas.size() > 0) {
-            System.out.println(cajas);
-            if (cajas.size()==1){
-                id_caja = 1;
+            if (cajas.size() == 1) {
+                setId_caja(1);
             } else {
-                id_caja = cajas.get(cajas.size() - 1).getInteger("id");
-            }listaTransaccion = Transaccion.where("caja_id = ?", id_caja);
+                setId_caja((int) cajas.get(cajas.size() - 1).getInteger("id"));
+            }
+            listaTransaccion = Transaccion.where("caja_id = ?", id_caja);
             Iterator<Transaccion> it = listaTransaccion.iterator();
             view.getTotalVentas().setText("0.0");
             view.getTotalOtros().setText("0.0");
@@ -312,5 +306,12 @@ public class CajaControlador implements ActionListener, CellEditorListener {
         if (!Base.hasConnection()) {
             Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "tecpro", "tecpro");
         }
+    }
+
+    /**
+     * @param id_caja the id_caja to set
+     */
+    public void setId_caja(int id_caja) {
+        this.id_caja = id_caja;
     }
 }

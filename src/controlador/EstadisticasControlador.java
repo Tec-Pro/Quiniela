@@ -145,6 +145,7 @@ public class EstadisticasControlador implements ActionListener {
                         for (ProductosTransaccions pt : listaProdTrans) {
                             if (pt.getInteger("transaccion_id").equals(t.getId()) && pt.getInteger("producto_id").equals(idProd)) {
                                 parcial += pt.getInteger("cantidad") * pt.getDouble("precio") * pt.getDouble("comision") / 100;
+                                cantidad += pt.getInteger("cantidad");
                             }
                         }
                     }
@@ -223,6 +224,9 @@ public class EstadisticasControlador implements ActionListener {
     private void calcularDeposito(JTextField idProd) {
         if (idProd.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(view, "Error: Falta especificar codigo de producto");
+        } else if (Producto.findById(idProd.getText())==null || Producto.findById(idProd.getText()).get("visible").equals(0)){
+            JOptionPane.showMessageDialog(view, "Error: El producto no existe");
+        
         } else {
             abrirBase();
             listaProdTrans = ProductosTransaccions.findAll();
