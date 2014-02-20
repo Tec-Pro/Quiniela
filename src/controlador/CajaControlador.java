@@ -99,10 +99,11 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                     JTable t = (JTable) e.getSource();
                     tablaDetalles.removeRow(t.getSelectedRow());
                     actualizarPrecio();
-                } if (tablaDetalles.getRowCount()==0){
+                }
+                if (tablaDetalles.getRowCount() == 0) {
                     view.getVentaOk().setEnabled(false);
                 }
-                
+
             }
         });
         view.getTablaCliente().addMouseListener(new MouseAdapter() {
@@ -175,32 +176,31 @@ public class CajaControlador implements ActionListener, CellEditorListener {
         abrirBase();
         cajas = Caja.findAll();
         tablaTrans.setRowCount(0);
-        if (cajas.size() > 0){
+        if (cajas.size() > 0) {
             id_caja = cajas.get(cajas.size() - 1).getInteger("id");
-        
-        listaTransaccion = Transaccion.where("caja_id = ?", id_caja);
-        Iterator<Transaccion> it = listaTransaccion.iterator();
-        view.getTotalVentas().setText("0.0");
-        view.getTotalOtros().setText("0.0");
-        while (it.hasNext()) {
-            Transaccion t = it.next();
-            String motivo[] = t.getString("motivo").split("; ");
-            for (String mot : motivo) {
-                Object row[] = new Object[4];
-                row[0] = t.get("id");
-                row[1] = mot;
-                row[2] = t.getString("tipo");
-                row[3] = Double.parseDouble(t.getString("monto"));
-                tablaTrans.addRow(row);
-                if (row[2].equals("Venta") && t.get("cliente_id") == null){
-                    Double ventas = Double.parseDouble(view.getTotalVentas().getText())+(Double)row[3];
-                    view.getTotalVentas().setText(ventas.toString());
-                } else if (!row[2].equals("Venta") && t.get("cliente_id") != null || !row[2].equals("Venta")){
-                    Double otros = Double.parseDouble(view.getTotalOtros().getText())+(Double)row[3];
-                    view.getTotalOtros().setText(otros.toString());
+            listaTransaccion = Transaccion.where("caja_id = ?", id_caja);
+            Iterator<Transaccion> it = listaTransaccion.iterator();
+            view.getTotalVentas().setText("0.0");
+            view.getTotalOtros().setText("0.0");
+            while (it.hasNext()) {
+                Transaccion t = it.next();
+                String motivo[] = t.getString("motivo").split("; ");
+                for (String mot : motivo) {
+                    Object row[] = new Object[4];
+                    row[0] = t.get("id");
+                    row[1] = mot;
+                    row[2] = t.getString("tipo");
+                    row[3] = Double.parseDouble(t.getString("monto"));
+                    tablaTrans.addRow(row);
+                    if (row[2].equals("Venta") && t.get("cliente_id") == null) {
+                        Double ventas = Double.parseDouble(view.getTotalVentas().getText()) + (Double) row[3];
+                        view.getTotalVentas().setText(ventas.toString());
+                    } else if (!row[2].equals("Venta") && t.get("cliente_id") != null || !row[2].equals("Venta")) {
+                        Double otros = Double.parseDouble(view.getTotalOtros().getText()) + (Double) row[3];
+                        view.getTotalOtros().setText(otros.toString());
+                    }
                 }
             }
-        }
         }
         if (Base.hasConnection()) {
             Base.close();
@@ -252,7 +252,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                         ProductosTransaccions pt = model.getLastProdTrans();
                         pt.set("cantidad", tablaDetalles.getValueAt(j, 2));
                         pt.set("precio", p.get("precio"));
-                        pt.set("comision",p.get("comision"));
+                        pt.set("comision", p.get("comision"));
                         pt.saveIt();
                     }
                     tablaDetalles.setRowCount(0);
@@ -300,7 +300,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
     public void editingCanceled(ChangeEvent ce) {
         actualizarPrecio();
     }
-    
+
     private void abrirBase() {
         if (!Base.hasConnection()) {
             Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "tecpro", "tecpro");
