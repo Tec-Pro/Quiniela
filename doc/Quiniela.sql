@@ -58,7 +58,9 @@ CREATE TABLE productos_transaccions (
     id int auto_increment PRIMARY KEY,
     producto_id int,
     transaccion_id int,
-    cantidad int
+    cantidad int,
+    precio DECIMAL(18,2),
+    comision DECIMAL(18,2)
 );
 
 CREATE TABLE fechas (
