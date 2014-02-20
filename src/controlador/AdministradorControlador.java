@@ -66,11 +66,11 @@ public class AdministradorControlador implements ActionListener {
         while(it.hasNext()){
             Usuario u = it.next();
             if (!u.get("admin").equals(1)){
-            Object row[] = new Object[3];
-            row[0] = u.get("id");
-            row[1] = u.getString("nombre");
-            row[2] = u.get("pass");
-            tablaUsuarios.addRow(row);
+                Object row[] = new Object[3];
+                row[0] = u.get("id");
+                row[1] = u.getString("nombre");
+                row[2] = u.get("pass");
+                tablaUsuarios.addRow(row);
             }
         }
         Base.close();
@@ -95,7 +95,7 @@ public class AdministradorControlador implements ActionListener {
                 break;
             case "Eliminar":
                 idUsuarioE = (int) getView().getTablaUsuarios().getValueAt(getView().getTablaUsuarios().getSelectedRow(), 0); //Guarda el usuario seleccionado (eliminar)
-                if (getView().getTablaUsuarios().getSelectedRow() > 0){
+                if (getView().getTablaUsuarios().getSelectedRow() >= 0){
                     int confirmarBorrar;
                     confirmarBorrar = JOptionPane.showConfirmDialog(null,"¿Esta seguro que quiere borrar este Usuario?","Confirmar",JOptionPane.YES_NO_OPTION);
                     if (confirmarBorrar == JOptionPane.YES_OPTION){
@@ -109,8 +109,8 @@ public class AdministradorControlador implements ActionListener {
                 cargarUsuarios();
                 break;
             case "Salir": //Salir de la ventana AgregarUsuario o ModificarUsuario
-                agregarU.setVisible(false);
-                modificarU.setVisible(false);
+                agregarU.dispose();
+                modificarU.dispose();
                 break;
             case "Confirmar": //Ventana ModificarUsuario
                 if (modificarU.getTextPass1().getPassword().length == 0 || modificarU.getTextPass2().getPassword().length == 0) {
@@ -132,7 +132,7 @@ public class AdministradorControlador implements ActionListener {
                 }
                 cargarUsuarios();//Actualiza la tabla
                 break;
-            case "Agregar"://Ventana AgregarUsuario
+            case "Guardar"://Ventana AgregarUsuario
                 if (agregarU.getTextUsuario().getText().trim().isEmpty() || agregarU.getTextPass1().getPassword().length == 0 || agregarU.getTextPass2().getPassword().length == 0){
                     JOptionPane.showInputDialog("Error: Usuario y/o contraseña vacía");
                 }else{
@@ -142,7 +142,7 @@ public class AdministradorControlador implements ActionListener {
                         JOptionPane.showInputDialog("Error: Contraseñas no coinciden");
                     }else{
                         abrirBase();
-                        abmU.altaUsuario(agregarU.getTextUsuario().getText().trim().toString(),pass1,0);
+                        abmU.altaUsuario(agregarU.getTextUsuario().getText().trim().toString(),pass1);
                         agregarU.getTextPass1().setText("");
                         agregarU.getTextPass2().setText("");
                         agregarU.getTextUsuario().setText("");

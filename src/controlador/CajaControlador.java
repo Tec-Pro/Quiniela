@@ -251,6 +251,8 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                         t.add(p);
                         ProductosTransaccions pt = model.getLastProdTrans();
                         pt.set("cantidad", tablaDetalles.getValueAt(j, 2));
+                        pt.set("precio", p.get("precio"));
+                        pt.set("comision",p.get("comision"));
                         pt.saveIt();
                     }
                     tablaDetalles.setRowCount(0);

@@ -151,7 +151,7 @@ public class ClienteControlador implements ActionListener {
                 crearC.setVisible(true);
                 break;
             case "Eliminar":
-                if (getView().getTablaClientes().getSelectedRow() > 0) {
+                if (getView().getTablaClientes().getSelectedRow() >= 0) {
                     int confirmarBorrar;
                     confirmarBorrar = JOptionPane.showConfirmDialog(null, "¿Esta seguro que quiere borrar este cliente?", "Confirmar", JOptionPane.YES_NO_OPTION);
                     if (confirmarBorrar == JOptionPane.YES_OPTION) {

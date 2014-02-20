@@ -51,6 +51,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
         buttonConfirmar.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         buttonConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
         buttonConfirmar.setText("Guardar");
+        buttonConfirmar.setActionCommand("Confirmar");
 
         textPass1.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
 

@@ -191,7 +191,11 @@ public class ABMTransaccion {
     public Transaccion getLastTransaccion(){
         abrirBase();
         List<Transaccion> t = Transaccion.findAll();
-        return Transaccion.findById((t.get(t.size() - 1).getInteger("id")));
+        if (t.size()>0){
+          return Transaccion.findById((t.get(t.size() - 1).getInteger("id")));
+        } else{
+          return Transaccion.findById(0);
+        }
     }
     
     public ProductosTransaccions getLastProdTrans(){

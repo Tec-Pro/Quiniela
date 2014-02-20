@@ -30,9 +30,9 @@ public class ABMUsuario {
      * @return true si el usuario se creo con exito, false si ya existía o introdujo datos erroneos
      *
      */
-    public boolean altaUsuario(String user, String password, int administrator){
+    public boolean altaUsuario(String user, String password){
         Base.openTransaction();
-        Usuario nuevo = Usuario.create("nombre",user,"pass",password,"admin",administrator,"visible",1);
+        Usuario nuevo = Usuario.create("nombre",user,"pass",password,"admin",0,"visible",1);
         nuevo.saveIt();
         Base.commitTransaction();
         return true;
