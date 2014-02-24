@@ -175,28 +175,25 @@ public class ClienteControlador implements ActionListener {
                 }
                 break;
             case "Aceptar": //clienteTransaccion
-                clienteT.setVisible(false);
+                clienteT.dispose();
                 break;
             case "Confirmar":
                 if (crearC.getTextNombre().getText().trim().length() == 0 || crearC.getTextApellido().getText().trim().length() == 0) {
                     JOptionPane.showInputDialog("Error: Uno de los Campos Obligatorios esta vacío");
                 } else {
                     abrirBase();
-
                     String nombre = crearC.getTextNombre().getText().toString();
                     String apellido = crearC.getTextApellido().getText().toString();
-
                     abmC.altaCliente(nombre, apellido);
-
                     if (Base.hasConnection()) {
                         Base.close();
                     }
-                    crearC.setVisible(false);
+                    crearC.dispose();
                 }
                 cargarClientes();
                 break;
             case "Cancelar":
-                crearC.setVisible(false);
+                crearC.dispose();
                 break;
             case "Guardar":
                 guardarCambios(tablaClientes);

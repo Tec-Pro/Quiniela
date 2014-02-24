@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="608"/>
 	<property name="ireport.y" value="124"/>
 	<queryString>
-		<![CDATA[select productos.id,nombre,precio,comision, SUM(stock) as stock from productos left join fechas on productos.id = fechas.producto_id where visible = 1 group by id]]>
+		<![CDATA[select productos.id,nombre,precio,comision,stock from productos left join fechas on productos.id = fechas.producto_id where visible = 1 group by id]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -18,7 +18,7 @@
 	<field name="comision" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="stock" class="java.math.BigDecimal">
+	<field name="stock" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>

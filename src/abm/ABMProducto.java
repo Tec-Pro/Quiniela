@@ -39,10 +39,8 @@ public class ABMProducto {
         if (Producto.exists(id)) {
             Producto.findById(id).set("visible", 0).saveIt();
             result = true;
-            System.out.print("Producto eliminado satisfactoriamente");
         } else {
             result = false;
-            System.out.print("Producto no encontrado en Base de Datos");
         }
         Base.commitTransaction();
         return result;
@@ -55,10 +53,8 @@ public class ABMProducto {
             Producto prodModif = Producto.findById(id);
             prodModif.set("nombre", nombre, "precio", precio, "comision", comision,"hayStock",hayStock, "stock",stock).saveIt();
             result = true;
-            System.out.print("Producto modificado satisfactoriamente");
         } else {
             result = false;
-            System.out.print("Producto no encontrado en Base de Datos");
         }
         Base.commitTransaction();
         return result;
@@ -78,12 +74,9 @@ public class ABMProducto {
         if (fecha!=null){
             fecha.delete();
             result = true;
-            System.out.print("Fecha eliminado satisfactoriamente");
         } else {
             result = false;
-            System.out.print("Fecha no encontrado en Base de Datos");
         }
-        System.out.println(result);
         Base.commitTransaction();
         return result;
     }
