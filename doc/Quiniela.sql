@@ -70,6 +70,6 @@ CREATE TABLE fechas (
 );
 
 INSERT INTO usuarios(nombre,pass,admin,visible) VALUES ('Quiniela','Quiniela',1,1);
-
+/*
 CREATE USER 'tecpro'@'localhost' IDENTIFIED BY 'tecpro';
 GRANT ALL PRIVILEGES ON *.* TO 'tecpro'@'localhost' IDENTIFIED BY 'tecpro' WITH GRANT OPTION

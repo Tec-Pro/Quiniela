@@ -136,6 +136,7 @@
               <Image iconType="3" name="/recursos/save.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Guardar"/>
+            <Property name="actionCommand" type="java.lang.String" value="Confirmar"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="textPass1">
