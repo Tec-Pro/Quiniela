@@ -61,20 +61,7 @@ public class ClienteControlador implements ActionListener {
         getView().getButtonGuardar().addActionListener(this);
         tablaClientes = getView().getTablaClienteDef();
         cargarClientes();
-
-        //Ventana ClienteTransaccion
-        clienteT = new ClienteTransaccion();
-        clienteT.setVisible(false);
-
-        clienteT.getButtonAceptar().addActionListener(this);
-        tablaTransacciones = clienteT.getTablaTransaccionDef();
-
-        //Ventana CrearCliente
-        crearC = new CrearCliente();
-        crearC.setVisible(false);
-
-        crearC.getButtonCancelar().addActionListener(this);
-        crearC.getButtonConfirmar().addActionListener(this);
+            
     }
 
     private void cargarClientes() {
@@ -148,7 +135,12 @@ public class ClienteControlador implements ActionListener {
         String comando = e.getActionCommand();
         switch (comando) {
             case "Agregar":
+                //Ventana CrearCliente
+                crearC = new CrearCliente();
                 crearC.setVisible(true);
+
+                crearC.getButtonCancelar().addActionListener(this);
+                crearC.getButtonConfirmar().addActionListener(this);
                 break;
             case "Eliminar":
                 if (getView().getTablaClientes().getSelectedRow() >= 0) {
@@ -166,6 +158,13 @@ public class ClienteControlador implements ActionListener {
                 cargarClientes();
                 break;
             case "Transacciones":
+                //Ventana ClienteTransaccion
+                clienteT = new ClienteTransaccion();
+                clienteT.setVisible(true);
+
+                clienteT.getButtonAceptar().addActionListener(this);
+                tablaTransacciones = clienteT.getTablaTransaccionDef();
+                
                 if (getView().getTablaClientes().getSelectedRow() >= 0) {
                     String nombre = (String) tablaClientes.getValueAt(getView().getTablaClientes().getSelectedRow(), 1) + " " + tablaClientes.getValueAt(getView().getTablaClientes().getSelectedRow(), 1);
                     int idCliente = (int) getView().getTablaClientes().getValueAt(getView().getTablaClientes().getSelectedRow(), 0);
