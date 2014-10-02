@@ -101,8 +101,11 @@ public class MainControlador implements ActionListener {
         pc = new ProductoControlador(producto,cc);
         clic = new ClienteControlador(cliente,cc);
         lcc = new listaCajasControlador(listaCajas);
+        cc.setCC(clic);
+        cc.setPC(pc);
         principal.getCaja().disableAll();
         clic.getView().getButtonGuardar().setEnabled(false);
+        principal.getEstadisticas().disableAll();
         administrador.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e){
@@ -158,6 +161,7 @@ public class MainControlador implements ActionListener {
                     cc.cargarProductos();
                     cc.cargarTransacciones();
                     clic.getView().getButtonGuardar().setEnabled(true);
+                    principal.getEstadisticas().enableAll();
                     if (Base.hasConnection()){
                         Base.close();
                     }

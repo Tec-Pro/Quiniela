@@ -102,6 +102,12 @@ public class EstadisticasControlador implements ActionListener {
         cal.setTime(d);
         return cal.get(Calendar.DAY_OF_WEEK);
     }
+    
+    public static int getDayOfTheWeek(java.util.Date d){
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(d);
+        return cal.get(Calendar.DAY_OF_WEEK);
+    }
 
     public void cargarEstadisticas(JTextField idProd, JTextField dia, java.util.Date desde, java.util.Date hasta) {
         if (desde != null && hasta != null) {
@@ -235,9 +241,13 @@ public class EstadisticasControlador implements ActionListener {
             Caja cajaActual = Caja.findById(abm.getLastCaja());
             Double deposito = 0.0;
             Double gananciaDelDia = 0.0;
+            System.out.println(esteProducto.getInteger("hayStock")==1);
             if (esteProducto.getInteger("hayStock") == 1) {
-                while (!esDiaDeDeposito(Integer.parseInt(idProd.getText()), getDayOfTheWeek(cajaActual.getDate("fecha")))) {
+                java.util.Date hoy = new java.util.Date();
+                int j = getDayOfTheWeek(hoy);
+                while (!esDiaDeDeposito(Integer.parseInt(idProd.getText()), j)) {
                     int cantidad = 0;
+                    if (getDayOfTheWeek(cajaActual.getDate("fecha")) == j){
                     listaTransaccion = Transaccion.where("caja_id=?", cajaActual.getId());
                     for (Transaccion t : listaTransaccion) { //filtrar transacciones que tengan que ver con el producto
                         for (ProductosTransaccions pt : listaProdTrans) {
@@ -247,12 +257,18 @@ public class EstadisticasControlador implements ActionListener {
                             }
                         }
                     }
-                    //acumulo ganancias diarias de ventas del producto   
                     if ((int) cajaActual.getId() - 1 > 0) {
                         cajaActual = Caja.findById((int) cajaActual.getId() - 1);//le asigno la caja de ayer  
                     } else {
                         break;
                     }
+                    }
+                    if (j==0){
+                        j = 7;
+                    }
+                    j--;
+                    //acumulo ganancias diarias de ventas del producto   
+                    
                 }
                 int cantidad = 0;
                 listaTransaccion = Transaccion.where("caja_id=?", cajaActual.getId());
@@ -267,6 +283,7 @@ public class EstadisticasControlador implements ActionListener {
                     }
                 }
             } else {
+                System.out.println("Sin Stock");
                 int cantidad = 0;
                 listaTransaccion = Transaccion.where("caja_id=?", cajaActual.getId());
                 for (Transaccion t : listaTransaccion) { //filtrar transacciones que tengan que ver con el producto

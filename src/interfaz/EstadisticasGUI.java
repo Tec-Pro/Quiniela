@@ -459,7 +459,15 @@ public class EstadisticasGUI extends javax.swing.JPanel {
         this.campoDep = campoDep;
     }
 
+ public void disableAll(){
+     this.botonBuscar.setEnabled(false);
+     this.botoncalcularDep.setEnabled(false);
+ }
  
+ public void enableAll(){
+     this.botonBuscar.setEnabled(true);
+     this.botoncalcularDep.setEnabled(true);
+ }
 
  
     

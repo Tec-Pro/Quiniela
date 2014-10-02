@@ -7,6 +7,7 @@ package controlador;
 import interfaz.ClienteTransaccion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -46,7 +47,7 @@ public class ClienteTransaccionControlador implements ActionListener {
             row[0] = t.get("id");
             row[1] = t.getString("motivo");
             row[2] = t.getString("tipo");
-            row[3] = Double.parseDouble(t.getString("monto"));
+            row[3] = new BigDecimal(t.getString("monto"));
             tablaTransacciones.addRow(row);
         }
         Base.close();

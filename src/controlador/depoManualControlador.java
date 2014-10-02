@@ -55,7 +55,7 @@ public class depoManualControlador implements ActionListener {
                 } else {
                     if (Double.valueOf(depM.montoDepoMan.getText()) > 0) {
                         String motivo = depM.motivoDepoMan.getText();
-                        BigDecimal monto = BigDecimal.valueOf(Double.valueOf(depM.montoDepoMan.getText()));
+                        BigDecimal monto = new BigDecimal((depM.montoDepoMan.getText()));
                         abmTrans.altaTransaccion(motivo, "Dep. Man", monto, 1, id_caja, Quiniela.id_usuario);
                         cc.cargarTransacciones();
                         depM.dispose();

@@ -77,7 +77,7 @@ public class ClienteControlador implements ActionListener {
         crearC.getButtonConfirmar().addActionListener(this);
     }
 
-    private void cargarClientes() {
+    public void cargarClientes() {
         if (!Base.hasConnection()) {
             Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/quiniela", "root", "root");
         }
@@ -108,7 +108,7 @@ public class ClienteControlador implements ActionListener {
             row[0] = t.get("id");
             row[1] = t.getString("motivo");
             row[2] = t.getString("tipo");
-            row[3] = Double.parseDouble(t.getString("monto"));
+            row[3] = new BigDecimal(t.getString("monto"));
             tablaTransacciones.addRow(row);
         }
         Base.close();

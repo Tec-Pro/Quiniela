@@ -46,6 +46,8 @@ public class CajaControlador implements ActionListener, CellEditorListener {
     private int id_caja;
     private int id_cliente;
     private Cliente c;
+    private ClienteControlador cliC;
+    private ProductoControlador proC;
 
     //JForm hijos
     DepoManual depoManual;
@@ -79,8 +81,8 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                     row[2] = 1;
                     abrirBase();
                     Producto p = Producto.findById(target.getValueAt(target.getSelectedRow(), 0));
-                    Double precio = Double.parseDouble(p.getString("precio"));
-                    row[3] = (int) row[2] * precio;
+                    BigDecimal precio = new BigDecimal(p.getString("precio"));
+                    row[3] = precio.multiply(new BigDecimal((int)row[2]));
                     if (Base.hasConnection()) {
                         Base.close();
                     }
@@ -125,6 +127,8 @@ public class CajaControlador implements ActionListener, CellEditorListener {
         tablaArticulos = view.getTablaArtDef();
         tablaClientes = view.getTablaCliDef();
         tablaTrans = view.getTablaTransDef();
+        proC = null;
+        cliC = null;
     }
 
     public void cargarProductos() {
@@ -181,8 +185,8 @@ public class CajaControlador implements ActionListener, CellEditorListener {
             }
             listaTransaccion = Transaccion.where("caja_id = ?", id_caja);
             Iterator<Transaccion> it = listaTransaccion.iterator();
-            view.getTotalVentas().setText("0.0");
-            view.getTotalOtros().setText("0.0");
+            view.getTotalVentas().setText("0");
+            view.getTotalOtros().setText("0");
             while (it.hasNext()) {
                 Transaccion t = it.next();
                 String motivo[] = t.getString("motivo").split("; ");
@@ -191,13 +195,13 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                     row[0] = t.get("id");
                     row[1] = mot;
                     row[2] = t.getString("tipo");
-                    row[3] = Double.parseDouble(t.getString("monto"));
+                    row[3] = new BigDecimal(t.getString("monto"));
                     tablaTrans.addRow(row);
                     if (row[2].equals("Venta") && t.get("cliente_id") == null) {
-                        Double ventas = Double.parseDouble(view.getTotalVentas().getText()) + (Double) row[3];
+                        BigDecimal ventas = new BigDecimal(view.getTotalVentas().getText()).add(new BigDecimal(row[3].toString()));
                         view.getTotalVentas().setText(ventas.toString());
                     } else if (!row[2].equals("Venta") && t.get("cliente_id") != null || !row[2].equals("Venta")) {
-                        Double otros = Double.parseDouble(view.getTotalOtros().getText()) + (Double) row[3];
+                        BigDecimal otros = new BigDecimal(view.getTotalOtros().getText()).add(new BigDecimal(row[3].toString()));
                         view.getTotalOtros().setText(otros.toString());
                     }
                 }
@@ -234,11 +238,12 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                         }
                         motivo = motivo + tablaDetalles.getValueAt(i, 1) + " x" + tablaDetalles.getValueAt(i, 2) + "; ";
                     }
-                    BigDecimal monto = BigDecimal.valueOf(Double.parseDouble(view.getTotalField().getText()));
+                    BigDecimal monto = new BigDecimal(view.getTotalField().getText());
                     if (!view.getClienteSel().getText().trim().isEmpty()) {
                         model.altaTransaccion(motivo, "Venta", monto, 1, id_caja, id_cliente, Quiniela.id_usuario);
                         Cliente cl = Cliente.findById(id_cliente);
                         cliente.modificarCliente(id_cliente, cl.getBigDecimal("deber").add(monto), cl.getBigDecimal("haber"));
+                        cliC.cargarClientes();
                         view.getClienteSel().setText("");
                     } else {
                         model.altaTransaccion(motivo, "Venta", monto, 1, id_caja, Quiniela.id_usuario);
@@ -259,6 +264,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
                     tablaDetalles.setRowCount(0);
                     actualizarPrecio();
                     cargarProductos();
+                    proC.cargarProductos();
                     view.getVentaOk().setEnabled(false);
                 }
                 break;
@@ -273,19 +279,18 @@ public class CajaControlador implements ActionListener, CellEditorListener {
     }
 
     public void actualizarPrecio() {
-        Double importe;
-        Double total = 0.0;
-        Double precio;
+        BigDecimal importe;
+        BigDecimal total = new BigDecimal("0");
+        BigDecimal precio;
         for (int i = 0; i < view.getTablaDetalles().getRowCount(); i++) {
             abrirBase();
-            precio = Double.parseDouble(Producto.findById(view.getTablaDetalles().getValueAt(i, 0)).getString("precio"));
-            importe = Double.valueOf((Integer) view.getTablaDetalles().getValueAt(i, 2)) * precio;
+            precio = new BigDecimal(Producto.findById(view.getTablaDetalles().getValueAt(i, 0)).getString("precio"));
+            importe = new BigDecimal(view.getTablaDetalles().getValueAt(i, 2).toString()).multiply(precio);
             view.getTablaDetalles().setValueAt(importe, i, 3);
         }
         for (int i = 0; i < view.getTablaDetalles().getRowCount(); i++) {
-            total = total + ((Double) view.getTablaDetalles().getValueAt(i, 3));
+            total = total.add(new BigDecimal(view.getTablaDetalles().getValueAt(i, 3).toString()));
         }
-        total = Math.round(total * 1000.00) / 1000.00;
         view.getTotalField().setText(total.toString());
         if (Base.hasConnection()) {
             Base.close();
@@ -313,5 +318,13 @@ public class CajaControlador implements ActionListener, CellEditorListener {
      */
     public void setId_caja(int id_caja) {
         this.id_caja = id_caja;
+    }
+    
+    public void setCC(ClienteControlador cc){
+        this.cliC = cc;
+    }
+    
+    public void setPC(ProductoControlador pc){
+        this.proC = pc;
     }
 }

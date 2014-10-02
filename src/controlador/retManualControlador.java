@@ -51,11 +51,11 @@ public class retManualControlador implements ActionListener {
                 List<Caja> cajas = Caja.findAll();
                 int id_caja = cajas.get(cajas.size() - 1).getInteger("id");
                 String motivo = retM.motivoRepMan.getText();
-                BigDecimal monto = BigDecimal.valueOf(Double.valueOf(retM.montoRepMan.getText())).abs();
+                BigDecimal monto = new BigDecimal((retM.montoRepMan.getText())).abs();
                 if (retM.motivoRepMan.getText().trim().isEmpty()) {
                     JOptionPane.showMessageDialog(retM, "Error: Falta especificar motivo");
                 } else {
-                    if (Caja.findById(id_caja).getDouble("saldo")-Math.abs(Double.valueOf(retM.montoRepMan.getText())) <0) {
+                    if (Caja.findById(id_caja).getBigDecimal("saldo").subtract((new BigDecimal(retM.montoRepMan.getText()).abs())).compareTo(BigDecimal.ZERO) <0) {
                         JOptionPane.showMessageDialog(retM, "No hay fondos suficientes para realizar este retiro");
                     } else {
                        abmTrans.altaRetiro(motivo, "Ret. Man.", monto.negate(), 1, id_caja, Quiniela.id_usuario);
