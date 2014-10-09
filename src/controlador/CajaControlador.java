@@ -190,16 +190,20 @@ public class CajaControlador implements ActionListener, CellEditorListener {
             while (it.hasNext()) {
                 Transaccion t = it.next();
                 String motivo[] = t.getString("motivo").split("; ");
+                int last_id = 0;
+                int actual_id = 0;
                 for (String mot : motivo) {
                     Object row[] = new Object[4];
                     row[0] = t.get("id");
+                    actual_id = (int) row[0];
                     row[1] = mot;
                     row[2] = t.getString("tipo");
                     row[3] = new BigDecimal(t.getString("monto"));
                     tablaTrans.addRow(row);
-                    if (row[2].equals("Venta") && t.get("cliente_id") == null) {
+                    if (row[2].equals("Venta") && t.get("cliente_id") == null && actual_id != last_id) {
                         BigDecimal ventas = new BigDecimal(view.getTotalVentas().getText()).add(new BigDecimal(row[3].toString()));
                         view.getTotalVentas().setText(ventas.toString());
+                        last_id = actual_id;
                     } else if (!row[2].equals("Venta") && t.get("cliente_id") != null || !row[2].equals("Venta")) {
                         BigDecimal otros = new BigDecimal(view.getTotalOtros().getText()).add(new BigDecimal(row[3].toString()));
                         view.getTotalOtros().setText(otros.toString());
@@ -274,7 +278,7 @@ public class CajaControlador implements ActionListener, CellEditorListener {
 
     public void setCellEditor() {
         for (int i = 0; i < view.getTablaDetalles().getRowCount(); i++) {
-            view.getTablaDetalles().getCellEditor(i, 2).addCellEditorListener(this);
+            view.getTablaDetalles().getCellEditor(i, 2).addCellEditorListener(this);           
         }
     }
 
@@ -286,7 +290,9 @@ public class CajaControlador implements ActionListener, CellEditorListener {
             abrirBase();
             precio = new BigDecimal(Producto.findById(view.getTablaDetalles().getValueAt(i, 0)).getString("precio"));
             importe = new BigDecimal(view.getTablaDetalles().getValueAt(i, 2).toString()).multiply(precio);
-            view.getTablaDetalles().setValueAt(importe, i, 3);
+            if (!checkName((String)view.getTablaDetalles().getValueAt(i, 1))){
+                view.getTablaDetalles().setValueAt(importe, i, 3);
+            }
         }
         for (int i = 0; i < view.getTablaDetalles().getRowCount(); i++) {
             total = total.add(new BigDecimal(view.getTablaDetalles().getValueAt(i, 3).toString()));
@@ -326,5 +332,23 @@ public class CajaControlador implements ActionListener, CellEditorListener {
     
     public void setPC(ProductoControlador pc){
         this.proC = pc;
+    }
+    
+    private boolean checkName(String name){
+        name = name.toUpperCase();
+        switch (name){
+            case "MATUTINA":
+                return true;
+            case "VESPERTINA":
+                return true;
+            case "NOCTURNA":
+                return true;
+            case "PRIMERA":
+                return true;
+            case "TURISTA":
+                return true;
+            default:
+                return false;
+        }
     }
 }

@@ -89,17 +89,15 @@ public class CajaGUI extends javax.swing.JPanel {
             }
         });
         contTabArt.setViewportView(tablaArticulos);
-        if (tablaArticulos.getColumnModel().getColumnCount() > 0) {
-            tablaArticulos.getColumnModel().getColumn(0).setMinWidth(20);
-            tablaArticulos.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tablaArticulos.getColumnModel().getColumn(0).setMaxWidth(60);
-            tablaArticulos.getColumnModel().getColumn(1).setMinWidth(100);
-            tablaArticulos.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tablaArticulos.getColumnModel().getColumn(1).setMaxWidth(200);
-            tablaArticulos.getColumnModel().getColumn(2).setMinWidth(50);
-            tablaArticulos.getColumnModel().getColumn(2).setPreferredWidth(80);
-            tablaArticulos.getColumnModel().getColumn(2).setMaxWidth(115);
-        }
+        tablaArticulos.getColumnModel().getColumn(0).setMinWidth(20);
+        tablaArticulos.getColumnModel().getColumn(0).setPreferredWidth(40);
+        tablaArticulos.getColumnModel().getColumn(0).setMaxWidth(60);
+        tablaArticulos.getColumnModel().getColumn(1).setMinWidth(100);
+        tablaArticulos.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tablaArticulos.getColumnModel().getColumn(1).setMaxWidth(200);
+        tablaArticulos.getColumnModel().getColumn(2).setMinWidth(50);
+        tablaArticulos.getColumnModel().getColumn(2).setPreferredWidth(80);
+        tablaArticulos.getColumnModel().getColumn(2).setMaxWidth(115);
 
         javax.swing.GroupLayout panelArticulosLayout = new javax.swing.GroupLayout(panelArticulos);
         panelArticulos.setLayout(panelArticulosLayout);
@@ -140,17 +138,15 @@ public class CajaGUI extends javax.swing.JPanel {
             }
         });
         contTrans.setViewportView(tablaTransacciones);
-        if (tablaTransacciones.getColumnModel().getColumnCount() > 0) {
-            tablaTransacciones.getColumnModel().getColumn(0).setMinWidth(8);
-            tablaTransacciones.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tablaTransacciones.getColumnModel().getColumn(0).setMaxWidth(45);
-            tablaTransacciones.getColumnModel().getColumn(2).setMinWidth(20);
-            tablaTransacciones.getColumnModel().getColumn(2).setPreferredWidth(45);
-            tablaTransacciones.getColumnModel().getColumn(2).setMaxWidth(50);
-            tablaTransacciones.getColumnModel().getColumn(3).setMinWidth(20);
-            tablaTransacciones.getColumnModel().getColumn(3).setPreferredWidth(60);
-            tablaTransacciones.getColumnModel().getColumn(3).setMaxWidth(80);
-        }
+        tablaTransacciones.getColumnModel().getColumn(0).setMinWidth(8);
+        tablaTransacciones.getColumnModel().getColumn(0).setPreferredWidth(40);
+        tablaTransacciones.getColumnModel().getColumn(0).setMaxWidth(45);
+        tablaTransacciones.getColumnModel().getColumn(2).setMinWidth(20);
+        tablaTransacciones.getColumnModel().getColumn(2).setPreferredWidth(45);
+        tablaTransacciones.getColumnModel().getColumn(2).setMaxWidth(50);
+        tablaTransacciones.getColumnModel().getColumn(3).setMinWidth(20);
+        tablaTransacciones.getColumnModel().getColumn(3).setPreferredWidth(60);
+        tablaTransacciones.getColumnModel().getColumn(3).setMaxWidth(80);
 
         depManual.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         depManual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/depositar.png"))); // NOI18N
@@ -227,7 +223,7 @@ public class CajaGUI extends javax.swing.JPanel {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -240,17 +236,15 @@ public class CajaGUI extends javax.swing.JPanel {
         });
         tablaDetalles.getTableHeader().setReorderingAllowed(false);
         detallesVenta.setViewportView(tablaDetalles);
-        if (tablaDetalles.getColumnModel().getColumnCount() > 0) {
-            tablaDetalles.getColumnModel().getColumn(0).setMinWidth(20);
-            tablaDetalles.getColumnModel().getColumn(0).setPreferredWidth(45);
-            tablaDetalles.getColumnModel().getColumn(0).setMaxWidth(50);
-            tablaDetalles.getColumnModel().getColumn(2).setMinWidth(30);
-            tablaDetalles.getColumnModel().getColumn(2).setPreferredWidth(50);
-            tablaDetalles.getColumnModel().getColumn(2).setMaxWidth(70);
-            tablaDetalles.getColumnModel().getColumn(3).setMinWidth(40);
-            tablaDetalles.getColumnModel().getColumn(3).setPreferredWidth(60);
-            tablaDetalles.getColumnModel().getColumn(3).setMaxWidth(100);
-        }
+        tablaDetalles.getColumnModel().getColumn(0).setMinWidth(20);
+        tablaDetalles.getColumnModel().getColumn(0).setPreferredWidth(45);
+        tablaDetalles.getColumnModel().getColumn(0).setMaxWidth(50);
+        tablaDetalles.getColumnModel().getColumn(2).setMinWidth(30);
+        tablaDetalles.getColumnModel().getColumn(2).setPreferredWidth(50);
+        tablaDetalles.getColumnModel().getColumn(2).setMaxWidth(70);
+        tablaDetalles.getColumnModel().getColumn(3).setMinWidth(40);
+        tablaDetalles.getColumnModel().getColumn(3).setPreferredWidth(60);
+        tablaDetalles.getColumnModel().getColumn(3).setMaxWidth(100);
 
         ventaOk.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         ventaOk.setText("OK");
@@ -318,14 +312,12 @@ public class CajaGUI extends javax.swing.JPanel {
         tablaCliente.setEnabled(false);
         tablaCliente.setFocusable(false);
         contTabCli.setViewportView(tablaCliente);
-        if (tablaCliente.getColumnModel().getColumnCount() > 0) {
-            tablaCliente.getColumnModel().getColumn(0).setMinWidth(30);
-            tablaCliente.getColumnModel().getColumn(0).setPreferredWidth(60);
-            tablaCliente.getColumnModel().getColumn(0).setMaxWidth(70);
-            tablaCliente.getColumnModel().getColumn(1).setMinWidth(50);
-            tablaCliente.getColumnModel().getColumn(1).setPreferredWidth(120);
-            tablaCliente.getColumnModel().getColumn(1).setMaxWidth(300);
-        }
+        tablaCliente.getColumnModel().getColumn(0).setMinWidth(30);
+        tablaCliente.getColumnModel().getColumn(0).setPreferredWidth(60);
+        tablaCliente.getColumnModel().getColumn(0).setMaxWidth(70);
+        tablaCliente.getColumnModel().getColumn(1).setMinWidth(50);
+        tablaCliente.getColumnModel().getColumn(1).setPreferredWidth(120);
+        tablaCliente.getColumnModel().getColumn(1).setMaxWidth(300);
 
         clienteSel.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
 
@@ -378,7 +370,7 @@ public class CajaGUI extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelArticulos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelNuevaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 272, Short.MAX_VALUE))
+                    .addComponent(panelNuevaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 275, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelTransacciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
